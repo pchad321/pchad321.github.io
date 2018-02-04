@@ -278,3 +278,103 @@ pattern3) commands2;;
 *) default commands;;
 esac
 ```
+
+#### for命令
+
+```
+for var in list
+do
+  commands
+done
+```
+
+for循环假定每个值都是用空格分割的。
+可以使用内部字段分隔符`IFS`来自定义分隔符，例如
+
+> IFS=$'\n'
+  IFS=$'\n':;"
+
+##### C语言分隔的for命令
+
+命令格式：
+> for (( variable assignment ; condition ; iteration process ))
+
+#### while命令
+
+while命令的基本格式：
+
+```
+while test command
+do
+  other commands
+done
+```
+
+#### until命令
+
+until命令和while命令正好相反，只有测试命令的退出状态码不为0，bash shell才会执行循环中列出的命令。
+
+命令格式：
+
+```
+until test commands
+do
+  other commands
+done
+```
+
+#### 循环处理文件数据
+
+需要使用嵌套循环以及修改IFS环境变量
+
+```
+#!/bin/bash
+
+IFS.OLD=$IFS
+IFS=$'\n'
+for entry in $(cat /etc/passwd)
+do
+  echo "Value in $entry"
+  IFS=:
+  for value in $entry
+  do
+    if [ -n "$value" ]
+    then
+      echo "$value"
+    fi
+  done
+done
+```
+
+#### 控制循环
+
+##### break命令
+
+可以用break退出任意的循环，包括while和until循环。
+也可以使用`break -n`跳出外部循环，默认为1。
+
+##### continue命令
+
+continue命令可以提前终止某次循环中的命令，但并不会完全终止整个循环。
+也可以使用`continue -n`继续执行哪一层循环。
+
+#### 处理循环的输出
+
+可以对循环的输出使用管道或重定向。通过在done命令之后添加一个处理命令来实现。
+
+> done > output.txt
+
+#### 例子
+
+创建多个用户账户
+
+```
+#!/bin/bash
+
+input="user.csv"
+while IFS="," read -r userid name
+do
+  echo "adding $userid"
+  useradd -c "$name" -m "userid" 
+done < "$input"
+```

@@ -273,3 +273,23 @@ local_search:
   ```
   npm install --save hexo-deployer-git
   ```
+
+#### 将Hexo的源码备份到Github分支里面
+
+上传到分支里存储，修改本地的时候先上传存储，再发布。更换电脑的时候再下载下来源文件
+
+```
+$ git init
+$ git remote add origin git@github.com:username/username.github.io.git
+$ git add .
+$ git commit -m "blog"
+$ git push origin master:Hexo-Blog
+```
+
+在本地写好博文后，可以先执行：
+
+```
+$ git add .
+$ git commit -m "blog"
+$ git push origin master:Hexo-Blog
+```
