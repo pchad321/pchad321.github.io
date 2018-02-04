@@ -84,10 +84,10 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux之awk详解">
 <meta property="og:url" content="http://yoursite.com/2018/02/04/Linux-awk/index.html">
-<meta property="og:site_name" content="Jimmy&#39;s blog">
+<meta property="og:site_name" content="为所雨为">
 <meta property="og:description" content="awk是一个强大的文本分析工具，相对于grep的查找，sed的编辑，awk在其对数据分析并生成报告时，显得尤为强大。简单来说awk就是把文件逐行的读入，以空格为默认分隔符将每行切片，切开的部分再进行各种分析处理。awk有3个不同版本: awk、nawk和gawk，未作特别说明，一般指gawk，gawk是AWK的GNU版本。 命令格式 awk ‘{pattern + action}’ {filena">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-04T02:28:49.637Z">
+<meta property="og:updated_time" content="2018-02-04T03:24:13.459Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux之awk详解">
 <meta name="twitter:description" content="awk是一个强大的文本分析工具，相对于grep的查找，sed的编辑，awk在其对数据分析并生成报告时，显得尤为强大。简单来说awk就是把文件逐行的读入，以空格为默认分隔符将每行切片，切开的部分再进行各种分析处理。awk有3个不同版本: awk、nawk和gawk，未作特别说明，一般指gawk，gawk是AWK的GNU版本。 命令格式 awk ‘{pattern + action}’ {filena">
@@ -126,7 +126,7 @@
 
 
 
-  <title>Linux之awk详解 | Jimmy's blog</title>
+  <title>Linux之awk详解 | 为所雨为</title>
   
 
 
@@ -156,7 +156,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Jimmy's blog</span>
+        <span class="site-title">为所雨为</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -280,13 +280,13 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/04/Linux-awk/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jimmy">
+      <meta itemprop="name" content="Jimmy Zhong">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jimmy's blog">
+      <meta itemprop="name" content="为所雨为">
     </span>
 
     
@@ -306,7 +306,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-04T10:28:49+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-04T11:24:13+08:00">
                 2018-02-04
               </time>
             
@@ -322,7 +322,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-02-04T10:28:49+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-02-04T11:24:13+08:00">
                 2018-02-04
               </time>
             
@@ -536,6 +536,12 @@
 <li><p>取出常用服务及其端口号</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/services | awk -F&apos;[ /]+&apos; &apos;$1~/^(ssh|ftp|https)/&#123;print $1,$2&#125;&apos;| uniq</span><br></pre></td></tr></table></figure>
 </li>
+<li><p>获取文件中空行的数量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">awk &apos;BEGIN&#123;count=0&#125; &#123;if($0==&quot;&quot;)&#123;count++&#125;&#125; END&#123;print count&#125;&apos; filename</span><br><span class="line">或</span><br><span class="line">awk &apos;BEGIN&#123;count=0&#125; /^$/&#123;count++&#125; END&#123;print count&#125;&apos; filename</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>从链接中获取域名</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk -F&apos;/&apos; &apos;&#123;array[$3]++&#125;END&#123;for(key in array)&#123;print key,array[key]&#125;&#125;&apos; filename</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
 
       
@@ -643,7 +649,7 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <p class="site-author-name" itemprop="name">Jimmy</p>
+              <p class="site-author-name" itemprop="name">Jimmy Zhong</p>
               <p class="site-description motion-element" itemprop="description">You are the only one who knows you are afraid of!</p>
           </div>
 
@@ -743,7 +749,7 @@
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Jimmy</span>
+  <span class="author" itemprop="copyrightHolder">Jimmy Zhong</span>
 
   
 </div>

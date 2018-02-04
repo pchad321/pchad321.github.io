@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="You are the only one who knows you are afraid of!">
+<meta name="description" content="grep（global search regular expression(RE) and print out the line）是一种强大的文本搜索工具，它能使用正则表达式搜索文本，并把匹配的行打印出来。 选项 -a 不要忽略二进制数据。  -A&amp;lt;显示列数&amp;gt; 除了显示符合范本样式的那一行之外，并显示该行之后的内容。  -b 在显示符合范本样式的那一行之外，并显示该行之前的内容。  -">
 <meta name="keywords" content="Linux,grep">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux之grep详解">
 <meta property="og:url" content="http://yoursite.com/2018/02/03/Linux-grep/index.html">
-<meta property="og:site_name" content="Jimmy&#39;s blog">
-<meta property="og:description" content="You are the only one who knows you are afraid of!">
+<meta property="og:site_name" content="为所雨为">
+<meta property="og:description" content="grep（global search regular expression(RE) and print out the line）是一种强大的文本搜索工具，它能使用正则表达式搜索文本，并把匹配的行打印出来。 选项 -a 不要忽略二进制数据。  -A&amp;lt;显示列数&amp;gt; 除了显示符合范本样式的那一行之外，并显示该行之后的内容。  -b 在显示符合范本样式的那一行之外，并显示该行之前的内容。  -">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-03T10:02:01.227Z">
+<meta property="og:updated_time" content="2018-02-04T03:56:35.636Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux之grep详解">
-<meta name="twitter:description" content="You are the only one who knows you are afraid of!">
+<meta name="twitter:description" content="grep（global search regular expression(RE) and print out the line）是一种强大的文本搜索工具，它能使用正则表达式搜索文本，并把匹配的行打印出来。 选项 -a 不要忽略二进制数据。  -A&amp;lt;显示列数&amp;gt; 除了显示符合范本样式的那一行之外，并显示该行之后的内容。  -b 在显示符合范本样式的那一行之外，并显示该行之前的内容。  -">
 
 
 
@@ -126,7 +126,7 @@
 
 
 
-  <title>Linux之grep详解 | Jimmy's blog</title>
+  <title>Linux之grep详解 | 为所雨为</title>
   
 
 
@@ -156,7 +156,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Jimmy's blog</span>
+        <span class="site-title">为所雨为</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -280,13 +280,13 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/03/Linux-grep/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jimmy">
+      <meta itemprop="name" content="Jimmy Zhong">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jimmy's blog">
+      <meta itemprop="name" content="为所雨为">
     </span>
 
     
@@ -322,8 +322,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-02-03T18:02:01+08:00">
-                2018-02-03
+              <time title="更新于" itemprop="dateModified" datetime="2018-02-04T11:56:35+08:00">
+                2018-02-04
               </time>
             
           </span>
@@ -378,7 +378,55 @@
       
 
       
-        
+        <p>grep（global search regular expression(RE) and print out the line）是一种强大的文本搜索工具，它能使用正则表达式搜索文本，并把匹配的行打印出来。</p>
+<h4 id="选项"><a href="#选项" class="headerlink" title="选项"></a>选项</h4><blockquote>
+<p>-a 不要忽略二进制数据。<br>  -A&lt;显示列数&gt; 除了显示符合范本样式的那一行之外，并显示该行之后的内容。<br>  -b 在显示符合范本样式的那一行之外，并显示该行之前的内容。<br>  -c 计算符合范本样式的列数。<br>  -C&lt;显示列数&gt;或-&lt;显示列数&gt;  除了显示符合范本样式的那一列之外，并显示该列之前后的内容。<br>  -d&lt;进行动作&gt; 当指定要查找的是目录而非文件时，必须使用这项参数，否则grep命令将回报信息并停止动作。<br>  -e&lt;范本样式&gt; 指定字符串作为查找文件内容的范本样式。<br>  -E 将范本样式为延伸的普通表示法来使用，意味着使用能使用扩展正则表达式。<br>  -f&lt;范本文件&gt; 指定范本文件，其内容有一个或多个范本样式，让grep查找符合范本条件的文件内容，格式为每一列的范本样式。<br>  -F 将范本样式视为固定字符串的列表。<br>  -G 将范本样式视为普通的表示法来使用。<br>  -h 在显示符合范本样式的那一列之前，不标示该列所属的文件名称。<br>  -H 在显示符合范本样式的那一列之前，标示该列的文件名称。<br>  -i 忽略字符大小写的差别。<br>  -l 列出文件内容符合指定的范本样式的文件名称。<br>  -L 列出文件内容不符合指定的范本样式的文件名称。<br>  -n 在显示符合范本样式的那一列之前，标示出该列的编号。<br>  -q 不显示任何信息。<br>  -R/-r 此参数的效果和指定“-d recurse”参数相同。<br>  -s 不显示错误信息。<br>  -v 反转查找。<br>  -w 只显示全字符合的列。<br>  -x 只显示全列符合的列。<br>  -y 此参数效果跟“-i”相同。<br>  -o 只输出文件中匹配到的部分。</p>
+</blockquote>
+<h4 id="常见用法"><a href="#常见用法" class="headerlink" title="常见用法"></a>常见用法</h4><p>在文件中搜索一个单词，命令会返回一个包含“match_pattern”的文本行：</p>
+<blockquote>
+<p>grep match_pattern file_name<br>  grep “match_pattern” file_name</p>
+</blockquote>
+<p>在多个文件中查找：</p>
+<blockquote>
+<p>grep “match_pattern” file_1 file_2 file_3 …</p>
+</blockquote>
+<p>输出除之外的所有行 -v 选项：</p>
+<blockquote>
+<p>grep -v “match_pattern” file_name</p>
+</blockquote>
+<p>使用正则表达式 -E 选项：</p>
+<blockquote>
+<p>grep -E “[1-9]+”<br>  或<br>  egrep “[1-9]+”</p>
+</blockquote>
+<p>只输出文件中匹配到的部分 -o 选项：</p>
+<blockquote>
+<p>echo this is a test line. | grep -o -E “[a-z]+.“<br>  line.<br>  echo this is a test line. | egrep -o “[a-z]+.“<br>  line.</p>
+</blockquote>
+<p>统计文件或者文本中包含匹配字符串的行数 -c 选项：</p>
+<blockquote>
+<p>grep -c “text” file_name</p>
+</blockquote>
+<p>输出包含匹配字符串的行数 -n 选项：</p>
+<blockquote>
+<p>grep “text” -n file_name<br>  或<br>  cat file_name | grep “text” -n</p>
+<p>  #多个文件<br>  grep “text” -n file_1 file_2</p>
+</blockquote>
+<p>搜索多个文件并查找匹配文本在哪些文件中：</p>
+<blockquote>
+<p>grep -l “text” file1 file2 file3…</p>
+</blockquote>
+<h4 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h4><ol>
+<li><p>获取root用户的shell程序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/passwd|grep ^root.*&quot;/root:&quot; | cut -d : -f 7</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>显示CentOS7的/etc/grub2.cfg文件中，至少以一个空白 字符开头的且后面存非空白字符的行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/grub2.cfg | egrep &quot;^[[:space:]] [^[:space:]]&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>找出<code>netstat -tan</code>命令的结果中以<code>LISTEN</code>后跟任意多个空白字符结尾的行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -tan | grep &quot;.*LISTEN.*$&quot;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
       
     </div>
     
@@ -474,12 +522,21 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <p class="site-author-name" itemprop="name">Jimmy</p>
+              <p class="site-author-name" itemprop="name">Jimmy Zhong</p>
               <p class="site-description motion-element" itemprop="description">You are the only one who knows you are afraid of!</p>
           </div>
 
@@ -546,6 +603,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#选项"><span class="nav-number">1.</span> <span class="nav-text">选项</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常见用法"><span class="nav-number">2.</span> <span class="nav-text">常见用法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#练习"><span class="nav-number">3.</span> <span class="nav-text">练习</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -563,7 +636,7 @@
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Jimmy</span>
+  <span class="author" itemprop="copyrightHolder">Jimmy Zhong</span>
 
   
 </div>
