@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="为所雨为">
 <meta property="og:description" content="创建shell脚本文件在创建shell脚本文件时，必须在文件的第一行指定要使用的shell。其格式为  #!/bin/bash  注意：shell只会去处理第一行注释行，并不会处理其他的注释行。  创建shell脚本文件后，给文件添加执行权限  chmod u+x filename  如果想把脚本中的文本字符串和命令输出显示在同一行中，可以用echo语句的-n参数  echo -n “The ti">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-05T09:54:00.094Z">
+<meta property="og:updated_time" content="2018-02-05T11:22:40.224Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux的shell编程">
 <meta name="twitter:description" content="创建shell脚本文件在创建shell脚本文件时，必须在文件的第一行指定要使用的shell。其格式为  #!/bin/bash  注意：shell只会去处理第一行注释行，并不会处理其他的注释行。  创建shell脚本文件后，给文件添加执行权限  chmod u+x filename  如果想把脚本中的文本字符串和命令输出显示在同一行中，可以用echo语句的-n参数  echo -n “The ti">
@@ -322,7 +322,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-02-05T17:54:00+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-02-05T19:22:40+08:00">
                 2018-02-05
               </time>
             
@@ -687,7 +687,10 @@
 </blockquote>
 <p>如果选项需要跟一个参数值，<code>OPTARG</code>环境变量就会保存这个值。<code>OPTIND</code>环境变量保存了参数列表中getopts正在处理的参数位置。</p>
 <h4 id="获取用户输入"><a href="#获取用户输入" class="headerlink" title="获取用户输入"></a>获取用户输入</h4><p>使用<code>read</code>命令获取用户输入。</p>
-<p>read命令从标准输入或另一个文件描述符接收输入。在收到输入后，read命令会将数据放进一个变量。 </p>
+<p>read命令从标准输入或另一个文件描述符接收输入。在收到输入后，read命令会将数据放进一个变量。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">read -p &quot;Enter your name: &quot; first last</span><br><span class="line">echo $last, $first</span><br></pre></td></tr></table></figure>
+<p>如果在read命令行中不指定变量，那么read命令会将它收到的任何数据都放进特殊环境变量<code>REPLY</code>中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">read -p &quot;Enter your name: &quot;</span><br><span class="line">echo $REPLY</span><br></pre></td></tr></table></figure>
 
       
     </div>
