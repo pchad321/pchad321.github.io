@@ -328,8 +328,6 @@ done
 需要使用嵌套循环以及修改IFS环境变量
 
 ```
-#!/bin/bash
-
 IFS.OLD=$IFS
 IFS=$'\n'
 for entry in $(cat /etc/passwd)
@@ -369,12 +367,160 @@ continue命令可以提前终止某次循环中的命令，但并不会完全终
 创建多个用户账户
 
 ```
-#!/bin/bash
-
 input="user.csv"
 while IFS="," read -r userid name
 do
   echo "adding $userid"
   useradd -c "$name" -m "userid" 
 done < "$input"
+```
+
+### 处理用户输入
+
+#### 命令行参数
+
+向shell脚本传递数据的最基本方法是使用命令行参数。
+命令行参数允许在运行脚本时向命令行添加数据。
+
+```
+./test.sh 10 abc
+```
+
+bash shell会将一些位置参数的特殊变量分配给输入到命令行中的所有参数。这也包括shell所执行的脚本
+命令。其中：`$0`是程序名，`$1`是第一个参数，`$2`是第二个参数，一直到`$9`。
+
+在使用时，需要用空格将每个命令行参数分隔开，例如:
+
+```
+count=$[ $1 * $2 ]
+```
+
+注意，当命令行参数中出现空格时，需要使用引号：
+
+```
+./test1.sh 'hello world'
+```
+
+如果命令行参数的数量超过9个时，从第十个参数开始，需要使用花括号，例如`${10}`、`${11}`等。
+
+使用`basename`命令可以返回不包含路径的脚本名，例如：
+
+```
+echo "$0"
+echo "$(basename $0)"
+```
+
+在使用命令行参数的脚本中，需要先检测其中是否存在数据：
+
+```
+if [ -n "$1" ]
+```
+
+#### 特殊的参数变量
+
+特殊变量`$#`含有脚本运行时携带的命令行参数的个数，例如：
+
+```
+echo There are $# parameters supplied.
+```
+
+使用$&#123;!#&#125;可以返回最后一个命令行参数的值，如果命令行参数的个数为0，则返回当前脚本的名称。
+
+使用`$*`和`$@`可以访问所有的参数。其中`$*`变量会将命令行上提供的所有参数当作一个单词保存。这个单词包括了命令行中出现的每一个参数值；`$@`变量会将命令行上所有参数当作同一个字符串中的多个独立的单词，然后通过遍历获取所有的参数值。
+
+```
+count=1
+for param in "$*"
+do
+  echo "\$* parameter #count = $param"
+  count=$[ $count + 1 ]
+done
+echo
+count=1
+for param in "$@"
+do
+  echo "\$@ parameter #count = $param"
+  count=$[ $count + 1 ]
+done
+```
+
+#### 移动变量
+
+bash shell的`shift`命令可以用来操作命令行参数，shift命令会根据命令行参数的相对位置来移动。
+在默认情况下，会将每个参数变量向左移动一个位置。其中$2的值会移动到$1，而$1的值则会被删除，$0不会改变。
+
+```
+while [ -n "$1" ]
+do
+  echo "$1"
+  shift
+done
+```
+
+也可以一次性移动多个位置
+
+> shift n
+
+#### 处理选项
+
+选项是跟在单破折号后面的单个字母，可以用来改变命令的行为。
+可以使用`--`来表明选项列表结束。
+
+##### getopt命令
+
+getopt命令能够识别命令行参数，从而在脚本中解析更加方便。
+
+命令格式：
+
+> getopt optstring parameters
+  其中optstring定义了命令行有效的选项字母，还定义了哪些选项字母需要参数值。
+
+```
+getopt ab:cd -a -b test1 -cd test2 test3
+-a -b test1 -c -d -- test2 test3
+```
+
+> 如果指定了一个不再optstring中的选项，默认情况下，getopt命令会产生一条错误消息。可以在命令后加-q忽略。
+
+在脚本中使用getopt
+
+> set -- $(getopt -q ab:cd "$@")
+
+##### getopts命令
+
+命令格式如下：
+
+> getopts optstring variable
+
+如果选项需要跟一个参数值，`OPTARG`环境变量就会保存这个值。`OPTIND`环境变量保存了参数列表中getopts正在处理的参数位置。
+
+#### 获取用户输入
+
+使用`read`命令获取用户输入。
+
+read命令从标准输入或另一个文件描述符接收输入。在收到输入后，read命令会将数据放进一个变量。
+
+```
+read -p "Enter your name: " first last
+echo $last, $first
+```
+
+如果在read命令行中不指定变量，那么read命令会将它收到的任何数据都放进特殊环境变量`REPLY`中：
+
+```
+read -p "Enter your name: "
+echo $REPLY
+```
+
+> 在使用read命令时，需要注意超时时间，可以使用-t选项来指定计时器
+
+```
+read -t 5 -p "Please enter your name: " name
+```
+
+如果需要隐藏输入的值时，可以使用`-s`选项。
+read在读取文件时，每次从文件中读取一行文本，当文件中没有内容时，read命令将会退出并返回非零退出状态码。
+
+```
+cat test | while read line
 ```
