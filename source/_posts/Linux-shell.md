@@ -524,3 +524,241 @@ read在读取文件时，每次从文件中读取一行文本，当文件中没�
 ```
 cat test | while read line
 ```
+
+### 呈现数据
+
+|文件描述符|缩写|描述|
+|:---:|:---:|:---:|
+|0|STDIN|标准输入|
+|1|STDOUT|标准输出|
+|2|STDERR|标准错误|
+
+默认情况下，STDERR文件描述符和STDOUT文件描述符指向同样的地方。
+
+只重定向错误：
+
+> ls -al errorfile 2> test
+
+重定向错误和数据：
+
+> ls -al test.txt errorfile 2>test 1>test1
+
+同时重定向STDERR和STDOUT：
+
+> ls -al test.txt errorfile &>test2
+
+如果需要重定向到某个文件描述符时，必须在文件描述符之前加一个`&`：
+
+```
+echo "This is an error" >&2
+```
+
+可以使用`exec`命令进行永久重定向：
+
+```
+exec 1> testout
+exec 0< testin
+```
+
+关闭文件描述符：
+
+```
+exec 3>&-
+```
+
+如果需要阻止命令输出，可以将STDERR重定向到`/dev/null`。
+
+也可以在/tmp目录中创建临时文件或文件夹。使用`mktemp`在本地目录创建临时文件。创建时，只需要指定一个临时模板：
+
+```
+#在当前目录创建临时文件，并返回文件名
+mktemp testing.xxxxxx
+#在系统临时目录创建临时文件，并返回全路径
+mktemp -t tmp.xxxxxx
+#在当前目录创建临时文件夹，并返回文件夹名
+mktemp -d dir.xxxxxx
+```
+
+使用`tee`命令可以将输出同时发送到显示器和日志文件中
+
+> date | tee testfile
+  \#将文件进行追加，使用-a选项
+  date | tee -a testfile
+
+#### 实例
+
+```
+#!/bin/bash
+
+outputfile="person.sql"
+IFS=','
+
+while read name age address
+do
+  cat >> $outputfile << EOF
+  insert into person(name,age,address) values('$name','$age','$address');
+  EOF
+done < $1
+```
+
+> ./test.sh testfile
+
+### 脚本控制
+
+#### 处理信号
+
+常用的Linux信号如下：
+
+|信号|值|描述|
+|:---:|:---:|:---:|
+|1|SIGHUP|挂起进程|
+|2|SIGINT|终止进程|
+|3|SIGQUIT|停止进程|
+|9|SIGKILL|无条件终止进程|
+|15|SIGTERM|尽可能终止进程|
+|17|SIGSTOP|无条件停止进程，但不是终止进程|
+|18|SIGTSTP|停止或暂停进程，但不终止进程|
+|19|SIGCONT|继续运行停止的进程|
+
+`Ctrl+Z`组合键会生成一个`SIGTSTP`信号，停止shell中运行的任何进程。停止进程会让程序继续保留在内存中，并能从上次停止的位置继续运行。
+
+使用`exit`退出停止的作业，使用`ps -l`查看已停止的作业。
+
+可以使用`trap`命令来捕获信号，其命令格式为：
+
+> trap command signals
+
+或者在trap命令后加上`EXIT`信号来捕获脚本的退出：
+
+```
+trap "echo end..." EXIT
+```
+
+也可以重新使用带有选项的trap命令在脚本中的不同位置进行不同的捕获处理。
+
+#### 以后台模式运行脚本
+
+直接在命令后面添加`&`即可：
+
+> ./test.sh &
+
+注意：在ps命令的输出中，每一个后台进程都和终端会话终端联系在一起。如果终端会话退出，那么后台进程也会随之退出。
+
+此时可以使用`nohup`命令来阻止后台进程在终端退出时也一起终止：
+
+> nohup ./test.sh &
+
+#### 作业控制
+
+作业控制：启动、停止终止以及恢复作业的功能。
+
+使用`jobs`命令查看shell当前正在处理的作业。jobs命令参数如下：
+
+|参数|描述|
+|:---:|:---:|
+|-l|列出进程的PID以及作业号|
+|-n|只列出上次shell发出的通知后改变了状态的作业|
+|-p|只列出作业的PID|
+|-r|只列出运行中的作业|
+|-s|只列出已停止的作业|
+
+如果要以后台模式重启一个作业，可以用`bg`命令加上作业号：
+
+> bg 2
+
+如果要以前台模式重启一个作业，可以用`fg`命令加上作业号：
+
+> fg 2
+
+#### 调整优先级
+
+调度优先级：内核分配给进程的CPU时间。
+调度优先级是一个整数值，从-20(最高优先级)到+19(最低优先级)。默认情况下以优先级0来启动所有进程。
+
+使用`nice`命令设置命令启动时的调度优先级，例如：
+
+> nice -n 10 ./test.sh > test.out &
+
+使用`renice`命令改变运行中进程的PID，例如：
+
+> renice -n 10 -p 8888
+
+#### 定时运行作业
+
+使用`at`命令来计划执行作业。at命令会将作业提交到队列中，指定shell何时运行该作业。
+at命令的格式如下：
+
+> at [-f filename] time
+
+当作业在运行时，Linux系统会将提交该作业的用户的电子邮件地址作为STDOUT和STDERR。所以需要在脚本中对输出进行重定向。
+
+使用`atq`命令查看系统中有哪些作业在等待。
+
+使用`atrm`命令来删除等待中的作业。
+
+##### 使用cron程序
+
+Linux系统使用cron程序来安排要定期执行的作业。cron程序会在后台运行并检查一个特殊的表，以获知已安排执行的作业。
+
+cron时间表的格式如下：
+
+> min hour dayofmonth month dayof week command
+
+如果想在每天下午15:20执行某个文件，可以设置为：
+
+> 20 15 \* \* \* \* /home/zyj/shell/tesh.sh > test.out
+
+使用crontab命令来处理cron时间表。
+
+### 函数
+
+#### 基本函数
+
+创建函数
+
+```
+function name {
+    commands
+}
+```
+
+#### 在函数中使用变量
+
+向函数传递参数
+在脚本中指定函数时，必须将参数和函数放在同一行，例如：
+
+> func1 $value1 10
+
+```
+#!/bin/bash
+
+function add {
+  if [ $# -eq 0] || [ $# -gt 2]
+  then
+    echo -1
+  elif [ $# -eq 1 ]
+  then
+    echo $[ $1 + $1 ]
+  else 
+    echo $[ $1 + $2 ]
+  fi
+}
+
+value1=$(add 10 15)
+value2=$(add 10)
+value3=$(add)
+value4=$(add 5 10 15)
+echo $value1 $value2 $value3 $value4
+```
+
+#### 全局变量和局部变量
+
+使用`local`关键字定义局部变量。
+
+> local temp
+
+local关键字保证了变量只局限在该函数中。如果脚本中在该函数之外有同样名字的变量，那么shell将会保持这两个变量的值是分离的。
+
+#### 数组变量和函数
+
+
