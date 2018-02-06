@@ -761,4 +761,44 @@ local关键字保证了变量只局限在该函数中。如果脚本中在该函
 
 #### 数组变量和函数
 
+向函数传递数组参数
+
+```
+#!/bin/bash
+
+function testArr {
+    local newArr
+    newArr=("$@")
+    echo "The new array is ${newArr[*]}"
+}
+
+myArr=(1 2 3 4 5)
+testArr ${myArr[*]}
+```
+
+从函数返回数组
+
+#### 函数递归
+
+计算阶乘
+
+```
+#!/bin/bash
+
+function factorial {
+  if [ $1 -eq 1 ]
+  then
+    echo 1
+  else
+    local temp=$[ $1 - 1 ]
+    local result=$(factorial $temp)
+    echo $[ $result * $1 ]
+  fi
+}
+
+read -p "Enter a number:" value
+result=$(factorial $value)
+echo "The result is: " $result
+```
+
 
