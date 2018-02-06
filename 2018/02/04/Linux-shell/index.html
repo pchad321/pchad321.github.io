@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="为所雨为">
 <meta property="og:description" content="创建shell脚本文件在创建shell脚本文件时，必须在文件的第一行指定要使用的shell。其格式为  #!/bin/bash  注意：shell只会去处理第一行注释行，并不会处理其他的注释行。  创建shell脚本文件后，给文件添加执行权限  chmod u+x filename  如果想把脚本中的文本字符串和命令输出显示在同一行中，可以用echo语句的-n参数  echo -n “The ti">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-06T02:13:43.061Z">
+<meta property="og:updated_time" content="2018-02-06T06:56:50.675Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux的shell编程">
 <meta name="twitter:description" content="创建shell脚本文件在创建shell脚本文件时，必须在文件的第一行指定要使用的shell。其格式为  #!/bin/bash  注意：shell只会去处理第一行注释行，并不会处理其他的注释行。  创建shell脚本文件后，给文件添加执行权限  chmod u+x filename  如果想把脚本中的文本字符串和命令输出显示在同一行中，可以用echo语句的-n参数  echo -n “The ti">
@@ -322,7 +322,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-02-06T10:13:43+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-02-06T14:56:50+08:00">
                 2018-02-06
               </time>
             
@@ -805,7 +805,103 @@
 </tr>
 </tbody>
 </table>
-
+<p><code>Ctrl+Z</code>组合键会生成一个<code>SIGTSTP</code>信号，停止shell中运行的任何进程。停止进程会让程序继续保留在内存中，并能从上次停止的位置继续运行。</p>
+<p>使用<code>exit</code>退出停止的作业，使用<code>ps -l</code>查看已停止的作业。</p>
+<p>可以使用<code>trap</code>命令来捕获信号，其命令格式为：</p>
+<blockquote>
+<p>trap command signals</p>
+</blockquote>
+<p>或者在trap命令后加上<code>EXIT</code>信号来捕获脚本的退出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">trap &quot;echo end...&quot; EXIT</span><br></pre></td></tr></table></figure>
+<p>也可以重新使用带有选项的trap命令在脚本中的不同位置进行不同的捕获处理。</p>
+<h4 id="以后台模式运行脚本"><a href="#以后台模式运行脚本" class="headerlink" title="以后台模式运行脚本"></a>以后台模式运行脚本</h4><p>直接在命令后面添加<code>&amp;</code>即可：</p>
+<blockquote>
+<p>./test.sh &amp;</p>
+</blockquote>
+<p>注意：在ps命令的输出中，每一个后台进程都和终端会话终端联系在一起。如果终端会话退出，那么后台进程也会随之退出。</p>
+<p>此时可以使用<code>nohup</code>命令来阻止后台进程在终端退出时也一起终止：</p>
+<blockquote>
+<p>nohup ./test.sh &amp;</p>
+</blockquote>
+<h4 id="作业控制"><a href="#作业控制" class="headerlink" title="作业控制"></a>作业控制</h4><p>作业控制：启动、停止终止以及恢复作业的功能。</p>
+<p>使用<code>jobs</code>命令查看shell当前正在处理的作业。jobs命令参数如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">-l</td>
+<td style="text-align:center">列出进程的PID以及作业号</td>
+</tr>
+<tr>
+<td style="text-align:center">-n</td>
+<td style="text-align:center">只列出上次shell发出的通知后改变了状态的作业</td>
+</tr>
+<tr>
+<td style="text-align:center">-p</td>
+<td style="text-align:center">只列出作业的PID</td>
+</tr>
+<tr>
+<td style="text-align:center">-r</td>
+<td style="text-align:center">只列出运行中的作业</td>
+</tr>
+<tr>
+<td style="text-align:center">-s</td>
+<td style="text-align:center">只列出已停止的作业</td>
+</tr>
+</tbody>
+</table>
+<p>如果要以后台模式重启一个作业，可以用<code>bg</code>命令加上作业号：</p>
+<blockquote>
+<p>bg 2</p>
+</blockquote>
+<p>如果要以前台模式重启一个作业，可以用<code>fg</code>命令加上作业号：</p>
+<blockquote>
+<p>fg 2</p>
+</blockquote>
+<h4 id="调整优先级"><a href="#调整优先级" class="headerlink" title="调整优先级"></a>调整优先级</h4><p>调度优先级：内核分配给进程的CPU时间。<br>调度优先级是一个整数值，从-20(最高优先级)到+19(最低优先级)。默认情况下以优先级0来启动所有进程。</p>
+<p>使用<code>nice</code>命令设置命令启动时的调度优先级，例如：</p>
+<blockquote>
+<p>nice -n 10 ./test.sh &gt; test.out &amp;</p>
+</blockquote>
+<p>使用<code>renice</code>命令改变运行中进程的PID，例如：</p>
+<blockquote>
+<p>renice -n 10 -p 8888</p>
+</blockquote>
+<h4 id="定时运行作业"><a href="#定时运行作业" class="headerlink" title="定时运行作业"></a>定时运行作业</h4><p>使用<code>at</code>命令来计划执行作业。at命令会将作业提交到队列中，指定shell何时运行该作业。<br>at命令的格式如下：</p>
+<blockquote>
+<p>at [-f filename] time</p>
+</blockquote>
+<p>当作业在运行时，Linux系统会将提交该作业的用户的电子邮件地址作为STDOUT和STDERR。所以需要在脚本中对输出进行重定向。</p>
+<p>使用<code>atq</code>命令查看系统中有哪些作业在等待。</p>
+<p>使用<code>atrm</code>命令来删除等待中的作业。</p>
+<h5 id="使用cron程序"><a href="#使用cron程序" class="headerlink" title="使用cron程序"></a>使用cron程序</h5><p>Linux系统使用cron程序来安排要定期执行的作业。cron程序会在后台运行并检查一个特殊的表，以获知已安排执行的作业。</p>
+<p>cron时间表的格式如下：</p>
+<blockquote>
+<p>min hour dayofmonth month dayof week command</p>
+</blockquote>
+<p>如果想在每天下午15:20执行某个文件，可以设置为：</p>
+<blockquote>
+<p>20 15 * * * * /home/zyj/shell/tesh.sh &gt; test.out</p>
+</blockquote>
+<p>使用crontab命令来处理cron时间表。</p>
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><h4 id="基本函数"><a href="#基本函数" class="headerlink" title="基本函数"></a>基本函数</h4><p>创建函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function name &#123;</span><br><span class="line">    commands</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="在函数中使用变量"><a href="#在函数中使用变量" class="headerlink" title="在函数中使用变量"></a>在函数中使用变量</h4><p>向函数传递参数<br>在脚本中指定函数时，必须将参数和函数放在同一行，例如：</p>
+<blockquote>
+<p>func1 $value1 10</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">function add &#123;</span><br><span class="line">  if [ $# -eq 0] || [ $# -gt 2]</span><br><span class="line">  then</span><br><span class="line">    echo -1</span><br><span class="line">  elif [ $# -eq 1 ]</span><br><span class="line">  then</span><br><span class="line">    echo $[ $1 + $1 ]</span><br><span class="line">  else </span><br><span class="line">    echo $[ $1 + $2 ]</span><br><span class="line">  fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">value1=$(add 10 15)</span><br><span class="line">value2=$(add 10)</span><br><span class="line">value3=$(add)</span><br><span class="line">value4=$(add 5 10 15)</span><br><span class="line">echo $value1 $value2 $value3 $value4</span><br></pre></td></tr></table></figure>
+<h4 id="全局变量和局部变量"><a href="#全局变量和局部变量" class="headerlink" title="全局变量和局部变量"></a>全局变量和局部变量</h4><p>使用<code>local</code>关键字定义局部变量。</p>
+<blockquote>
+<p>local temp</p>
+</blockquote>
+<p>local关键字保证了变量只局限在该函数中。如果脚本中在该函数之外有同样名字的变量，那么shell将会保持这两个变量的值是分离的。</p>
+<h4 id="数组变量和函数"><a href="#数组变量和函数" class="headerlink" title="数组变量和函数"></a>数组变量和函数</h4>
       
     </div>
     
@@ -991,7 +1087,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建shell脚本文件"><span class="nav-number">1.</span> <span class="nav-text">创建shell脚本文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#命令替换"><span class="nav-number">1.1.</span> <span class="nav-text">命令替换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#重定向"><span class="nav-number">1.2.</span> <span class="nav-text">重定向</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#执行数学运算"><span class="nav-number">1.3.</span> <span class="nav-text">执行数学运算</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#expr命令"><span class="nav-number">1.3.1.</span> <span class="nav-text">expr命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用方括号"><span class="nav-number">1.3.2.</span> <span class="nav-text">使用方括号</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#浮点解决方案"><span class="nav-number">1.3.3.</span> <span class="nav-text">浮点解决方案</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#退出脚本"><span class="nav-number">1.4.</span> <span class="nav-text">退出脚本</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结构化命令"><span class="nav-number">2.</span> <span class="nav-text">结构化命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#if-then"><span class="nav-number">2.1.</span> <span class="nav-text">if-then</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#if-then-else"><span class="nav-number">2.2.</span> <span class="nav-text">if-then-else</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#嵌套if"><span class="nav-number">2.3.</span> <span class="nav-text">嵌套if</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#test命令"><span class="nav-number">2.4.</span> <span class="nav-text">test命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#数值比较"><span class="nav-number">2.4.1.</span> <span class="nav-text">数值比较</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#字符串比较"><span class="nav-number">2.4.2.</span> <span class="nav-text">字符串比较</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件比较"><span class="nav-number">2.4.3.</span> <span class="nav-text">文件比较</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#复合条件测试"><span class="nav-number">2.4.4.</span> <span class="nav-text">复合条件测试</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#if-then的高级特性"><span class="nav-number">2.5.</span> <span class="nav-text">if-then的高级特性</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#使用双括号"><span class="nav-number">2.5.1.</span> <span class="nav-text">使用双括号</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用双方括号"><span class="nav-number">2.5.2.</span> <span class="nav-text">使用双方括号</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#case命令"><span class="nav-number">2.6.</span> <span class="nav-text">case命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#for命令"><span class="nav-number">2.7.</span> <span class="nav-text">for命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#C语言分隔的for命令"><span class="nav-number">2.7.1.</span> <span class="nav-text">C语言分隔的for命令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#while命令"><span class="nav-number">2.8.</span> <span class="nav-text">while命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#until命令"><span class="nav-number">2.9.</span> <span class="nav-text">until命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#循环处理文件数据"><span class="nav-number">2.10.</span> <span class="nav-text">循环处理文件数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#控制循环"><span class="nav-number">2.11.</span> <span class="nav-text">控制循环</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#break命令"><span class="nav-number">2.11.1.</span> <span class="nav-text">break命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#continue命令"><span class="nav-number">2.11.2.</span> <span class="nav-text">continue命令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#处理循环的输出"><span class="nav-number">2.12.</span> <span class="nav-text">处理循环的输出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#例子"><span class="nav-number">2.13.</span> <span class="nav-text">例子</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#处理用户输入"><span class="nav-number">3.</span> <span class="nav-text">处理用户输入</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#命令行参数"><span class="nav-number">3.1.</span> <span class="nav-text">命令行参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特殊的参数变量"><span class="nav-number">3.2.</span> <span class="nav-text">特殊的参数变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#移动变量"><span class="nav-number">3.3.</span> <span class="nav-text">移动变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#处理选项"><span class="nav-number">3.4.</span> <span class="nav-text">处理选项</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#getopt命令"><span class="nav-number">3.4.1.</span> <span class="nav-text">getopt命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#getopts命令"><span class="nav-number">3.4.2.</span> <span class="nav-text">getopts命令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取用户输入"><span class="nav-number">3.5.</span> <span class="nav-text">获取用户输入</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#呈现数据"><span class="nav-number">4.</span> <span class="nav-text">呈现数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#实例"><span class="nav-number">4.1.</span> <span class="nav-text">实例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#脚本控制"><span class="nav-number">5.</span> <span class="nav-text">脚本控制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#处理信号"><span class="nav-number">5.1.</span> <span class="nav-text">处理信号</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建shell脚本文件"><span class="nav-number">1.</span> <span class="nav-text">创建shell脚本文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#命令替换"><span class="nav-number">1.1.</span> <span class="nav-text">命令替换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#重定向"><span class="nav-number">1.2.</span> <span class="nav-text">重定向</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#执行数学运算"><span class="nav-number">1.3.</span> <span class="nav-text">执行数学运算</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#expr命令"><span class="nav-number">1.3.1.</span> <span class="nav-text">expr命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用方括号"><span class="nav-number">1.3.2.</span> <span class="nav-text">使用方括号</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#浮点解决方案"><span class="nav-number">1.3.3.</span> <span class="nav-text">浮点解决方案</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#退出脚本"><span class="nav-number">1.4.</span> <span class="nav-text">退出脚本</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结构化命令"><span class="nav-number">2.</span> <span class="nav-text">结构化命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#if-then"><span class="nav-number">2.1.</span> <span class="nav-text">if-then</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#if-then-else"><span class="nav-number">2.2.</span> <span class="nav-text">if-then-else</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#嵌套if"><span class="nav-number">2.3.</span> <span class="nav-text">嵌套if</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#test命令"><span class="nav-number">2.4.</span> <span class="nav-text">test命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#数值比较"><span class="nav-number">2.4.1.</span> <span class="nav-text">数值比较</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#字符串比较"><span class="nav-number">2.4.2.</span> <span class="nav-text">字符串比较</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件比较"><span class="nav-number">2.4.3.</span> <span class="nav-text">文件比较</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#复合条件测试"><span class="nav-number">2.4.4.</span> <span class="nav-text">复合条件测试</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#if-then的高级特性"><span class="nav-number">2.5.</span> <span class="nav-text">if-then的高级特性</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#使用双括号"><span class="nav-number">2.5.1.</span> <span class="nav-text">使用双括号</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用双方括号"><span class="nav-number">2.5.2.</span> <span class="nav-text">使用双方括号</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#case命令"><span class="nav-number">2.6.</span> <span class="nav-text">case命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#for命令"><span class="nav-number">2.7.</span> <span class="nav-text">for命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#C语言分隔的for命令"><span class="nav-number">2.7.1.</span> <span class="nav-text">C语言分隔的for命令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#while命令"><span class="nav-number">2.8.</span> <span class="nav-text">while命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#until命令"><span class="nav-number">2.9.</span> <span class="nav-text">until命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#循环处理文件数据"><span class="nav-number">2.10.</span> <span class="nav-text">循环处理文件数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#控制循环"><span class="nav-number">2.11.</span> <span class="nav-text">控制循环</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#break命令"><span class="nav-number">2.11.1.</span> <span class="nav-text">break命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#continue命令"><span class="nav-number">2.11.2.</span> <span class="nav-text">continue命令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#处理循环的输出"><span class="nav-number">2.12.</span> <span class="nav-text">处理循环的输出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#例子"><span class="nav-number">2.13.</span> <span class="nav-text">例子</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#处理用户输入"><span class="nav-number">3.</span> <span class="nav-text">处理用户输入</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#命令行参数"><span class="nav-number">3.1.</span> <span class="nav-text">命令行参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特殊的参数变量"><span class="nav-number">3.2.</span> <span class="nav-text">特殊的参数变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#移动变量"><span class="nav-number">3.3.</span> <span class="nav-text">移动变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#处理选项"><span class="nav-number">3.4.</span> <span class="nav-text">处理选项</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#getopt命令"><span class="nav-number">3.4.1.</span> <span class="nav-text">getopt命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#getopts命令"><span class="nav-number">3.4.2.</span> <span class="nav-text">getopts命令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取用户输入"><span class="nav-number">3.5.</span> <span class="nav-text">获取用户输入</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#呈现数据"><span class="nav-number">4.</span> <span class="nav-text">呈现数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#实例"><span class="nav-number">4.1.</span> <span class="nav-text">实例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#脚本控制"><span class="nav-number">5.</span> <span class="nav-text">脚本控制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#处理信号"><span class="nav-number">5.1.</span> <span class="nav-text">处理信号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#以后台模式运行脚本"><span class="nav-number">5.2.</span> <span class="nav-text">以后台模式运行脚本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#作业控制"><span class="nav-number">5.3.</span> <span class="nav-text">作业控制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#调整优先级"><span class="nav-number">5.4.</span> <span class="nav-text">调整优先级</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#定时运行作业"><span class="nav-number">5.5.</span> <span class="nav-text">定时运行作业</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#使用cron程序"><span class="nav-number">5.5.1.</span> <span class="nav-text">使用cron程序</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数"><span class="nav-number">6.</span> <span class="nav-text">函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本函数"><span class="nav-number">6.1.</span> <span class="nav-text">基本函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在函数中使用变量"><span class="nav-number">6.2.</span> <span class="nav-text">在函数中使用变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#全局变量和局部变量"><span class="nav-number">6.3.</span> <span class="nav-text">全局变量和局部变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数组变量和函数"><span class="nav-number">6.4.</span> <span class="nav-text">数组变量和函数</span></a></li></ol></li></ol></div>
             
 
           </div>
