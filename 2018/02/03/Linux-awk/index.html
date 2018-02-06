@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="awk是一个强大的文本分析工具，相对于grep的查找，sed的编辑，awk在其对数据分析并生成报告时，显得尤为强大。简单来说awk就是把文件逐行的读入，以空格为默认分隔符将每行切片，切开的部分再进行各种分析处理。awk有3个不同版本: awk、nawk和gawk，未作特别说明，一般指gawk，gawk是AWK的GNU版本。 命令格式 awk ‘{pattern + action}’ {filena">
+<meta name="description" content="awk是一个强大的文本分析工具，相对于grep的查找，sed的编辑，awk在其对数据分析并生成报告时，显得尤为强大。简单来说awk就是把文件逐行的读入，以空格为默认分隔符将每行切片，切开的部分再进行各种分析处理。在awk中可以定义变量来保存数据，使用算术和字符串操作符来处理数据，使用结构化编程概念来为数据处理增加处理逻辑，以及提取文件的数据并做处理生成报告。awk有3个不同版本: awk、nawk">
 <meta name="keywords" content="Linux,awk">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux之awk详解">
-<meta property="og:url" content="http://yoursite.com/2018/02/04/Linux-awk/index.html">
+<meta property="og:url" content="http://yoursite.com/2018/02/03/Linux-awk/index.html">
 <meta property="og:site_name" content="为所雨为">
-<meta property="og:description" content="awk是一个强大的文本分析工具，相对于grep的查找，sed的编辑，awk在其对数据分析并生成报告时，显得尤为强大。简单来说awk就是把文件逐行的读入，以空格为默认分隔符将每行切片，切开的部分再进行各种分析处理。awk有3个不同版本: awk、nawk和gawk，未作特别说明，一般指gawk，gawk是AWK的GNU版本。 命令格式 awk ‘{pattern + action}’ {filena">
+<meta property="og:description" content="awk是一个强大的文本分析工具，相对于grep的查找，sed的编辑，awk在其对数据分析并生成报告时，显得尤为强大。简单来说awk就是把文件逐行的读入，以空格为默认分隔符将每行切片，切开的部分再进行各种分析处理。在awk中可以定义变量来保存数据，使用算术和字符串操作符来处理数据，使用结构化编程概念来为数据处理增加处理逻辑，以及提取文件的数据并做处理生成报告。awk有3个不同版本: awk、nawk">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-04T03:24:13.459Z">
+<meta property="og:updated_time" content="2018-02-06T11:54:39.834Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux之awk详解">
-<meta name="twitter:description" content="awk是一个强大的文本分析工具，相对于grep的查找，sed的编辑，awk在其对数据分析并生成报告时，显得尤为强大。简单来说awk就是把文件逐行的读入，以空格为默认分隔符将每行切片，切开的部分再进行各种分析处理。awk有3个不同版本: awk、nawk和gawk，未作特别说明，一般指gawk，gawk是AWK的GNU版本。 命令格式 awk ‘{pattern + action}’ {filena">
+<meta name="twitter:description" content="awk是一个强大的文本分析工具，相对于grep的查找，sed的编辑，awk在其对数据分析并生成报告时，显得尤为强大。简单来说awk就是把文件逐行的读入，以空格为默认分隔符将每行切片，切开的部分再进行各种分析处理。在awk中可以定义变量来保存数据，使用算术和字符串操作符来处理数据，使用结构化编程概念来为数据处理增加处理逻辑，以及提取文件的数据并做处理生成报告。awk有3个不同版本: awk、nawk">
 
 
 
@@ -120,7 +120,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/02/04/Linux-awk/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/02/03/Linux-awk/"/>
 
 
 
@@ -277,7 +277,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/04/Linux-awk/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/03/Linux-awk/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jimmy Zhong">
@@ -306,8 +306,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-04T11:24:13+08:00">
-                2018-02-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-03T00:00:00+08:00">
+                2018-02-03
               </time>
             
 
@@ -322,8 +322,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-02-04T11:24:13+08:00">
-                2018-02-04
+              <time title="更新于" itemprop="dateModified" datetime="2018-02-06T19:54:39+08:00">
+                2018-02-06
               </time>
             
           </span>
@@ -378,7 +378,7 @@
       
 
       
-        <p>awk是一个强大的文本分析工具，相对于grep的查找，sed的编辑，awk在其对数据分析并生成报告时，显得尤为强大。简单来说awk就是把文件逐行的读入，以空格为默认分隔符将每行切片，切开的部分再进行各种分析处理。<br>awk有3个不同版本: awk、nawk和gawk，未作特别说明，一般指gawk，gawk是AWK的GNU版本。</p>
+        <p>awk是一个强大的文本分析工具，相对于grep的查找，sed的编辑，awk在其对数据分析并生成报告时，显得尤为强大。简单来说awk就是把文件逐行的读入，以空格为默认分隔符将每行切片，切开的部分再进行各种分析处理。在awk中可以定义变量来保存数据，使用算术和字符串操作符来处理数据，使用结构化编程概念来为数据处理增加处理逻辑，以及提取文件的数据并做处理生成报告。<br>awk有3个不同版本: awk、nawk和gawk，未作特别说明，一般指gawk，gawk是AWK的GNU版本。</p>
 <h4 id="命令格式"><a href="#命令格式" class="headerlink" title="命令格式"></a>命令格式</h4><blockquote>
 <p>awk ‘{pattern + action}’ {filenames}</p>
 </blockquote>
@@ -585,8 +585,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/02/04/Linux-shell/" rel="prev" title="Linux的shell编程">
-                Linux的shell编程 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/02/03/Linux-regular/" rel="prev" title="Linux的正则表达式">
+                Linux的正则表达式 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
