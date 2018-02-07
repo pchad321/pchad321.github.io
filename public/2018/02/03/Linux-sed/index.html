@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="为所雨为">
 <meta property="og:description" content="sed是一种流编辑器，它是文本处理中常营的工具，能够完美的配合正则表达式使用。处理时，把当前处理的行存储在临时缓冲区中，称为“模式空间”（pattern space），接着用sed命令处理缓冲区中的内容，处理完成后，把缓冲区的内容送往屏幕。接着处理下一行，这样不断重复，直到文件末尾。文件内容并没有 改变，除非你使用重定向存储输出。Sed主要用来自动编辑一个或多个文件；简化对文件的反复操作；编写转换">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-06T12:51:01.933Z">
+<meta property="og:updated_time" content="2018-02-07T09:21:56.626Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux之sed详解">
 <meta name="twitter:description" content="sed是一种流编辑器，它是文本处理中常营的工具，能够完美的配合正则表达式使用。处理时，把当前处理的行存储在临时缓冲区中，称为“模式空间”（pattern space），接着用sed命令处理缓冲区中的内容，处理完成后，把缓冲区的内容送往屏幕。接着处理下一行，这样不断重复，直到文件末尾。文件内容并没有 改变，除非你使用重定向存储输出。Sed主要用来自动编辑一个或多个文件；简化对文件的反复操作；编写转换">
@@ -322,8 +322,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-02-06T20:51:01+08:00">
-                2018-02-06
+              <time title="更新于" itemprop="dateModified" datetime="2018-02-07T17:21:56+08:00">
+                2018-02-07
               </time>
             
           </span>
@@ -379,26 +379,72 @@
 
       
         <p>sed是一种流编辑器，它是文本处理中常营的工具，能够完美的配合正则表达式使用。处理时，把当前处理的行存储在临时缓冲区中，称为“模式空间”（pattern space），接着用sed命令处理缓冲区中的内容，处理完成后，把缓冲区的内容送往屏幕。接着处理下一行，这样不断重复，直到文件末尾。文件内容并没有 改变，除非你使用重定向存储输出。Sed主要用来自动编辑一个或多个文件；简化对文件的反复操作；编写转换程序等。</p>
-<h4 id="命令格式"><a href="#命令格式" class="headerlink" title="命令格式"></a>命令格式</h4><p>sed [-nefri] ‘command’ 输入文本</p>
-<h4 id="常用选项"><a href="#常用选项" class="headerlink" title="常用选项"></a>常用选项</h4><p>-n∶使用安静(silent)模式。在一般 sed 的用法中，所有来自STDIN的资料一般都会被列出到屏幕上。但如果加上<code>-n</code>参数后，则只有经过sed特殊处理的那一行(或者动作)才会被列出来。<br>-e∶直接在指令列模式上进行sed的动作编辑；或者需要在sed命令行上执行多个命令；例如<code>sed -e &#39;s/brown/green/; s/dog/cat/&#39; test.txt</code>；<br>-f∶直接将sed的动作写在一个档案内，<code>-f filename</code>则可以执行 filename 内的sed 动作；<br>-r∶sed的动作支援的是延伸型正规表示法的语法。(预设是基础正规表示法语法)<br>-i∶直接修改读取的档案内容，而不是由屏幕输出。 </p>
-<h4 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h4><p>a：新增，a的后面可以接字串，而这些字串会在新的一行出现(目前的下一行)<br>c：取代，c的后面可以接字串，这些字串可以取代n1,n2之间的行<br>d：删除，由于是删除，所以d后面通常不接任何符号<br>g：新文本将会替换所有匹配的文本<br>i：插入，i的后面可以接字串，而这些字串会在新的一行出现(目前的上一行)<br>l：打印数据流中的文本和不可打印的ASCII字符<br>p：打印，即将某个匹配的字符串打印。通常p会与参数 sed -n 一起使用<br>r：将一个独立文件中的数据插入到数据流中<br>s：替换，直接将匹配的字符串进行替换。通常与正则表达式一起使用<br>w file：将替换的结果写到文件中</p>
-<h4 id="使用文本过滤器"><a href="#使用文本过滤器" class="headerlink" title="使用文本过滤器"></a>使用文本过滤器</h4><p>格式如下：</p>
+<h3 id="命令格式"><a href="#命令格式" class="headerlink" title="命令格式"></a>命令格式</h3><p>sed [-nefri] ‘command’ 输入文本</p>
+<h3 id="常用选项"><a href="#常用选项" class="headerlink" title="常用选项"></a>常用选项</h3><p>-n∶使用安静(silent)模式。在一般 sed 的用法中，所有来自STDIN的资料一般都会被列出到屏幕上。但如果加上<code>-n</code>参数后，则只有经过sed特殊处理的那一行(或者动作)才会被列出来。<br>-e∶直接在指令列模式上进行sed的动作编辑；或者需要在sed命令行上执行多个命令；例如<code>sed -e &#39;s/brown/green/; s/dog/cat/&#39; test.txt</code>；<br>-f∶直接将sed的动作写在一个档案内，<code>-f filename</code>则可以执行 filename 内的sed 动作；<br>-r∶sed的动作支援的是延伸型正规表示法的语法。(预设是基础正规表示法语法)<br>-i∶直接修改读取的档案内容，而不是由屏幕输出。 </p>
+<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><p>a：新增，a的后面可以接字串，而这些字串会在新的一行出现(目前的下一行)<br>c：取代，c的后面可以接字串，这些字串可以取代n1,n2之间的行<br>d：删除，由于是删除，所以d后面通常不接任何符号<br>g：新文本将会替换所有匹配的文本<br>i：插入，i的后面可以接字串，而这些字串会在新的一行出现(目前的上一行)<br>l：打印数据流中的文本和不可打印的ASCII字符<br>p：打印，即将某个匹配的字符串打印。通常p会与参数 sed -n 一起使用<br>r：将一个独立文件中的数据插入到数据流中<br>s：替换，直接将匹配的字符串进行替换。通常与正则表达式一起使用<br>w file：将替换的结果写到文件中</p>
+<h3 id="使用文本过滤器"><a href="#使用文本过滤器" class="headerlink" title="使用文本过滤器"></a>使用文本过滤器</h3><p>格式如下：</p>
 <blockquote>
 <p>/pattern/command</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed &apos;/jimmy/s/bash/csh/&apos; /etc/passwd</span><br></pre></td></tr></table></figure>
-<h4 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h4><h5 id="删除行"><a href="#删除行" class="headerlink" title="删除行"></a>删除行</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sed &apos;1d&apos; filename              #删除第一行 </span><br><span class="line">sed &apos;$d&apos; filename              #删除最后一行</span><br><span class="line">sed &apos;1,2d&apos; filename            #删除第一行到第二行</span><br><span class="line">sed &apos;2,$d&apos; filename            #删除第二行到最后一行</span><br><span class="line">sed &apos;/1/,/3/d&apos; filename        #在遇到数据行中有1时开始删除，遇到有3的行停止删除</span><br></pre></td></tr></table></figure>
-<h5 id="显示行"><a href="#显示行" class="headerlink" title="显示行"></a>显示行</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sed -n &apos;1p&apos; filename           #显示第一行 </span><br><span class="line">sed -n &apos;$p&apos; filename           #显示最后一行</span><br><span class="line">sed -n &apos;1,2p&apos; filename         #显示第一行到第二行</span><br><span class="line">sed -n &apos;2,$p&apos; filename         #显示第二行到最后一行</span><br></pre></td></tr></table></figure>
-<h5 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sed -n &apos;/centos/p&apos; filename    #查询包括关键字centos所在所有行</span><br><span class="line">sed -n &apos;/\$/p&apos; filename        #查询包括关键字$所在所有行，使用反斜线\对特殊字符进行转义</span><br></pre></td></tr></table></figure>
-<h5 id="增加一行或多行字符串"><a href="#增加一行或多行字符串" class="headerlink" title="增加一行或多行字符串"></a>增加一行或多行字符串</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sed &apos;1a drink tea&apos; filename     #第一行后增加字符串&quot;drink tea&quot;</span><br><span class="line">sed &apos;1,3a drink tea&apos; filename   #第一行到第三行后增加字符串&quot;drink tea&quot;</span><br><span class="line">sed &apos;1a drink\ncoffee&apos; filename #第一行后增加多行，使用换行符\n</span><br></pre></td></tr></table></figure>
-<h5 id="替换一行或多行"><a href="#替换一行或多行" class="headerlink" title="替换一行或多行"></a>替换一行或多行</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sed &apos;1c Hi&apos; filename          #第一行代替为Hi</span><br><span class="line">sed &apos;1,2c Hi&apos; filename        #第一行到第二行代替为Hi</span><br></pre></td></tr></table></figure>
-<h5 id="替换一行中的某部分"><a href="#替换一行中的某部分" class="headerlink" title="替换一行中的某部分"></a>替换一行中的某部分</h5><blockquote>
+<h3 id="sed进阶"><a href="#sed进阶" class="headerlink" title="sed进阶"></a>sed进阶</h3><h4 id="多行命令"><a href="#多行命令" class="headerlink" title="多行命令"></a>多行命令</h4><p>N：将数据流中的下一行加进来创建一个多行组来处理；<br>D：删除多行组中的一行；注意：D命令会强制sed编辑器返回到脚本的顶部，而不读取新的行；<br>P：打印多行组中的一行。</p>
+<p>next命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sed &apos;/head/&#123;n ; d&#125;&apos; data.txt		#删除含有head行的下一行</span><br><span class="line">sed &apos;/first/&#123;N ; s/\n/ /&#125;&apos; data.txt     #将含有first的行以及下一行当作一行处理</span><br><span class="line">sed &apos;N ; s/System.Administrator/Desktop User&apos; data.txt</span><br></pre></td></tr></table></figure>
+<p>多行删除</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed &apos;/^$/&#123;N ; /header/D&#125;&apos; data.txt	#首先找到空白行，然后将下一行合并到模式空间内，由于D只会删除模式空间里的第一行，所以只会删除含有header行前的空白行</span><br></pre></td></tr></table></figure>
+<p>多行打印</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -n &apos;N ; /System\nAdministrator/P&apos; data.txt  #只打印多行模式空间中的第一行</span><br></pre></td></tr></table></figure>
+<h4 id="保持空间"><a href="#保持空间" class="headerlink" title="保持空间"></a>保持空间</h4><p>模式空间是一块活跃的缓冲区，在sed编辑器执行命令时它会保存待检查的文本。但它并不是sed编辑器保存文本的唯一空间。</p>
+<p>sed编辑器有另一块称作保持空间的缓冲区域。在处理模式空间中的某些行时，可以用保持空间来临时保存一些行。</p>
+<p>sed编辑器的保持空间命令：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">h</td>
+<td style="text-align:center">将模式空间复制到保持空间</td>
+</tr>
+<tr>
+<td style="text-align:center">H</td>
+<td style="text-align:center">将模式空间附加到保持空间</td>
+</tr>
+<tr>
+<td style="text-align:center">g</td>
+<td style="text-align:center">将保持空间复制到模式空间</td>
+</tr>
+<tr>
+<td style="text-align:center">G</td>
+<td style="text-align:center">将保持空间附加到模式空间</td>
+</tr>
+<tr>
+<td style="text-align:center">x</td>
+<td style="text-align:center">交换模式空间和保持空间的内容</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -n &apos;/first/&#123;h ; n ; p; g; p&#125;&apos; data.txt	#将含有first的行和后面一行交换顺序输出</span><br></pre></td></tr></table></figure>
+<h4 id="排除命令"><a href="#排除命令" class="headerlink" title="排除命令"></a>排除命令</h4><p>使用感叹号(!)来排除命令，即让原本会起作用的命令不起作用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -n &apos;&#123;1!G ; h ; $p&#125;&apos; data.txt</span><br></pre></td></tr></table></figure>
+<h4 id="改变流"><a href="#改变流" class="headerlink" title="改变流"></a>改变流</h4><p>分支命令<code>b</code>，格式如下：<br>[address]b [label]</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed &apos;&#123;2,3b; s/This is/Is this/; s/line./test?/&#125;&apos; data.txt	#在第2、3行跳过替换</span><br></pre></td></tr></table></figure>
+<p>测试命令<code>t</code>，根据替换命令的结果跳转到某个标签，而不是根据地址进行跳转，格式如下：<br>[address]t [label]</p>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><h4 id="删除行"><a href="#删除行" class="headerlink" title="删除行"></a>删除行</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sed &apos;1d&apos; filename              #删除第一行 </span><br><span class="line">sed &apos;$d&apos; filename              #删除最后一行</span><br><span class="line">sed &apos;1,2d&apos; filename            #删除第一行到第二行</span><br><span class="line">sed &apos;2,$d&apos; filename            #删除第二行到最后一行</span><br><span class="line">sed &apos;/1/,/3/d&apos; filename        #在遇到数据行中有1时开始删除，遇到有3的行停止删除</span><br></pre></td></tr></table></figure>
+<h4 id="显示行"><a href="#显示行" class="headerlink" title="显示行"></a>显示行</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sed -n &apos;1p&apos; filename           #显示第一行 </span><br><span class="line">sed -n &apos;$p&apos; filename           #显示最后一行</span><br><span class="line">sed -n &apos;1,2p&apos; filename         #显示第一行到第二行</span><br><span class="line">sed -n &apos;2,$p&apos; filename         #显示第二行到最后一行</span><br></pre></td></tr></table></figure>
+<h4 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sed -n &apos;/centos/p&apos; filename    #查询包括关键字centos所在所有行</span><br><span class="line">sed -n &apos;/\$/p&apos; filename        #查询包括关键字$所在所有行，使用反斜线\对特殊字符进行转义</span><br></pre></td></tr></table></figure>
+<h4 id="增加一行或多行字符串"><a href="#增加一行或多行字符串" class="headerlink" title="增加一行或多行字符串"></a>增加一行或多行字符串</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sed &apos;1a drink tea&apos; filename     #第一行后增加字符串&quot;drink tea&quot;</span><br><span class="line">sed &apos;1,3a drink tea&apos; filename   #第一行到第三行后增加字符串&quot;drink tea&quot;</span><br><span class="line">sed &apos;1a drink\ncoffee&apos; filename #第一行后增加多行，使用换行符\n</span><br></pre></td></tr></table></figure>
+<h4 id="替换一行或多行"><a href="#替换一行或多行" class="headerlink" title="替换一行或多行"></a>替换一行或多行</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sed &apos;1c Hi&apos; filename          #第一行代替为Hi</span><br><span class="line">sed &apos;1,2c Hi&apos; filename        #第一行到第二行代替为Hi</span><br></pre></td></tr></table></figure>
+<h4 id="替换一行中的某部分"><a href="#替换一行中的某部分" class="headerlink" title="替换一行中的某部分"></a>替换一行中的某部分</h4><blockquote>
 <p>格式<br>  sed ‘s/要替换的字符串/新的字符串/g’   (要替换的字符串可以用正则表达式)</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sed -n &apos;/centos/p&apos; filename | sed &apos;s/centos/redhat/g&apos;    #替换centos为redhat</span><br><span class="line">sed -n &apos;/centos/p&apos; filename | sed &apos;s/centos//g&apos;          #删除centos</span><br><span class="line">sed &apos;s/test/trial/2&apos; data.txt			         #只替换每行第二次出现的test</span><br></pre></td></tr></table></figure>
-<h5 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sed -i &apos;$a bye&apos; filename   #在文件filenamede 最后一行直接输入&quot;bye&quot;</span><br><span class="line">sed -n &apos;2,$p&apos; filename     #显示第二行到最后一行</span><br></pre></td></tr></table></figure>
-<h5 id="转换"><a href="#转换" class="headerlink" title="转换"></a>转换</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed &apos;y/123/789/&apos; test.txt                   将1替换为7,2替换为8,3替换为9</span><br></pre></td></tr></table></figure>
-<h4 id="习题"><a href="#习题" class="headerlink" title="习题"></a>习题</h4><ol>
+<h4 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sed -i &apos;$a bye&apos; filename   #在文件filenamede 最后一行直接输入&quot;bye&quot;</span><br><span class="line">sed -n &apos;2,$p&apos; filename     #显示第二行到最后一行</span><br></pre></td></tr></table></figure>
+<h4 id="转换"><a href="#转换" class="headerlink" title="转换"></a>转换</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed &apos;y/123/789/&apos; test.txt                   将1替换为7,2替换为8,3替换为9</span><br></pre></td></tr></table></figure>
+<h3 id="习题"><a href="#习题" class="headerlink" title="习题"></a>习题</h3><ol>
 <li><p>从ip addr中找到当前主机的ip</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ip addr|sed -nr &apos;s/.*inet (.*)\/24.*$/\1/gp&apos;</span><br><span class="line">192.168.17.131</span><br></pre></td></tr></table></figure>
 </li>
@@ -527,7 +573,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -538,7 +584,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -549,7 +595,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -592,7 +638,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#命令格式"><span class="nav-number">1.</span> <span class="nav-text">命令格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常用选项"><span class="nav-number">2.</span> <span class="nav-text">常用选项</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常用命令"><span class="nav-number">3.</span> <span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用文本过滤器"><span class="nav-number">4.</span> <span class="nav-text">使用文本过滤器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实例"><span class="nav-number">5.</span> <span class="nav-text">实例</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#删除行"><span class="nav-number">5.1.</span> <span class="nav-text">删除行</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#显示行"><span class="nav-number">5.2.</span> <span class="nav-text">显示行</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#查询"><span class="nav-number">5.3.</span> <span class="nav-text">查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#增加一行或多行字符串"><span class="nav-number">5.4.</span> <span class="nav-text">增加一行或多行字符串</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#替换一行或多行"><span class="nav-number">5.5.</span> <span class="nav-text">替换一行或多行</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#替换一行中的某部分"><span class="nav-number">5.6.</span> <span class="nav-text">替换一行中的某部分</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#插入"><span class="nav-number">5.7.</span> <span class="nav-text">插入</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#转换"><span class="nav-number">5.8.</span> <span class="nav-text">转换</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#习题"><span class="nav-number">6.</span> <span class="nav-text">习题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令格式"><span class="nav-number">1.</span> <span class="nav-text">命令格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用选项"><span class="nav-number">2.</span> <span class="nav-text">常用选项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用命令"><span class="nav-number">3.</span> <span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用文本过滤器"><span class="nav-number">4.</span> <span class="nav-text">使用文本过滤器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sed进阶"><span class="nav-number">5.</span> <span class="nav-text">sed进阶</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#多行命令"><span class="nav-number">5.1.</span> <span class="nav-text">多行命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#保持空间"><span class="nav-number">5.2.</span> <span class="nav-text">保持空间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#排除命令"><span class="nav-number">5.3.</span> <span class="nav-text">排除命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#改变流"><span class="nav-number">5.4.</span> <span class="nav-text">改变流</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例"><span class="nav-number">6.</span> <span class="nav-text">实例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#删除行"><span class="nav-number">6.1.</span> <span class="nav-text">删除行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#显示行"><span class="nav-number">6.2.</span> <span class="nav-text">显示行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询"><span class="nav-number">6.3.</span> <span class="nav-text">查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#增加一行或多行字符串"><span class="nav-number">6.4.</span> <span class="nav-text">增加一行或多行字符串</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#替换一行或多行"><span class="nav-number">6.5.</span> <span class="nav-text">替换一行或多行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#替换一行中的某部分"><span class="nav-number">6.6.</span> <span class="nav-text">替换一行中的某部分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#插入"><span class="nav-number">6.7.</span> <span class="nav-text">插入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#转换"><span class="nav-number">6.8.</span> <span class="nav-text">转换</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#习题"><span class="nav-number">7.</span> <span class="nav-text">习题</span></a></li></ol></div>
             
 
           </div>
