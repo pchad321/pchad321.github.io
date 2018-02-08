@@ -801,4 +801,3 @@ result=$(factorial $value)
 echo "The result is: " $result
 ```
 
-
