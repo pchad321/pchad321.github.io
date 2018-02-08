@@ -167,21 +167,42 @@ $ mkdir name
 #### 格式化namenode
 
 ```
-$ bin/hdfs namenode –format
+$ ./bin/hdfs namenode -format
 ```
 
 #### 启动NameNode和DataNode的守护进程
 
 ```
-$ sbin/start-dfs.sh
+$ ./sbin/start-dfs.sh
 ```
 
 #### 启动ResourceManager和NodeManager的守护进程
 
 ```
-$ sbin/start-yarn.sh
+$ ./sbin/start-yarn.sh
 ```
 
 #### 验证启动
 
 执行jps命令
+
+#### 免密登陆
+
+每次在启动或者停止hadoop是都需要输入密码进行验证，此时可以设置免密登陆：
+
+1. 安装ssh服务
+
+  ```
+  $ yum install -y openssh-server openssh-clients 
+  ```
+
+2. 进入用户目录，生成密钥
+
+  ```
+  $ cd ~
+  $ cd .ssh/
+  $ ssh-keygen -t rsa (然后一路回车)
+  $ cp id_rsa.pub authorized_keys
+
+  $ ssh localhost  #如果此时不提示任何错误，则表明设置成功
+  ```
