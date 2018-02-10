@@ -206,3 +206,185 @@ $ ./sbin/start-yarn.sh
 
   $ ssh localhost  #如果此时不提示任何错误，则表明设置成功
   ```
+
+### Hadoop集群安装
+
+#### 安装3台机器
+
+  安装3个虚拟机，主机名分别为hadoop1，hadoop2和hadoop3，对应的ip分别为192.168.17.133,192.168.17.134以及192.168.17.135。
+
+#### 修改机器名
+
+```
+hostnamectl set-hostname hadoop1
+hostnamectl set-hostname hadoop2
+hostnamectl set-hostname hadoop3
+```
+
+#### 修改/etc/hosts文件
+
+```
+192.168.17.133 hadoop1
+192.168.17.134 hadoop2
+192.168.17.135 hadoop3
+```
+
+#### 免密登陆
+
+```
+$ cd ~
+$ cd .ssh/
+$ ssh-keygen -t rsa (然后一路回车)
+$ cp id_rsa.pub authorized_keys 
+
+然后修改authorized_keys文件，将三台机器的文件内容合并，然后复制到每台机器中
+```
+
+#### 配置Hadoop
+
+在hadoop1机器中执行以下命令：
+
+```
+mkdir /home/hadoop/tmp  
+mkdir /home/hadoop/var  
+mkdir /home/hadoop/hdfs  
+mkdir /home/hadoop/hdfs/name  
+mkdir /home/hadoop/hdfs/data
+```
+
+1. 修改core-site.xml文件：
+
+  ```
+  <configuration>
+    <property>
+      <name>hadoop.tmp.dir</name>
+      <value>/home/hadoop/tmp</value>
+      <description>Abase for other temporary directories.</description>
+    </property>
+    <property>
+      <name>fs.default.name</name>
+      <value>hdfs://hadoop1:9000</value>
+    </property>
+  </configuration>
+  ```
+
+2. 修改hadoop-env.sh文件：
+ 
+  略
+
+3. 修改hdfs-site.xml文件：
+
+  ```
+  <configuration>
+    <property>
+      <name>dfs.name.dir</name>
+      <value>/home/hadoop/hdfs/name</value>
+    </property>
+    <property>
+      <name>dfs.data.dir</name>
+      <value>/home/hadoop/hdfs/data</value>
+    </property>
+    <property>
+      <name>dfs.replication</name>
+      <value>2</value>
+    </property>
+    <property>
+      <name>dfs.permissions</name>
+      <value>false</value>
+    </property>
+  </configuration>
+  ```
+
+4. 修改mapred-site.xml文件：
+
+  ```
+  <configuration>
+    <property>
+      <name>mapred.job.tracker</name>
+      <value>hadoop1:49001</value>
+    </property>
+    <property>
+      <name>mapred.local.dir</name>
+      <value>/home/hadoop/var</value>
+    </property>
+    <property>
+      <name>mapreduce.framework.name</name>
+      <value>yarn</value>
+    </property>
+  </configuration>
+  ```
+
+5. 修改slaves文件：
+
+  > hadoop2
+    hadoop3
+ 
+6. 修改yarn-site.xml文件：
+
+  ```
+  <configuration>
+    <property>
+      <name>yarn.resourcemanager.hostname</name>
+      <value>hadoop1</value>
+    </property>
+    <property>
+      <description>The address of the applications manager interface in the RM.</description>
+      <name>yarn.resourcemanager.address</name>
+      <value>${yarn.resourcemanager.hostname}:8032</value>
+    </property>
+    <property>
+      <description>The address of the scheduler interface.</description>
+      <name>yarn.resourcemanager.scheduler.address</name>
+      <value>${yarn.resourcemanager.hostname}:8030</value>
+    </property>
+    <property>
+      <description>The http address of the RM web application.</description>
+      <name>yarn.resourcemanager.webapp.address</name>
+      <value>${yarn.resourcemanager.hostname}:8088</value>
+    </property>
+    <property>
+      <description>The https adddress of the RM web application.</description>
+      <name>yarn.resourcemanager.webapp.https.address</name>
+      <value>${yarn.resourcemanager.hostname}:8090</value>
+    </property>
+    <property>
+      <name>yarn.resourcemanager.resource-tracker.address</name>
+      <value>${yarn.resourcemanager.hostname}:8031</value>
+    </property>
+    <property>
+      <description>The address of the RM admin interface.</description>
+      <name>yarn.resourcemanager.admin.address</name>
+      <value>${yarn.resourcemanager.hostname}:8033</value>
+    </property>
+    <property>
+      <name>yarn.nodemanager.aux-services</name>
+      <value>mapreduce_shuffle</value>
+    </property>
+    <property>
+      <name>yarn.scheduler.maximum-allocation-mb</name>
+      <value>2048</value>
+      <discription>每个节点可用内存,单位MB,默认8182MB</discription>
+    </property>
+    <property>
+      <name>yarn.nodemanager.vmem-pmem-ratio</name>
+      <value>2.1</value>
+    </property>
+    <property>
+      <name>yarn.nodemanager.resource.memory-mb</name>
+      <value>2048</value>
+    </property>
+    <property>
+      <name>yarn.nodemanager.vmem-check-enabled</name>
+      <value>false</value>
+    </property>
+  </configuration>
+  ```
+
+#### 启动hadoop
+
+略
+
+#### 测试hadoop
+
+在浏览器访问  http://192.168.17.133:50070 以及 http://192.168.17.133:8088/
+
