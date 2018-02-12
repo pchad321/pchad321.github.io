@@ -68,7 +68,39 @@ export PATH=.:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$PATH
 source /etc/profile
 ```
 
-### Hadoop配置
+### Hadoop目录结构说明
+
+```
+$ cd /home/hadoop/hadoop
+$ ll
+drwxr-xr-x. 2 hadoop hadoop  4096 Dec  5 12:28 bin
+drwxr-xr-x. 3 hadoop hadoop    19 Dec  5 12:28 etc
+drwxr-xr-x. 2 hadoop hadoop   101 Dec  5 12:28 include
+drwxr-xr-x. 3 hadoop hadoop    19 Dec  5 12:28 lib
+drwxr-xr-x. 2 hadoop hadoop  4096 Dec  5 12:28 libexec
+-rw-r--r--. 1 hadoop hadoop 99253 Dec  5 12:28 LICENSE.txt
+drwxrwxr-x. 3 hadoop hadoop  4096 Feb 10 11:20 logs
+-rw-r--r--. 1 hadoop hadoop 15915 Dec  5 12:28 NOTICE.txt
+-rw-r--r--. 1 hadoop hadoop  1366 Dec  5 12:28 README.txt
+drwxr-xr-x. 2 hadoop hadoop  4096 Dec  5 12:28 sbin
+drwxr-xr-x. 4 hadoop hadoop    29 Dec  5 12:28 share
+```
+
+1. bin：Hadoop最基本的管理脚本和使用脚本的目录，这些脚本是sbin目录下管理脚本的基础实现，用户可以直接使用这些脚本管理和使用Hadoop；
+
+2. etc：Hadoop配置文件所在的目录，包括core-site,xml、hdfs-site.xml、mapred-site.xml等从Hadoop1.0继承而来的配置文件和yarn-site.xml等Hadoop2.0新增的配置文件；
+
+3. include：对外提供的编程库头文件（具体动态库和静态库在lib目录中），这些头文件均是用C++定义的，通常用于C++程序访问HDFS或者编写MapReduce程序；
+
+4. lib：该目录包含了Hadoop对外提供的编程动态库和静态库，与include目录中的头文件结合使用；
+
+5. libexec：各个服务对用的shell配置文件所在的目录，可用于配置日志输出、启动参数（比如JVM参数）等基本信息；
+
+6. sbin：Hadoop管理脚本所在的目录，主要包含HDFS和YARN中各类服务的启动/关闭脚本；
+
+7. share：Hadoop各个模块编译后的jar包所在的目录。 
+
+### Hadoop伪集群环境安装
 
 #### 在/home/hadoop/目录下，建立tmp、hdfs/name、hdfs/data目录
 
@@ -99,13 +131,13 @@ $ mkdir name
 
 2. 配置core-site.xml
 
-  其中fs.default.name是HDFS的URI，hadoop.tmp.dir是namenode上本地的hadoop临时文件夹
+  其中fs.defaultFS是NameNode的master节点的URI，hadoop.tmp.dir是namenode上本地的hadoop临时文件夹
 
   ```
   <configuration>
     <property>
-      <name>fs.default.name</name>
-      <value>hdfs://localhost:9000</value>
+      <name>fs.defaultFS</name>
+      <value>hdfs://hadoop1:9000</value>
     </property>
 
     <property>
@@ -117,7 +149,7 @@ $ mkdir name
 
 3. 配置hdfs-site.xml
 
-  其中dfs.name.dir是namenode上存储hdfs名字空间元数据，dfs.data.dir是namenode上数据块的物理存储位置，dfs.replication是副本的个数，默认为3，一般小于datanode的机器数量。
+  其中dfs.name.dir是namenode上存储hdfs名字空间元数据，dfs.data.dir是namenode上数据块的物理存储位置，dfs.replication是副本的个数，默认为3，一般小于datanode的机器数量，在伪集群配置中设置为1。
 
   ```
   <configuration>
@@ -159,6 +191,10 @@ $ mkdir name
       <name>yarn.nodemanager.aux-services</name>
       <value>mapreduce_shuffle</value>
     </property>
+    <property>
+      <name>yarn.resourcemanager.hostname</name>
+      <value>hadoop1</value>
+    </property>
   </configuration>
   ```
 
@@ -185,6 +221,23 @@ $ ./sbin/start-yarn.sh
 #### 验证启动
 
 执行jps命令
+
+```
+$ jps
+3994 SecondaryNameNode
+3803 DataNode
+4156 ResourceManager
+4333 Jps
+3695 NameNode
+4255 NodeManager
+```
+
+> SecondaryNameNode:它不是namenode的冗余守护进程，而是提供周期检查点和清理任务。
+DataNode:它负责管理连接到节点的存储(一个集群中可以有多个节点)。每个存储数据的节点运行一个datanode守护进程。
+ResourceManager:接收客户端任务请求，接收和监控NodeManager(NM)的资源情况汇报，负责资源的分配与调度，启动和监控ApplicationMaster(AM)。
+Jps：JDK提供查看当前java进程的小工具。
+NameNode:它是Hadoop中的主服务器，管理文件系统名称空间和对集群中存储的文件的访问。
+NodeManager:NodeManager(NM)是YARN中每个节点上的代理，它管理Hadoop集群中单个计算节点，包括与ResourceManger保持通信，监督Container的生命周期管理，监控每个Container的资源使用(内存、CPU等)情况，追踪节点健康状况，管理日志和不同应用程序用到的附属服务(auxiliaryservice)。
 
 #### 免密登陆
 
