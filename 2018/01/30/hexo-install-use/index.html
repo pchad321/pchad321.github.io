@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hadoop,大数据," />
+  <meta name="keywords" content="Linux,HEXO," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="配置文件的层级关系core-site.xml文件   参数 属性值 解释     fs.defaultFS NameNode URL hdfs://host:port/   io.file.buffer.size 131072 SequenceFiles文件中.读写缓存size设定   hadoop.tmp.dir /home/hadoop/tmp hadoop文件系统依赖的基础配置   ha.z">
-<meta name="keywords" content="Hadoop,大数据">
+<meta name="description" content="nodejs安装 通过EPEL的方式进行安装  12345678# 安装epelyum install -y epel-releaseyum repolist# 安装nodeyum install -y nodejsnode --versionyum install npm hexo安装1npm install hexo-cli -g  快速新建一个博客系统  1234hexo init blog">
+<meta name="keywords" content="Linux,HEXO">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hadoop配置文件详解">
-<meta property="og:url" content="http://yoursite.com/2018/02/11/hadoop-configure-file/index.html">
+<meta property="og:title" content="HEXO安装与使用">
+<meta property="og:url" content="http://yoursite.com/2018/01/30/hexo-install-use/index.html">
 <meta property="og:site_name" content="为所雨为">
-<meta property="og:description" content="配置文件的层级关系core-site.xml文件   参数 属性值 解释     fs.defaultFS NameNode URL hdfs://host:port/   io.file.buffer.size 131072 SequenceFiles文件中.读写缓存size设定   hadoop.tmp.dir /home/hadoop/tmp hadoop文件系统依赖的基础配置   ha.z">
+<meta property="og:description" content="nodejs安装 通过EPEL的方式进行安装  12345678# 安装epelyum install -y epel-releaseyum repolist# 安装nodeyum install -y nodejsnode --versionyum install npm hexo安装1npm install hexo-cli -g  快速新建一个博客系统  1234hexo init blog">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-11T07:40:30.956Z">
+<meta property="og:updated_time" content="2018-02-12T06:08:41.532Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hadoop配置文件详解">
-<meta name="twitter:description" content="配置文件的层级关系core-site.xml文件   参数 属性值 解释     fs.defaultFS NameNode URL hdfs://host:port/   io.file.buffer.size 131072 SequenceFiles文件中.读写缓存size设定   hadoop.tmp.dir /home/hadoop/tmp hadoop文件系统依赖的基础配置   ha.z">
+<meta name="twitter:title" content="HEXO安装与使用">
+<meta name="twitter:description" content="nodejs安装 通过EPEL的方式进行安装  12345678# 安装epelyum install -y epel-releaseyum repolist# 安装nodeyum install -y nodejsnode --versionyum install npm hexo安装1npm install hexo-cli -g  快速新建一个博客系统  1234hexo init blog">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/02/11/hadoop-configure-file/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/01/30/hexo-install-use/"/>
 
 
 
 
 
-  <title>Hadoop配置文件详解 | 为所雨为</title>
+  <title>HEXO安装与使用 | 为所雨为</title>
   
 
 
@@ -277,7 +277,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/11/hadoop-configure-file/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/30/hexo-install-use/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jimmy Zhong">
@@ -294,7 +294,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hadoop配置文件详解</h1>
+          <h1 class="post-title" itemprop="name headline">HEXO安装与使用</h1>
         
 
         <div class="post-meta">
@@ -306,8 +306,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-11T09:51:44+08:00">
-                2018-02-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-30T00:00:00+08:00">
+                2018-01-30
               </time>
             
 
@@ -322,8 +322,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-02-11T15:40:30+08:00">
-                2018-02-11
+              <time title="更新于" itemprop="dateModified" datetime="2018-02-12T14:08:41+08:00">
+                2018-02-12
               </time>
             
           </span>
@@ -341,8 +341,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/大数据/" itemprop="url" rel="index">
-                    <span itemprop="name">大数据</span>
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
                   </a>
                 </span>
 
@@ -378,122 +378,122 @@
       
 
       
-        <h3 id="配置文件的层级关系"><a href="#配置文件的层级关系" class="headerlink" title="配置文件的层级关系"></a>配置文件的层级关系</h3><h3 id="core-site-xml文件"><a href="#core-site-xml文件" class="headerlink" title="core-site.xml文件"></a>core-site.xml文件</h3><table>
-<thead>
-<tr>
-<th style="text-align:center">参数</th>
-<th style="text-align:center">属性值</th>
-<th style="text-align:center">解释</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">fs.defaultFS</td>
-<td style="text-align:center">NameNode URL</td>
-<td style="text-align:center">hdfs://host:port/</td>
-</tr>
-<tr>
-<td style="text-align:center">io.file.buffer.size</td>
-<td style="text-align:center">131072</td>
-<td style="text-align:center">SequenceFiles文件中.读写缓存size设定</td>
-</tr>
-<tr>
-<td style="text-align:center">hadoop.tmp.dir</td>
-<td style="text-align:center">/home/hadoop/tmp</td>
-<td style="text-align:center">hadoop文件系统依赖的基础配置</td>
-</tr>
-<tr>
-<td style="text-align:center">ha.zookeeper.quorum</td>
-<td style="text-align:center">hostname:port</td>
-<td style="text-align:center">zookeeper的地址，多个地址以逗号分隔</td>
-</tr>
-</tbody>
-</table>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">  &lt;property&gt;</span><br><span class="line">    &lt;name&gt;fs.default.name&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;hdfs://hadoop1:9000&lt;/value&gt;</span><br><span class="line">    &lt;description&gt;hadoop1为服务器主机名，其实也可以使用IP地址&lt;/description&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line">  &lt;property&gt;</span><br><span class="line">    &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;/home/hadoop/tmp&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line">  &lt;property&gt;</span><br><span class="line">    &lt;name&gt;io.file.buffer.size&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;131072&lt;/value&gt;</span><br><span class="line">    &lt;description&gt;该属性值单位为KB，131072KB即为默认的64M&lt;/description&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="hdfs-site-xml文件"><a href="#hdfs-site-xml文件" class="headerlink" title="hdfs-site.xml文件"></a>hdfs-site.xml文件</h3><table>
-<thead>
-<tr>
-<th style="text-align:center">参数</th>
-<th style="text-align:center">属性值</th>
-<th style="text-align:center">解释</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">dfs.namenode.name.dir</td>
-<td style="text-align:center">本地文件系统所在的NameNode的存储空间和持续化处理日志的路径</td>
-<td style="text-align:center">可以是按逗号分隔的目录列表，fsimage文件会存储在全部目录，冗余安全</td>
-</tr>
-<tr>
-<td style="text-align:center">dfs.blocksize</td>
-<td style="text-align:center">268435456</td>
-<td style="text-align:center">大文件系统HDFS块大小为256M，默认值为64M</td>
-</tr>
-<tr>
-<td style="text-align:center">dfs.datanode.data.dir</td>
-<td style="text-align:center">datanode存放数据块文件的目录</td>
-<td style="text-align:center">如果这是一个以逗号分隔的目录列表，那么数据将被存储在所有命名的目录，通常在不同的设备</td>
-</tr>
-<tr>
-<td style="text-align:center">dfs.replication</td>
-<td style="text-align:center">hdfs保存数据的副本数量</td>
-<td style="text-align:center">副本数目不能大于datanode数目，伪分布式可以将其配置成1</td>
-</tr>
-<tr>
-<td style="text-align:center">dfs.permissions</td>
-<td style="text-align:center">true/false</td>
-<td style="text-align:center">是否对远程读写hdfs进行权限检查，可以设置为false，即不检查</td>
-</tr>
-<tr>
-<td style="text-align:center">dfs.nameservices</td>
-<td style="text-align:center">clustername</td>
-<td style="text-align:center">使用federation，启动两个HDFS集群，clustername为集群的别名，可以为任意，但不能重复</td>
-</tr>
-<tr>
-<td style="text-align:center">dfs.ha.namenodes.clustername</td>
-<td style="text-align:center">hostname</td>
-<td style="text-align:center">指定nameservice是clustername时的namenode有哪些，这里的值是逻辑名称，可以随意，但不能重复</td>
-</tr>
-<tr>
-<td style="text-align:center">dfs.namenode.rpc-address.clustername.hostname</td>
-<td style="text-align:center">hostname:9000</td>
-<td style="text-align:center">指定rpc地址</td>
-</tr>
-<tr>
-<td style="text-align:center">dfs.namenode.http-address.clustername.hostname</td>
-<td style="text-align:center">hostname:50070</td>
-<td style="text-align:center">指定http地址</td>
-</tr>
-<tr>
-<td style="text-align:center">dfs.namenode.shared.edits.dir</td>
-<td style="text-align:center">qjournal://hostname:port;hostname:port/clustername</td>
-<td style="text-align:center">指定clustername的NameNode共享edits文件目录时，使用的JournalNode集群信息</td>
-</tr>
-<tr>
-<td style="text-align:center">dfs.ha.automatic-failover.enabled.cluster1</td>
-<td style="text-align:center">true/false</td>
-<td style="text-align:center">cluster1是否启用自动故障恢复，即当NameNode出故障时，是否切换到另一台NameNode</td>
-</tr>
-<tr>
-<td style="text-align:center">dfs.client.failover.proxy.provider.cluster1</td>
-<td style="text-align:center">org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</td>
-<td style="text-align:center">指定cluster1出故障时，哪个实现类负责执行故障切换</td>
-</tr>
-<tr>
-<td style="text-align:center">dfs.ha.fencing.methods</td>
-<td style="text-align:center">sshfence</td>
-<td style="text-align:center">NameNode需要进行切换时，使用ssh方式进行操作</td>
-</tr>
-<tr>
-<td style="text-align:center">dfs.ha.fencing.ssh.private-key-files</td>
-<td style="text-align:center">/home/hadoop/.ssh/id_rsa</td>
-<td style="text-align:center">如果使用ssh方式，指定密钥存储的位置</td>
-</tr>
-</tbody>
-</table>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">  &lt;property&gt;</span><br><span class="line">    &lt;name&gt;dfs.name.dir&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;/home/hadoop/hdfs/name&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  &lt;property&gt;</span><br><span class="line">    &lt;name&gt;dfs.data.dir&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;/home/hadoop/hdfs/data&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  &lt;property&gt;</span><br><span class="line">    &lt;name&gt;dfs.replication&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;2&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  &lt;property&gt;</span><br><span class="line">    &lt;name&gt;dfs.permissions&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;false&lt;/value&gt;</span><br><span class="line">    &lt;description&gt;need not permissions&lt;/description&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="slaves文件"><a href="#slaves文件" class="headerlink" title="slaves文件"></a>slaves文件</h3><p>从节点的主机名，直接添加即可。</p>
-<h3 id="mapred-site-xml文件"><a href="#mapred-site-xml文件" class="headerlink" title="mapred-site.xml文件"></a>mapred-site.xml文件</h3><h3 id="yarn-site-xml文件"><a href="#yarn-site-xml文件" class="headerlink" title="yarn-site.xml文件"></a>yarn-site.xml文件</h3>
+        <h3 id="nodejs安装"><a href="#nodejs安装" class="headerlink" title="nodejs安装"></a>nodejs安装</h3><blockquote>
+<p>通过EPEL的方式进行安装</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 安装epel</span><br><span class="line">yum install -y epel-release</span><br><span class="line">yum repolist</span><br><span class="line"></span><br><span class="line"># 安装node</span><br><span class="line">yum install -y nodejs</span><br><span class="line">node --version</span><br><span class="line">yum install npm</span><br></pre></td></tr></table></figure>
+<h3 id="hexo安装"><a href="#hexo安装" class="headerlink" title="hexo安装"></a>hexo安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>快速新建一个博客系统</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hexo init blog</span><br><span class="line">cd blog</span><br><span class="line">npm install</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+<h3 id="hexo常用命令"><a href="#hexo常用命令" class="headerlink" title="hexo常用命令"></a>hexo常用命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 清空缓存</span><br><span class="line">hexo clean</span><br><span class="line"># 生成静态网页</span><br><span class="line">hexo g</span><br><span class="line"># 启动hexo服务，默认端口为4000</span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+<h3 id="安装NEXT主题"><a href="#安装NEXT主题" class="headerlink" title="安装NEXT主题"></a>安装NEXT主题</h3><blockquote>
+<p>资源链接</p>
+</blockquote>
+<p><a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">https://github.com/iissnan/hexo-theme-next</a></p>
+<blockquote>
+<p>安装方法</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ cd hexo</span><br><span class="line">$ ls</span><br><span class="line">_config.yml  node_modules  package.json  public  scaffolds  source  themes</span><br><span class="line">$ mkdir themes/next</span><br><span class="line">$ curl -s https://api.github.com/repos/iissnan/hexo-theme-next/releases/latest | grep tarball_url | cut -d &apos;&quot;&apos; -f 4 | wget -i - -O- | tar -zx -C themes/next --strip-components=1</span><br></pre></td></tr></table></figure>
+<h3 id="NEXT的相关配置"><a href="#NEXT的相关配置" class="headerlink" title="NEXT的相关配置"></a>NEXT的相关配置</h3><blockquote>
+<p>对于整个项目，有一个站点配置文件<code>_config.yml</code>，该文件位于根目录下，在本项目中位于<code>/root/blog</code>目录下，对于每个主题，都有一个主题的配置文件<code>_config.yml</code>，位于每个主题的根目录下，在本项目中位于<code>/root/blog/themes/next</code>目录下：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ ls /root/blog/</span><br><span class="line">_config.yml  node_modules  public     source</span><br><span class="line">db.json      package.json  scaffolds  themes</span><br><span class="line"></span><br><span class="line">$ ls /root/blog/themes/next/</span><br><span class="line">bower.json   gulpfile.coffee  layout   package.json  README.md  source</span><br><span class="line">_config.yml  languages        LICENSE  README.cn.md  scripts    test</span><br></pre></td></tr></table></figure>
+<h3 id="添加分类标签"><a href="#添加分类标签" class="headerlink" title="添加分类标签"></a>添加分类标签</h3><blockquote>
+<p>如果需要给首页添加分页，首先修改主题配置文件，将menu下的about前的#去除：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: /</span><br><span class="line">  #tags: /tags/ || tags</span><br><span class="line">  categories: /categories/</span><br><span class="line">  archives: /archives/</span><br><span class="line">  about: /about/</span><br><span class="line">  #schedule: /schedule/ || calendar</span><br><span class="line">  #sitemap: /sitemap.xml || sitemap</span><br><span class="line">  #commonweal: /404/ || heartbeat</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>然后在source目录下新建一个categories文件夹，并在该文件夹中添加一个index.md文件</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cd /root/blog/source</span><br><span class="line">$ mkdir categories/</span><br><span class="line">$ vim index.md</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在文件中添加以下内容</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 文章分类</span><br><span class="line">date: 日期</span><br><span class="line">type: &quot;categories&quot;</span><br><span class="line">comments: false</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>然后在文件的头部添加以下内容：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hello World</span><br><span class="line">categories: </span><br><span class="line">- test</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<h3 id="添加动态背景"><a href="#添加动态背景" class="headerlink" title="添加动态背景"></a>添加动态背景</h3><blockquote>
+<p>打开  next/layout/_layout.swig<br>在<code>&lt;/body&gt;</code>之前添加代码(注意不要放在<code>&lt;/head&gt;</code>的后面)：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% if theme.canvas_nest %&#125;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot; src=&quot;//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>修改主题配置文件，将canvas_nest修改为true</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">canvas_nest: true</span><br></pre></td></tr></table></figure>
+<h3 id="添加更新时间"><a href="#添加更新时间" class="headerlink" title="添加更新时间"></a>添加更新时间</h3><blockquote>
+<p>修改语言配置文件<code>/themes/next/languages/zh_Hans.yml</code>，在post下添加以下内容：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">post:</span><br><span class="line">  updated: 更新于</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>修改主题配置文件<code>/themes/next/_config.yml</code></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">updated_at: true</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>写文章的时候可以直接在文章开头设置更新时间</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">modified:</span><br></pre></td></tr></table></figure>
+<h3 id="添加站内搜索"><a href="#添加站内搜索" class="headerlink" title="添加站内搜索"></a>添加站内搜索</h3><h4 id="安装hexo-generator-search"><a href="#安装hexo-generator-search" class="headerlink" title="安装hexo-generator-search"></a>安装hexo-generator-search</h4><blockquote>
+<p>在站点的根目录下执行以下命令：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-search --save</span><br></pre></td></tr></table></figure>
+<h4 id="安装-hexo-generator-searchdb"><a href="#安装-hexo-generator-searchdb" class="headerlink" title="安装 hexo-generator-searchdb"></a>安装 hexo-generator-searchdb</h4><blockquote>
+<p>在站点的根目录下执行以下命令：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-searchdb --save</span><br></pre></td></tr></table></figure>
+<h4 id="启用搜索"><a href="#启用搜索" class="headerlink" title="启用搜索"></a>启用搜索</h4><blockquote>
+<p>编辑站点配置文件，新增以下内容到最后：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">search:</span><br><span class="line">  path: search.xml</span><br><span class="line">  field: post</span><br><span class="line">  format: html</span><br><span class="line">  limit: 10000</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>编辑主题配置文件，将local_search下的enable改为true：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">local_search:</span><br><span class="line">  enable: true</span><br></pre></td></tr></table></figure>
+<h3 id="上传代码到github"><a href="#上传代码到github" class="headerlink" title="上传代码到github"></a>上传代码到github</h3><h4 id="注册Github的账号"><a href="#注册Github的账号" class="headerlink" title="注册Github的账号"></a>注册Github的账号</h4><p>略</p>
+<h4 id="创建Repository"><a href="#创建Repository" class="headerlink" title="创建Repository"></a>创建Repository</h4><p>创建的时候需要注意Repository的名字。例如我的Github账号是pchad321，那么应该创建的Repository的名字为：pchad321.github.io</p>
+<h4 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h4><ol>
+<li><p>进入刚刚创建的Repository，复制Repository的连接，例如<a href="https://github.com/pchad321/pchad321.github.io.git" target="_blank" rel="noopener">https://github.com/pchad321/pchad321.github.io.git</a></p>
+</li>
+<li><p>修改站点配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: https://github.com/pchad321/pchad321.github.io.git</span><br><span class="line">  branch: master</span><br><span class="line">  message: &apos;updated at:&#123;&#123;now(&quot;YYYY-MM-DD HH/mm/ss&quot;)&#125;&#125;&apos;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="设置SSH-keys"><a href="#设置SSH-keys" class="headerlink" title="设置SSH keys"></a>设置SSH keys</h4><ol>
+<li><p>配置本机全局git环境</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.email &quot;you@example.com&quot;</span><br><span class="line">git config --global user.name &quot;Your Name&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生成SSH密钥</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># -C后面是github上的用户邮箱地址</span><br><span class="line">ssh-keygen -t rsa -C you@126.com</span><br><span class="line"></span><br><span class="line"># 然后一路回车</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将SSH密钥添加到github中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">less ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>复制出现的一堆密码，然后在github的SSH and GPG keys中粘贴这一段密码</p>
+</blockquote>
+</li>
+<li><p>设置的验证</p>
+<p>在本地输入以下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果在最后出现了你配置的用户名，说明配置成功</p>
+</blockquote>
+</li>
+<li><p>提交代码到github上</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在提交代码时可能会出现<code>ERROR Deployer not found: git</code>的错误，此时只需要运行以下命令</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save hexo-deployer-git</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="将Hexo的源码备份到Github分支里面"><a href="#将Hexo的源码备份到Github分支里面" class="headerlink" title="将Hexo的源码备份到Github分支里面"></a>将Hexo的源码备份到Github分支里面</h4><p>上传到分支里存储，修改本地的时候先上传存储，再发布。更换电脑的时候再下载下来源文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ git init</span><br><span class="line">$ git remote add origin git@github.com:username/username.github.io.git</span><br><span class="line">$ git add .</span><br><span class="line">$ git commit -m &quot;blog&quot;</span><br><span class="line">$ git push origin master:Hexo-Blog</span><br></pre></td></tr></table></figure>
+<p>在本地写好博文后，可以先执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git add .</span><br><span class="line">$ git commit -m &quot;blog&quot;</span><br><span class="line">$ git push origin master:Hexo-Blog</span><br></pre></td></tr></table></figure>
+
       
     </div>
     
@@ -510,9 +510,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Hadoop/" rel="tag"># Hadoop</a>
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
           
-            <a href="/tags/大数据/" rel="tag"># 大数据</a>
+            <a href="/tags/HEXO/" rel="tag"># HEXO</a>
           
         </div>
       
@@ -525,18 +525,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/02/07/hadoop-install-use/" rel="next" title="hadoop安装和基本使用">
-                <i class="fa fa-chevron-left"></i> hadoop安装和基本使用
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/02/12/Linux-shell-script/" rel="prev" title="Linux shell的实用脚本">
-                Linux shell的实用脚本 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/01/31/keepalived-nginx/" rel="prev" title="Nginx+Keepalived的安装和使用">
+                Nginx+Keepalived的安装和使用 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -679,7 +675,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置文件的层级关系"><span class="nav-number">1.</span> <span class="nav-text">配置文件的层级关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#core-site-xml文件"><span class="nav-number">2.</span> <span class="nav-text">core-site.xml文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hdfs-site-xml文件"><span class="nav-number">3.</span> <span class="nav-text">hdfs-site.xml文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#slaves文件"><span class="nav-number">4.</span> <span class="nav-text">slaves文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mapred-site-xml文件"><span class="nav-number">5.</span> <span class="nav-text">mapred-site.xml文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#yarn-site-xml文件"><span class="nav-number">6.</span> <span class="nav-text">yarn-site.xml文件</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#nodejs安装"><span class="nav-number">1.</span> <span class="nav-text">nodejs安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hexo安装"><span class="nav-number">2.</span> <span class="nav-text">hexo安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hexo常用命令"><span class="nav-number">3.</span> <span class="nav-text">hexo常用命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装NEXT主题"><span class="nav-number">4.</span> <span class="nav-text">安装NEXT主题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NEXT的相关配置"><span class="nav-number">5.</span> <span class="nav-text">NEXT的相关配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加分类标签"><span class="nav-number">6.</span> <span class="nav-text">添加分类标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加动态背景"><span class="nav-number">7.</span> <span class="nav-text">添加动态背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加更新时间"><span class="nav-number">8.</span> <span class="nav-text">添加更新时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加站内搜索"><span class="nav-number">9.</span> <span class="nav-text">添加站内搜索</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装hexo-generator-search"><span class="nav-number">9.1.</span> <span class="nav-text">安装hexo-generator-search</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装-hexo-generator-searchdb"><span class="nav-number">9.2.</span> <span class="nav-text">安装 hexo-generator-searchdb</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启用搜索"><span class="nav-number">9.3.</span> <span class="nav-text">启用搜索</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#上传代码到github"><span class="nav-number">10.</span> <span class="nav-text">上传代码到github</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#注册Github的账号"><span class="nav-number">10.1.</span> <span class="nav-text">注册Github的账号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建Repository"><span class="nav-number">10.2.</span> <span class="nav-text">创建Repository</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改配置文件"><span class="nav-number">10.3.</span> <span class="nav-text">修改配置文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置SSH-keys"><span class="nav-number">10.4.</span> <span class="nav-text">设置SSH keys</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将Hexo的源码备份到Github分支里面"><span class="nav-number">10.5.</span> <span class="nav-text">将Hexo的源码备份到Github分支里面</span></a></li></ol></li></ol></div>
             
 
           </div>
