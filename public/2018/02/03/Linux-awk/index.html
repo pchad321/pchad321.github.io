@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="为所雨为">
 <meta property="og:description" content="awk是一个强大的文本分析工具，相对于grep的查找，sed的编辑，awk在其对数据分析并生成报告时，显得尤为强大。简单来说awk就是把文件逐行的读入，以空格为默认分隔符将每行切片，切开的部分再进行各种分析处理。在awk中可以定义变量来保存数据，使用算术和字符串操作符来处理数据，使用结构化编程概念来为数据处理增加处理逻辑，以及提取文件的数据并做处理生成报告。awk有3个不同版本: awk、nawk">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-06T11:54:39.834Z">
+<meta property="og:updated_time" content="2018-02-12T01:55:40.425Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux之awk详解">
 <meta name="twitter:description" content="awk是一个强大的文本分析工具，相对于grep的查找，sed的编辑，awk在其对数据分析并生成报告时，显得尤为强大。简单来说awk就是把文件逐行的读入，以空格为默认分隔符将每行切片，切开的部分再进行各种分析处理。在awk中可以定义变量来保存数据，使用算术和字符串操作符来处理数据，使用结构化编程概念来为数据处理增加处理逻辑，以及提取文件的数据并做处理生成报告。awk有3个不同版本: awk、nawk">
@@ -322,8 +322,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-02-06T19:54:39+08:00">
-                2018-02-06
+              <time title="更新于" itemprop="dateModified" datetime="2018-02-12T09:55:40+08:00">
+                2018-02-12
               </time>
             
           </span>
@@ -446,8 +446,16 @@
 <td style="text-align:left">命令行参数排列</td>
 </tr>
 <tr>
+<td style="text-align:center">ARGIND</td>
+<td style="text-align:left">当前文件在ARGV中的位置</td>
+</tr>
+<tr>
 <td style="text-align:center">ENVIRON</td>
 <td style="text-align:left">支持队列中系统环境变量的使用</td>
+</tr>
+<tr>
+<td style="text-align:center">ERRNO</td>
+<td style="text-align:left">当读取或关闭输入文件发生错误时的系统错误号</td>
 </tr>
 <tr>
 <td style="text-align:center">FILENAME</td>
@@ -455,7 +463,7 @@
 </tr>
 <tr>
 <td style="text-align:center">FNR</td>
-<td style="text-align:left">浏览文件的记录数</td>
+<td style="text-align:left">当前数据文件中的数据行数</td>
 </tr>
 <tr>
 <td style="text-align:center">FS</td>
@@ -463,11 +471,11 @@
 </tr>
 <tr>
 <td style="text-align:center">NF</td>
-<td style="text-align:left">浏览记录的域的个数</td>
+<td style="text-align:left">数据文件中的字段总数</td>
 </tr>
 <tr>
 <td style="text-align:center">NR</td>
-<td style="text-align:left">已读的记录数</td>
+<td style="text-align:left">已处理的输入记录数</td>
 </tr>
 <tr>
 <td style="text-align:center">OFS</td>
@@ -481,6 +489,10 @@
 <td style="text-align:center">RS</td>
 <td style="text-align:left">控制记录分隔符</td>
 </tr>
+<tr>
+<td style="text-align:center">FIELDWIDTHS</td>
+<td style="text-align:left">由空格分隔的一列数字，定义了每个数据字段确切宽度；一旦设置，会忽略FS变量</td>
+</tr>
 </tbody>
 </table>
 <h5 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h5><ol>
@@ -489,6 +501,56 @@
 </li>
 </ol>
 <h4 id="print和printf"><a href="#print和printf" class="headerlink" title="print和printf"></a>print和printf</h4><p>awk中同时提供了print和printf两种打印输出的函数。<br>其中print函数的参数可以是变量、数值或者字符串。字符串必须用双引号引用，参数用逗号分隔。如果没有逗号，参数就串联在一起而无法区分。这里，逗号的作用与输出文件的分隔符的作用是一样的，只是后者是空格而已。<br>printf函数，其用法和c语言中printf基本相似,可以格式化字符串,输出复杂时，printf更加好用，代码更易懂。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">控制字母</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">c</td>
+<td style="text-align:center">将一个数作为ASCII字符显示</td>
+</tr>
+<tr>
+<td style="text-align:center">d</td>
+<td style="text-align:center">显示一个整数值</td>
+</tr>
+<tr>
+<td style="text-align:center">i</td>
+<td style="text-align:center">显示一个整数值(跟d一样)</td>
+</tr>
+<tr>
+<td style="text-align:center">e</td>
+<td style="text-align:center">用科学计数法显示一个数</td>
+</tr>
+<tr>
+<td style="text-align:center">f</td>
+<td style="text-align:center">显示一个浮点数</td>
+</tr>
+<tr>
+<td style="text-align:center">g</td>
+<td style="text-align:center">用科学计数法或浮点数显示(选择较短的格式)</td>
+</tr>
+<tr>
+<td style="text-align:center">o</td>
+<td style="text-align:center">显示一个八进制值</td>
+</tr>
+<tr>
+<td style="text-align:center">s</td>
+<td style="text-align:center">显示一个文本字符串</td>
+</tr>
+<tr>
+<td style="text-align:center">x</td>
+<td style="text-align:center">显示一个十六进制值</td>
+</tr>
+<tr>
+<td style="text-align:center">X</td>
+<td style="text-align:center">显示一个十六进制值，单用大写字母</td>
+</tr>
+</tbody>
+</table>
 <blockquote>
 <p>可以将上面的例子1改写为以下形式：</p>
 </blockquote>
@@ -525,6 +587,11 @@
 <li><p>显示/etc/passwd的账户</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk -F&apos;:&apos; &apos;BEGIN&#123;count=0;&#125; &#123;name[count]=$1;count++&#125; END&#123;for(i=0;i&lt;NR;i++)&#123;print i, name[i]&#125;&#125;&apos; /etc/passwd</span><br></pre></td></tr></table></figure>
 </li>
+<li><p>删除数组变量</p>
+<blockquote>
+<p>delete array[index]</p>
+</blockquote>
+</li>
 </ol>
 <h4 id="练习-1"><a href="#练习-1" class="headerlink" title="练习"></a>练习</h4><ol>
 <li><p>取出/etc/passwd中的账户名以a或b开头的行并排序</p>
@@ -541,6 +608,9 @@
 </li>
 <li><p>从链接中获取域名</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk -F&apos;/&apos; &apos;&#123;array[$3]++&#125;END&#123;for(key in array)&#123;print key,array[key]&#125;&#125;&apos; filename</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取非root用户的信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk -F&quot;:&quot; &apos;$1 !~ /root/&#123;print $1, $NF&#125;&apos; /etc/passwd</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 
@@ -664,7 +734,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

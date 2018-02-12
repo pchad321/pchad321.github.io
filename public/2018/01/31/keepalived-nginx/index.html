@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Linux,vim," />
+  <meta name="keywords" content="Linux,Nginx,Keepalived," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="vim编辑器在内存缓冲区中处理数据。 vim编辑器有两种操作模式：普通模式和插入模式。 vim移动光标的命令：h-左  j-下  k-上  l-右 快速移动命令：PageDown、PageUp、G(最后一行)、num G(移动到第num行)、gg(移动到第一行)  编辑数据x        删除当前光标所在位置的字符dd        删除当前光标所在行dw        删除当前光标所在位置的">
-<meta name="keywords" content="Linux,vim">
+<meta name="description" content="vim安装1yum install vim -y 修改ip修改/etc/sysconfig/network-scripts/ifcfg-eth0的内容(如果该文件不存在，先新建) 12345678DEVICE=eth0 #网卡对应的设备别名BOOTPROTO=static #设置为静态IP，staticONBOOT=yesDNS1=114.114.114.114HWADDR=00:07:E9:05">
+<meta name="keywords" content="Linux,Nginx,Keepalived">
 <meta property="og:type" content="article">
-<meta property="og:title" content="vim基础">
-<meta property="og:url" content="http://yoursite.com/2018/02/01/vim_base/index.html">
+<meta property="og:title" content="Nginx+Keepalived的安装和使用">
+<meta property="og:url" content="http://yoursite.com/2018/01/31/keepalived-nginx/index.html">
 <meta property="og:site_name" content="为所雨为">
-<meta property="og:description" content="vim编辑器在内存缓冲区中处理数据。 vim编辑器有两种操作模式：普通模式和插入模式。 vim移动光标的命令：h-左  j-下  k-上  l-右 快速移动命令：PageDown、PageUp、G(最后一行)、num G(移动到第num行)、gg(移动到第一行)  编辑数据x        删除当前光标所在位置的字符dd        删除当前光标所在行dw        删除当前光标所在位置的">
+<meta property="og:description" content="vim安装1yum install vim -y 修改ip修改/etc/sysconfig/network-scripts/ifcfg-eth0的内容(如果该文件不存在，先新建) 12345678DEVICE=eth0 #网卡对应的设备别名BOOTPROTO=static #设置为静态IP，staticONBOOT=yesDNS1=114.114.114.114HWADDR=00:07:E9:05">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-01T07:20:41.600Z">
+<meta property="og:updated_time" content="2018-01-31T14:23:12.441Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="vim基础">
-<meta name="twitter:description" content="vim编辑器在内存缓冲区中处理数据。 vim编辑器有两种操作模式：普通模式和插入模式。 vim移动光标的命令：h-左  j-下  k-上  l-右 快速移动命令：PageDown、PageUp、G(最后一行)、num G(移动到第num行)、gg(移动到第一行)  编辑数据x        删除当前光标所在位置的字符dd        删除当前光标所在行dw        删除当前光标所在位置的">
+<meta name="twitter:title" content="Nginx+Keepalived的安装和使用">
+<meta name="twitter:description" content="vim安装1yum install vim -y 修改ip修改/etc/sysconfig/network-scripts/ifcfg-eth0的内容(如果该文件不存在，先新建) 12345678DEVICE=eth0 #网卡对应的设备别名BOOTPROTO=static #设置为静态IP，staticONBOOT=yesDNS1=114.114.114.114HWADDR=00:07:E9:05">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/02/01/vim_base/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/01/31/keepalived-nginx/"/>
 
 
 
 
 
-  <title>vim基础 | 为所雨为</title>
+  <title>Nginx+Keepalived的安装和使用 | 为所雨为</title>
   
 
 
@@ -277,7 +277,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/01/vim_base/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/31/keepalived-nginx/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jimmy Zhong">
@@ -294,7 +294,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">vim基础</h1>
+          <h1 class="post-title" itemprop="name headline">Nginx+Keepalived的安装和使用</h1>
         
 
         <div class="post-meta">
@@ -306,8 +306,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-01T15:20:41+08:00">
-                2018-02-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-31T00:00:00+08:00">
+                2018-01-31
               </time>
             
 
@@ -322,8 +322,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-02-01T15:20:41+08:00">
-                2018-02-01
+              <time title="更新于" itemprop="dateModified" datetime="2018-01-31T22:23:12+08:00">
+                2018-01-31
               </time>
             
           </span>
@@ -378,15 +378,87 @@
       
 
       
-        <ol>
-<li>vim编辑器在内存缓冲区中处理数据。</li>
-<li>vim编辑器有两种操作模式：普通模式和插入模式。</li>
-<li>vim移动光标的命令：h-左  j-下  k-上  l-右</li>
-<li>快速移动命令：PageDown、PageUp、G(最后一行)、num G(移动到第num行)、gg(移动到第一行)</li>
+        <h2 id="vim安装"><a href="#vim安装" class="headerlink" title="vim安装"></a>vim安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install vim -y</span><br></pre></td></tr></table></figure>
+<h2 id="修改ip"><a href="#修改ip" class="headerlink" title="修改ip"></a>修改ip</h2><p>修改<code>/etc/sysconfig/network-scripts/ifcfg-eth0</code>的内容(如果该文件不存在，先新建)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">DEVICE=eth0 #网卡对应的设备别名</span><br><span class="line">BOOTPROTO=static #设置为静态IP，static</span><br><span class="line">ONBOOT=yes</span><br><span class="line">DNS1=114.114.114.114</span><br><span class="line">HWADDR=00:07:E9:05:E8:B4 #对应的网卡物理地址，可以不用配置</span><br><span class="line">IPADDR=192.168.17.133 #ip地址静态指定</span><br><span class="line">NETMASK=255.255.255.0 </span><br><span class="line">GATEWAY=192.168.17.2</span><br></pre></td></tr></table></figure>
+<p>然后在虚拟机-&gt;设置-&gt;网络适配器中选择自定义VMnet8</p>
+<blockquote>
+<p>可以将原有的<code>ifcfg-enoxxxxxxx</code>文件删除，然后修改<code>grub</code>文件<br>vim /etc/default/grub<br>然后在<code>GRUB_CMDLINE_LINUX</code>原有的参数后面加上<code>&quot;net.ifnames=0 biosdevname=0&quot;</code>，保存退出后，执行<br><code>grub2-mkconfig -o /boot/grub2/grub.cfg</code><br>然后重启计算机</p>
+</blockquote>
+<h2 id="添加用户和权限"><a href="#添加用户和权限" class="headerlink" title="添加用户和权限"></a>添加用户和权限</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ useradd apache</span><br><span class="line"></span><br><span class="line">$ passwd apache</span><br><span class="line"></span><br><span class="line">$ visudo </span><br><span class="line"></span><br><span class="line">$ /root</span><br><span class="line"></span><br><span class="line">$ yyp</span><br></pre></td></tr></table></figure>
+<h2 id="安装apache"><a href="#安装apache" class="headerlink" title="安装apache"></a>安装apache</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">yum install httpd httpd-devel</span><br><span class="line"></span><br><span class="line">#开启apache服务</span><br><span class="line">systemctl start httpd.service</span><br><span class="line"></span><br><span class="line">#关闭apache服务</span><br><span class="line">systemctl stop httpd.service</span><br><span class="line"></span><br><span class="line">#设置为开机启动</span><br><span class="line">systemctl enable httpd.service</span><br><span class="line"></span><br><span class="line">#关闭防火墙</span><br><span class="line">systemctl stop firewalld.service</span><br><span class="line"></span><br><span class="line">#开机不启动防火墙</span><br><span class="line">systemctl disable firewalld.service</span><br><span class="line"></span><br><span class="line">#apache默认使用/var/www/html文件夹里的资源，故可以创建一个index.html文件</span><br><span class="line">echo apache133 &gt; index.html</span><br></pre></td></tr></table></figure>
+<h2 id="安装Nginx"><a href="#安装Nginx" class="headerlink" title="安装Nginx"></a>安装Nginx</h2><h3 id="使用压缩包安装nginx"><a href="#使用压缩包安装nginx" class="headerlink" title="使用压缩包安装nginx"></a>使用压缩包安装nginx</h3><ol>
+<li><p>切换为root用户</p>
+</li>
+<li><p>进入/usr/local/src目录下</p>
+</li>
+<li><p>下载Nginx、openssl、pcre以及zlib</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget http://nginx.org/download/nginx-1.12.2.tar.gz</span><br><span class="line">wget https://www.openssl.org/source/openssl-fips-2.0.16.tar.gz</span><br><span class="line">wget ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.40.tar.gz</span><br><span class="line">wget http://www.zlib.net/zlib-1.2.11.tar.gz</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>可能需要先安装c++编译环境</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install gcc-c++</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装openssl</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf openssl-fips-2.0.16.tar.gz </span><br><span class="line">cd openssl-fips-2.0.16/</span><br><span class="line">./config</span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装pcre</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf pcre-8.40.tar.gz </span><br><span class="line">cd pcre-8.40/</span><br><span class="line">./configure</span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装zlib</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf zlib-1.2.11.tar.gz </span><br><span class="line">cd zlib-1.2.11/</span><br><span class="line">./configure</span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装Nginx</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf nginx-1.12.2.tar.gz </span><br><span class="line">cd nginx-1.12.2/</span><br><span class="line">./configure</span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动Nginx</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/nginx/sbin/nginx</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Nginx基本操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#启动</span><br><span class="line">[root@localhost ~]# /usr/local/nginx/sbin/nginx</span><br><span class="line">#停止/重启</span><br><span class="line">[root@localhost ~]# /usr/local/nginx/sbin/nginx -s stop(quit、reload)</span><br><span class="line">#命令帮助</span><br><span class="line">[root@localhost ~]# /usr/local/nginx/sbin/nginx -h</span><br><span class="line">#验证配置文件</span><br><span class="line">[root@localhost ~]# /usr/local/nginx/sbin/nginx -t</span><br><span class="line">#配置文件</span><br><span class="line">[root@localhost ~]# vim /usr/local/nginx/conf/nginx.conf</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取Nginx的安装位置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">whereis nginx</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改Nginx的配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost conf]# cd /usr/local/nginx/conf/</span><br><span class="line">[root@localhost conf]# vim nginx.conf</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在http内添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">upstream test.com&#123;</span><br><span class="line">  server 192.168.17.133:80 weight=5;</span><br><span class="line">  server 192.168.17.134:80 weight=1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在http-&gt;server中的location中添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">  proxy_pass  http://test.com;</span><br><span class="line">  proxy_set_header Host       $host;</span><br><span class="line">  proxy_set_header X-Real-IP  $remote_addr;</span><br><span class="line">  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">  root   html;</span><br><span class="line">  index  index.html index.htm;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装rz和sz</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install lrzsz</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
-<h3 id="编辑数据"><a href="#编辑数据" class="headerlink" title="编辑数据"></a>编辑数据</h3><p>x        删除当前光标所在位置的字符<br>dd        删除当前光标所在行<br>dw        删除当前光标所在位置的单词<br>d$        删除当前光标所在位置至行尾的内容<br>J        删除当前光标所在行尾的换行符<br>u        撤销前一编辑命令<br>a        在当前光标后追加数据</p>
-<h3 id="复制和粘贴"><a href="#复制和粘贴" class="headerlink" title="复制和粘贴"></a>复制和粘贴</h3><p>先使用dd删除，然后使用p粘贴<br>yw        复制一个单词<br>y$        复制到行尾</p>
-<h3 id="查找和替换"><a href="#查找和替换" class="headerlink" title="查找和替换"></a>查找和替换</h3><p>/content    n<br>:s/old/new/        替换<br>:s/old/new/g<br>:n,ms/old/new/g    替换行号n和m之间所有old<br>:%s/old/new/g    替换整个文件中所有old<br>:%s/old/new/gc    替换整个文件中的所有old，但在每次出现时提示</p>
+<h3 id="使用yum安装nginx-推荐"><a href="#使用yum安装nginx-推荐" class="headerlink" title="使用yum安装nginx(推荐)"></a>使用yum安装nginx(推荐)</h3><blockquote>
+<p>本地yum源中没有我们想要的nginx，那么就需要创建一个<code>/etc/yum.repos.d/nginx.repo</code>的文件，新增一个yum源。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/yum.repos.d/nginx.repo</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>然后加入如下内容</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[nginx]</span><br><span class="line">name=nginx repo</span><br><span class="line">baseurl=http://nginx.org/packages/centos/$releasever/$basearch/</span><br><span class="line">gpgcheck=0</span><br><span class="line">enabled=1</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>查询nginx的相关信息并安装</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum list | grep nginx</span><br><span class="line">yum install -y nginx</span><br></pre></td></tr></table></figure>
+<h2 id="安装Keepalived"><a href="#安装Keepalived" class="headerlink" title="安装Keepalived"></a>安装Keepalived</h2><h3 id="安装Keepalived-1"><a href="#安装Keepalived-1" class="headerlink" title="安装Keepalived"></a>安装Keepalived</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget http://www.keepalived.org/software/keepalived-1.2.24.tar.gz</span><br><span class="line">tar -zxvf keepalived-1.2.24.tar.gz</span><br><span class="line">cd keepalived-1.2.24</span><br><span class="line">./configure --prefix=/usr/local/keepalived</span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在安装时可能会出现如下错误\<br>!!! OpenSSL is not properly installed on your system. !!!\<br>!!! Can not include OpenSSL headers files.\<br>解决办法：yum -y install openssl-devel</p>
+<p>也可以直接使用yum安装</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install keepalived</span><br></pre></td></tr></table></figure>
+<h3 id="配置Keepalived"><a href="#配置Keepalived" class="headerlink" title="配置Keepalived"></a>配置Keepalived</h3><p>keepalived启动时会从/etc/keepalived目录下查找keepalived.conf配置文件，如果没有找到则使用默认的配置。/etc/keepalived目录安装时默认是没有安装的，需要手动创建。</p>
+<blockquote>
+<p>先备份配置文件</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp keepalived.conf keepalived.conf.bak</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>在启动keepalived前先关闭防火墙和selinux</code></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop firewalld.service</span><br><span class="line">systemctl disable firewalld.service</span><br><span class="line"></span><br><span class="line">getenforce</span><br><span class="line">/usr/sbin/sestatus -v</span><br><span class="line">#临时关闭</span><br><span class="line">setenforce 0</span><br><span class="line">#永久关闭</span><br><span class="line">vim /etc/selinux/config</span><br><span class="line">#将SELINUX=enforcing改为SELINUX=disabled，必须重启才能生效</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -406,7 +478,9 @@
           
             <a href="/tags/Linux/" rel="tag"># Linux</a>
           
-            <a href="/tags/vim/" rel="tag"># vim</a>
+            <a href="/tags/Nginx/" rel="tag"># Nginx</a>
+          
+            <a href="/tags/Keepalived/" rel="tag"># Keepalived</a>
           
         </div>
       
@@ -419,8 +493,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/02/01/zookeeper_install/" rel="next" title="Zookeeper的安装和使用">
-                <i class="fa fa-chevron-left"></i> Zookeeper的安装和使用
+              <a href="/2018/01/30/hexo-install-use/" rel="next" title="HEXO安装与使用">
+                <i class="fa fa-chevron-left"></i> HEXO安装与使用
               </a>
             
           </div>
@@ -429,8 +503,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/02/01/docker/" rel="prev" title="docker的安装和使用">
-                docker的安装和使用 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/02/01/vim-base/" rel="prev" title="vim基础">
+                vim基础 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -508,7 +582,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -573,7 +647,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#编辑数据"><span class="nav-number">1.</span> <span class="nav-text">编辑数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复制和粘贴"><span class="nav-number">2.</span> <span class="nav-text">复制和粘贴</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查找和替换"><span class="nav-number">3.</span> <span class="nav-text">查找和替换</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#vim安装"><span class="nav-number">1.</span> <span class="nav-text">vim安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改ip"><span class="nav-number">2.</span> <span class="nav-text">修改ip</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加用户和权限"><span class="nav-number">3.</span> <span class="nav-text">添加用户和权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装apache"><span class="nav-number">4.</span> <span class="nav-text">安装apache</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Nginx"><span class="nav-number">5.</span> <span class="nav-text">安装Nginx</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用压缩包安装nginx"><span class="nav-number">5.1.</span> <span class="nav-text">使用压缩包安装nginx</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用yum安装nginx-推荐"><span class="nav-number">5.2.</span> <span class="nav-text">使用yum安装nginx(推荐)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Keepalived"><span class="nav-number">6.</span> <span class="nav-text">安装Keepalived</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Keepalived-1"><span class="nav-number">6.1.</span> <span class="nav-text">安装Keepalived</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置Keepalived"><span class="nav-number">6.2.</span> <span class="nav-text">配置Keepalived</span></a></li></ol></li></ol></div>
             
 
           </div>

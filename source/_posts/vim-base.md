@@ -1,6 +1,6 @@
 ---
 title: vim基础
-date:
+date: 2018-02-01
 modified:
 categories:
 - Linux

@@ -1,9 +1,12 @@
 ---
 title: Nginx中proxy_pass和rewrite详解
+date: 2018-02-04
+modified:
 categories:
 - Linux
 tags:
 - Nginx
+- Linux
 ---
 
 ## proxy_pass和rewrite

@@ -1,6 +1,6 @@
 ---
 title: Zookeeper的安装和使用
-date:
+date: 2018-02-05
 modified:
 categories:
 - Zookeeper
