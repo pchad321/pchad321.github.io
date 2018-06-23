@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Spider," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="通用爬虫和聚焦爬虫根据使用场景，网络爬虫可分为通用爬虫和聚焦爬虫两种。 通用爬虫通用网络爬虫是搜索引擎抓取系统的重要组成部分。主要目的是将互联网上的网页下载到本地，形成一个互联网内容的镜像备份。 通用搜索引擎的工作原理通用网络爬虫 从互联网中搜集网页，采集信息，这些网页信息用于为搜索引擎建立索引从而提供支持，它决定着整个引擎系统的内容是否丰富，信息是否即时，因此其性能的优劣直接影响着搜索引擎的效果">
+<meta name="keywords" content="Spider">
+<meta property="og:type" content="article">
+<meta property="og:title" content="爬虫原理与数据抓取">
+<meta property="og:url" content="http://yoursite.com/2018/06/23/spider_principle_and_wireshark/index.html">
+<meta property="og:site_name" content="为所雨为">
+<meta property="og:description" content="通用爬虫和聚焦爬虫根据使用场景，网络爬虫可分为通用爬虫和聚焦爬虫两种。 通用爬虫通用网络爬虫是搜索引擎抓取系统的重要组成部分。主要目的是将互联网上的网页下载到本地，形成一个互联网内容的镜像备份。 通用搜索引擎的工作原理通用网络爬虫 从互联网中搜集网页，采集信息，这些网页信息用于为搜索引擎建立索引从而提供支持，它决定着整个引擎系统的内容是否丰富，信息是否即时，因此其性能的优劣直接影响着搜索引擎的效果">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/spider/client_request_format.png">
+<meta property="og:updated_time" content="2018-06-23T07:26:55.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="爬虫原理与数据抓取">
+<meta name="twitter:description" content="通用爬虫和聚焦爬虫根据使用场景，网络爬虫可分为通用爬虫和聚焦爬虫两种。 通用爬虫通用网络爬虫是搜索引擎抓取系统的重要组成部分。主要目的是将互联网上的网页下载到本地，形成一个互联网内容的镜像备份。 通用搜索引擎的工作原理通用网络爬虫 从互联网中搜集网页，采集信息，这些网页信息用于为搜索引擎建立索引从而提供支持，它决定着整个引擎系统的内容是否丰富，信息是否即时，因此其性能的优劣直接影响着搜索引擎的效果">
+<meta name="twitter:image" content="http://yoursite.com/images/spider/client_request_format.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/23/spider_principle_and_wireshark/"/>
+
+
+
+
+
+  <title>爬虫原理与数据抓取 | 为所雨为</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">为所雨为</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">a place for all coders</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/23/spider_principle_and_wireshark/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jimmy Zhong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="为所雨为">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">爬虫原理与数据抓取</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-23T15:01:47+08:00">
+                2018-06-23
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-06-23T15:26:55+08:00">
+                2018-06-23
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spider/" itemprop="url" rel="index">
+                    <span itemprop="name">Spider</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="通用爬虫和聚焦爬虫"><a href="#通用爬虫和聚焦爬虫" class="headerlink" title="通用爬虫和聚焦爬虫"></a>通用爬虫和聚焦爬虫</h3><p>根据使用场景，网络爬虫可分为通用爬虫和聚焦爬虫两种。</p>
+<h4 id="通用爬虫"><a href="#通用爬虫" class="headerlink" title="通用爬虫"></a>通用爬虫</h4><p>通用网络爬虫是搜索引擎抓取系统的重要组成部分。主要目的是将互联网上的网页下载到本地，形成一个互联网内容的镜像备份。</p>
+<h5 id="通用搜索引擎的工作原理"><a href="#通用搜索引擎的工作原理" class="headerlink" title="通用搜索引擎的工作原理"></a>通用搜索引擎的工作原理</h5><p>通用网络爬虫 从互联网中搜集网页，采集信息，这些网页信息用于为搜索引擎建立索引从而提供支持，它决定着整个引擎系统的内容是否丰富，信息是否即时，因此其性能的优劣直接影响着搜索引擎的效果。</p>
+<p>第一步：抓取网页<br>搜索引擎网络爬虫的基本工作流程如下：</p>
+<ol>
+<li><p>首先选取一部分的种子URL </p>
+</li>
+<li><p>将这些URL放入待抓取URL队列；</p>
+</li>
+<li>取出待抓取URL，解析DNS得到主机的IP，并将URL对应的网页下载下来，存储进已下载网页库中，并且将这些URL放进已抓取URL队列；</li>
+<li>分析已抓取URL队列中的URL，分析其中的其他URL，并且将URL放入待抓取URL队列，从而进入下一个循环。</li>
+</ol>
+<p>但是搜索引擎蜘蛛的爬行是被输入了一定的规则的，它需要遵从一些命令或文件的内容，如标注为nofollow的链接，或者是Robots协议。</p>
+<blockquote>
+<p>Robots协议（也叫爬虫协议、机器人协议等），全称是“网络爬虫排除标准”（Robots Exclusion Protocol），网站通过Robots协议告诉搜索引擎哪些页面可以抓取，哪些页面不能抓取，例如：<br>  淘宝网：<a href="https://www.taobao.com/robots.txt" target="_blank" rel="noopener">https://www.taobao.com/robots.txt</a><br>  腾讯网： <a href="http://www.qq.com/robots.txt" target="_blank" rel="noopener">http://www.qq.com/robots.txt</a></p>
+</blockquote>
+<p>第二步：数据存储<br>搜索引擎通过爬虫爬取到的网页，将数据存入原始页面数据库。其中的页面数据与用户浏览器得到的HTML是完全一样的。<br>搜索引擎蜘蛛在抓取页面时，也做一定的重复内容检测，一旦遇到访问权重很低的网站上有大量抄袭、采集或者复制的内容，很可能就不再爬行。</p>
+<p>第三步：预处理<br>搜索引擎将爬虫抓取回来的页面，进行各种步骤的预处理。</p>
+<ul>
+<li>提取文字</li>
+<li>中文分词</li>
+<li>消除噪音（比如版权声明文字、导航条、广告等……）</li>
+<li>索引处理</li>
+<li>链接关系计算</li>
+<li>特殊文件处理</li>
+<li>…</li>
+</ul>
+<p>除了HTML文件外，搜索引擎通常还能抓取和索引以文字为基础的多种文件类型，如 PDF、Word、WPS、XLS、PPT、TXT 文件等。我们在搜索结果中也经常会看到这些文件类型。<br>但搜索引擎还不能处理图片、视频、Flash 这类非文字内容，也不能执行脚本和程序。</p>
+<p>第四步：提供检索服务，网站排名<br>搜索引擎在对信息进行组织和处理后，为用户提供关键字检索服务，将用户检索相关的信息展示给用户。<br>同时会根据页面的PageRank值（链接的访问量排名）来进行网站排名，这样Rank值高的网站在搜索结果中会排名较前，当然也可以直接使用 Money 购买搜索引擎网站排名，简单粗暴。</p>
+<p><strong>但是，这些通用性搜索引擎也存在着一定的局限性：</strong></p>
+<ol>
+<li>通用搜索引擎所返回的结果都是网页，而大多情况下，网页里90%的内容对用户来说都是无用的。</li>
+<li>不同领域、不同背景的用户往往具有不同的检索目的和需求，搜索引擎无法提供针对具体某个用户的搜索结果。</li>
+<li>万维网数据形式的丰富和网络技术的不断发展，图片、数据库、音频、视频多媒体等不同数据大量出现，通用搜索引擎对这些文件无能为力，不能很好地发现和获取。</li>
+<li>通用搜索引擎大多提供基于关键字的检索，难以支持根据语义信息提出的查询，无法准确理解用户的具体需求。</li>
+</ol>
+<h4 id="聚焦爬虫"><a href="#聚焦爬虫" class="headerlink" title="聚焦爬虫"></a>聚焦爬虫</h4><p>聚焦爬虫，是”面向特定主题需求”的一种网络爬虫程序，它与通用搜索引擎爬虫的区别在于：<strong><em>聚焦爬虫在实施网页抓取时会对内容进行处理筛选，尽量保证只抓取与需求相关的网页信息</em></strong>。</p>
+<h3 id="HTTP-HTTPS的请求与相应"><a href="#HTTP-HTTPS的请求与相应" class="headerlink" title="HTTP/HTTPS的请求与相应"></a>HTTP/HTTPS的请求与相应</h3><h4 id="HTTP和HTTPS"><a href="#HTTP和HTTPS" class="headerlink" title="HTTP和HTTPS"></a>HTTP和HTTPS</h4><p>HTTP协议（HyperText Transfer Protocol，超文本传输协议）：是一种发布和接收 HTML页面的方法。<br>HTTPS（Hypertext Transfer Protocol over Secure Socket Layer）简单讲是HTTP的安全版，在HTTP下加入SSL层。<br>SSL（Secure Sockets Layer 安全套接层）主要用于Web的安全传输协议，在传输层对网络连接进行加密，保障在Internet上数据传输的安全。  </p>
+<blockquote>
+<p>HTTP的端口号为80<br>  HTTPS的端口号为443</p>
+</blockquote>
+<h4 id="HTTP的请求与响应"><a href="#HTTP的请求与响应" class="headerlink" title="HTTP的请求与响应"></a>HTTP的请求与响应</h4><p>HTTP通信由两部分组成：<em>客户端请求消息</em>与<em>服务器响应消息</em>。</p>
+<h5 id="浏览器发送HTTP请求的过程："><a href="#浏览器发送HTTP请求的过程：" class="headerlink" title="浏览器发送HTTP请求的过程："></a>浏览器发送HTTP请求的过程：</h5><p>当用户在浏览器的地址栏中输入一个URL并按回车键之后，浏览器会向HTTP服务器发送HTTP请求。HTTP请求主要分为“Get”和“Post”两种方法。<br>当我们在浏览器输入URL <a href="http://www.baidu.com" target="_blank" rel="noopener">http://www.baidu.com</a> 的时候，浏览器发送一个Request请求去获取 <a href="http://www.baidu.com" target="_blank" rel="noopener">http://www.baidu.com</a> 的html文件，服务器把Response文件对象发送回给浏览器。<br>浏览器分析Response中的 HTML，发现其中引用了很多其他文件，比如Images文件，CSS文件，JS文件。 浏览器会自动再次发送Request去获取图片，CSS文件，或者JS文件。<br>当所有的文件都下载成功后，网页会根据HTML语法结构，完整的显示出来了。<br>URL（Uniform / Universal Resource Locator的缩写）：统一资源定位符，是用于完整地描述Internet上网页和其他资源的地址的一种标识方法。  </p>
+<p>基本格式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scheme://host[:port#]/path/…/[?query-string][#anchor]</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>scheme：协议(例如：http, https, ftp)</li>
+<li>host：服务器的IP地址或者域名</li>
+<li>port#：服务器的端口（如果是走协议默认端口，缺省端口80）</li>
+<li>path：访问资源的路径</li>
+<li>query-string：参数，发送给http服务器的数据</li>
+<li>anchor：锚（跳转到网页的指定锚点位置）</li>
+</ul>
+<h4 id="客户端HTTP请求"><a href="#客户端HTTP请求" class="headerlink" title="客户端HTTP请求"></a>客户端HTTP请求</h4><p>URL只是标识资源的位置，而HTTP是用来提交和获取资源。客户端发送一个HTTP请求到服务器的请求消息，包括以下格式：  </p>
+<blockquote>
+<p>请求行、请求头部、空行、请求数据</p>
+</blockquote>
+<p><img src="/images/spider/client_request_format.png" alt="&quot;HTTP请求报文格式&quot;">  </p>
+<p>一个典型的HTTP请求示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">GET https://www.baidu.com/ HTTP/1.1</span><br><span class="line">Host: www.baidu.com</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8</span><br><span class="line">Referer: http://www.baidu.com/</span><br><span class="line">Accept-Encoding: gzip, deflate, sdch, br</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8,en;q=0.6</span><br><span class="line">Cookie: BAIDUID=04E4001F34EA74AD4601512DD3C41A7B:FG=1; BIDUPSID=04E4001F34EA74AD4601512DD3C41A7B; PSTM=1470329258; MCITY=-343%3A340%3A; BDUSS=nF0MVFiMTVLcUh-Q2MxQ0M3STZGQUZ4N2hBa1FFRkIzUDI3QlBCZjg5cFdOd1pZQVFBQUFBJCQAAAAAAAAAAAEAAADpLvgG0KGyvLrcyfrG-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFaq3ldWqt5XN; H_PS_PSSID=1447_18240_21105_21386_21454_21409_21554; BD_UPN=12314753; sug=3; sugstore=0; ORIGIN=0; bdime=0; H_PS_645EC=7e2ad3QHl181NSPbFbd7PRUCE1LlufzxrcFmwYin0E6b%2BW8bbTMKHZbDP0g; BDSVRTM=0</span><br></pre></td></tr></table></figure></p>
+<h5 id="HTTP请求主要分为Get和Post两种方法"><a href="#HTTP请求主要分为Get和Post两种方法" class="headerlink" title="HTTP请求主要分为Get和Post两种方法"></a>HTTP请求主要分为Get和Post两种方法</h5><p>GET是从服务器上获取数据，POST是向服务器传送数据。<br>GET请求参数显示，都显示在浏览器网址上，HTTP服务器根据该请求所包含URL中的参数来产生响应内容，即“Get”请求的参数是URL的一部分。 例如： <a href="http://www.baidu.com/s?wd=Chinese" target="_blank" rel="noopener">http://www.baidu.com/s?wd=Chinese</a><br>POST请求参数在请求体当中，消息长度没有限制而且以隐式的方式进行发送，通常用来向HTTP服务器提交量比较大的数据（比如请求中包含许多参数或者文件上传操作等），请求的参数包含在“Content-Type”消息头里，指明该消息体的媒体类型和编码。<br><em>注意：避免使用Get方式提交表单，因为有可能会导致安全问题。 比如说在登陆表单中用Get方式，用户输入的用户名和密码将在地址栏中暴露无遗。</em>  </p>
+<h5 id="常用的请求报头"><a href="#常用的请求报头" class="headerlink" title="常用的请求报头"></a>常用的请求报头</h5><ol>
+<li><p>Host (主机和端口号)<br>Host：对应网址URL中的Web名称和端口号，用于指定被请求资源的Internet主机和端口号，通常属于URL的一部分。</p>
+</li>
+<li><p>Connection (链接类型)<br>Connection：表示客户端与服务连接类型  </p>
+<ol>
+<li>Client 发起一个包含 Connection:keep-alive 的请求，HTTP/1.1使用 keep-alive 为默认值。  </li>
+<li>Server收到请求后：<br>如果 Server 支持 keep-alive，回复一个包含 Connection:keep-alive 的响应，不关闭连接；<br>如果 Server 不支持 keep-alive，回复一个包含 Connection:close 的响应，关闭连接；  </li>
+<li><p>如果client收到包含 Connection:keep-alive 的响应，向同一个连接发送下一个请求，直到一方主动关闭连接。  </p>
+<p><em>keep-alive在很多情况下能够重用连接，减少资源消耗，缩短响应时间，比如当浏览器需要多个文件时(比如一个HTML文件和相关的图形文件)，不需要每次都去请求建立连接。</em>  </p>
+</li>
+</ol>
+</li>
+<li><p>Upgrade-Insecure-Requests (升级为HTTPS请求)<br>Upgrade-Insecure-Requests：升级不安全的请求，意思是会在加载 http 资源时自动替换成 https 请求，让浏览器不再显示https页面中的http请求警报。<br>HTTPS 是以安全为目标的 HTTP 通道，所以在 HTTPS 承载的页面上不允许出现 HTTP 请求，一旦出现就是提示或报错。  </p>
+</li>
+<li><p>User-Agent (浏览器名称)<br>User-Agent：是客户浏览器的名称。</p>
+</li>
+<li><p>Accept (传输文件类型)<br>Accept：指浏览器或其他客户端可以接受的MIME（Multipurpose Internet Mail Extensions（多用途互联网邮件扩展））文件类型，服务器可以根据它判断并返回适当的文件格式。  </p>
+<blockquote>
+<p>Accept: <em>/</em>：表示什么都可以接收；<br>   Accept：image/gif：表明客户端希望接受GIF图像格式的资源；<br>   Accept：text/html：表明客户端希望接受html文本;<br>   Accept: text/html, application/xhtml+xml;q=0.9, image/*;q=0.8：表示浏览器支持的 MIME 类型分别是 html文本、xhtml和xml文档、所有的图像格式资源。  </p>
+</blockquote>
+<p> <em>q是权重系数，范围 0 =&lt; q &lt;= 1，q 值越大，请求越倾向于获得其“;”之前的类型表示的内容。若没有指定q值，则默认为1，按从左到右排序顺序；若被赋值为0，则用于表示浏览器不接受此内容类型。</em><br> <em>Text：用于标准化地表示的文本信息，文本消息可以是多种字符集和或者多种格式的；Application：用于传输应用程序数据或者二进制数据。</em>  </p>
+</li>
+<li><p>Referer(页面跳转处)<br>Referer：表明产生请求的网页来自于哪个URL，用户是从该 Referer页面访问到当前请求的页面。这个属性可以用来跟踪Web请求来自哪个页面，是从什么网站来的等。</p>
+<p>有时候遇到下载某网站图片，需要对应的referer，否则无法下载图片，那是因为人家做了防盗链，原理就是根据referer去判断是否是本网站的地址，如果不是，则拒绝，如果是，就可以下载；</p>
+</li>
+<li><p>Accept-Encoding（文件编解码格式）<br>Accept-Encoding：指出浏览器可以接受的编码方式。编码方式不同于文件格式，它是为了压缩文件并加速文件传递速度。浏览器在接收到Web响应之后先解码，然后再检查文件格式，许多情形下这可以减少大量的下载时间。  </p>
+<blockquote>
+<p>Accept-Encoding:gzip;q=1.0, identity; q=0.5, *;q=0<br> 如果有多个Encoding同时匹配, 按照q值顺序排列，本例中按顺序支持 gzip, identity压缩编码，支持gzip的浏览器会返回经过gzip编码的HTML页面。 如果请求消息中没有设置这个域服务器假定客户端对各种内容编码都可以接受。</p>
+</blockquote>
+</li>
+<li><p>Accept-Language（语言种类）<br>Accept-Langeuage：指出浏览器可以接受的语言种类，如en或en-us指英语，zh或者zh-cn指中文，当服务器能够提供一种以上的语言版本时要用到。</p>
+</li>
+<li><p>Accept-Charset（字符编码）<br>Accept-Charset：指出浏览器可以接受的字符编码。</p>
+<blockquote>
+<p>举例：Accept-Charset:iso-8859-1,gb2312,utf-8  </p>
+<ul>
+<li>ISO8859-1：通常叫做Latin-1。Latin-1包括了书写所有西方欧洲语言不可缺少的附加字符，英文浏览器的默认值是ISO-8859-1.</li>
+<li>gb2312：标准简体中文字符集;  </li>
+<li>utf-8：UNICODE 的一种变长字符编码，可以解决多种语言文本显示问题，从而实现应用国际化和本地化。<br>如果在请求消息中没有设置这个域，缺省是任何字符集都可以接受。  </li>
+</ul>
+</blockquote>
+</li>
+<li><p>Cookie （Cookie）<br>Cookie：浏览器用这个属性向服务器发送Cookie。Cookie是在浏览器中寄存的小型数据体，它可以记载和服务器相关的用户信息，也可以用来实现会话功能，以后会详细讲。</p>
+</li>
+<li><p>Content-Type (POST数据类型)<br>Content-Type：POST请求里用来表示的内容类型。</p>
+<blockquote>
+<p>Content-Type = Text/XML; charset=gb2312：<br> 指明该请求的消息体中包含的是纯文本的XML类型的数据，字符编码采用“gb2312”。</p>
+</blockquote>
+</li>
+</ol>
+<h4 id="服务端HTTP响应"><a href="#服务端HTTP响应" class="headerlink" title="服务端HTTP响应"></a>服务端HTTP响应</h4><p>HTTP响应也由四个部分组成，分别是： 状态行、消息报头、空行、响应正文</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Server: Tengine</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Date: Wed, 30 Nov 2016 07:58:21 GMT</span><br><span class="line">Cache-Control: no-cache</span><br><span class="line">Content-Type: text/html;charset=UTF-8</span><br><span class="line">Keep-Alive: timeout=20</span><br><span class="line">Vary: Accept-Encoding</span><br><span class="line">Pragma: no-cache</span><br><span class="line">X-NWS-LOG-UUID: bd27210a-24e5-4740-8f6c-25dbafa9c395</span><br><span class="line">Content-Length: 180945</span><br><span class="line"></span><br><span class="line">&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; ....</span><br></pre></td></tr></table></figure>
+<h5 id="常用的响应报头"><a href="#常用的响应报头" class="headerlink" title="常用的响应报头"></a>常用的响应报头</h5><p>理论上所有的响应头信息都应该是回应请求头的。但是服务端为了效率，安全，还有其他方面的考虑，会添加相对应的响应头信息：</p>
+<ol>
+<li><p>Cache-Control：must-revalidate, no-cache, private。<br>这个值告诉客户端，服务端不希望客户端缓存资源，在下次请求资源时，必须要从新请求服务器，不能从缓存副本中获取资源。  </p>
+<ul>
+<li>Cache-Control是响应头中很重要的信息，当客户端请求头中包含Cache-Control:max-age=0请求，明确表示不会缓存服务器资源时,Cache-Control作为作为回应信息，通常会返回no-cache，意思就是说，”那不缓存了”。</li>
+<li>当客户端在请求头中没有包含Cache-Control时，服务端往往会定,不同的资源不同的缓存策略，比如说oschina在缓存图片资源的策略就是Cache-Control：max-age=86400,这个意思是，从当前时间开始，在86400秒的时间内，客户端可以直接从缓存副本中读取资源，而不需要向服务器请求。  </li>
+</ul>
+</li>
+<li><p>Connection：keep-alive<br>这个字段作为回应客户端的Connection：keep-alive，告诉客户端服务器的tcp连接也是一个长连接，客户端可以继续使用这个tcp连接发送http请求。  </p>
+</li>
+<li><p>Content-Encoding:gzip<br>告诉客户端，服务端发送的资源是采用gzip编码的，客户端看到这个信息后，应该采用gzip对资源进行解码。  </p>
+</li>
+<li><p>Content-Type：text/html;charset=UTF-8<br>告诉客户端，资源文件的类型，还有字符编码，客户端通过utf-8对资源进行解码，然后对资源进行html解析。如果我们看到有些网站是乱码的，往往就是服务器端没有返回正确的编码。  </p>
+</li>
+<li><p>Date：Sun, 21 Sep 2016 06:18:21 GMT<br>这个是服务端发送资源时的服务器时间，GMT是格林尼治所在地的标准时间。http协议中发送的时间都是GMT的，这主要是解决在互联网上，不同时区在相互请求资源的时候，时间混乱问题。</p>
+</li>
+<li><p>Expires:Sun, 1 Jan 2000 01:00:00 GMT<br>这个响应头也跟缓存有关，告诉客户端在这个时间前，可以直接访问缓存副本，很显然这个值会存在问题，因为客户端和服务器的时间不一定会都是相同的，如果时间不同就会导致问题。所以这个响应头是没有Cache-Control：max-age=*这个响应头准确的，因为max-age=date中的date是个相对时间，不仅更好理解，也更准确。</p>
+</li>
+<li><p>Pragma:no-cache<br>这个含义与Cache-Control等同。</p>
+</li>
+<li><p>Server：Tengine/1.4.6<br>这个是服务器和相对应的版本，只是告诉客户端服务器的信息。</p>
+</li>
+<li><p>Transfer-Encoding：chunked<br>这个响应头告诉客户端，服务器发送的资源的方式是分块发送的。一般分块发送的资源都是服务器动态生成的，在发送时还不知道发送资源的大小，所以采用分块发送，每一块都是独立的，独立的块都能标示自己的长度，最后一块是0长度的，当客户端读到这个0长度的块时，就可以确定资源已经传输完了。</p>
+</li>
+<li><p>Vary: Accept-Encoding<br>告诉缓存服务器，缓存压缩文件和非压缩文件两个版本，现在这个字段用处并不大，因为现在的浏览器都是支持压缩的。  </p>
+</li>
+</ol>
+<h5 id="响应状态码"><a href="#响应状态码" class="headerlink" title="响应状态码"></a>响应状态码</h5><p>响应状态代码有三位数字组成，第一个数字定义了响应的类别，且有五种可能取值。  </p>
+<blockquote>
+<p>常见状态码：  </p>
+<ul>
+<li>100~199：表示服务器成功接收部分请求，要求客户端继续提交其余请求才能完成整个处理过程。</li>
+<li>200~299：表示服务器成功接收请求并已完成整个处理过程。常用200（OK 请求成功）。</li>
+<li>300~399：为完成请求，客户需进一步细化请求。例如：请求的资源已经移动一个新地址、常用302（所请求的页面已经临时转移至新的url）、307和304（使用缓存资源）。</li>
+<li>400~499：客户端的请求有错误，常用404（服务器无法找到被请求的页面）、403（服务器拒绝访问，权限不够）。</li>
+<li>500~599：服务器端出现错误，常用500（请求未完成。服务器遇到不可预知的情况）。  </li>
+</ul>
+</blockquote>
+<h4 id="Cookie-和-Session："><a href="#Cookie-和-Session：" class="headerlink" title="Cookie 和 Session："></a>Cookie 和 Session：</h4><p>服务器和客户端的交互仅限于请求/响应过程，结束之后便断开，在下一次请求时，服务器会认为新的客户端。<br>为了维护他们之间的链接，让服务器知道这是前一个用户发送的请求，必须在一个地方保存客户端的信息。<br><em>Cookie</em>：通过在 客户端 记录的信息确定用户的身份。<br><em>Session</em>：通过在 服务器端 记录的信息确定用户的身份。 </p>
+<h3 id="HTTP代理神器Fiddler"><a href="#HTTP代理神器Fiddler" class="headerlink" title="HTTP代理神器Fiddler"></a>HTTP代理神器Fiddler</h3><h3 id="urllib库的基本使用"><a href="#urllib库的基本使用" class="headerlink" title="urllib库的基本使用"></a>urllib库的基本使用</h3><p>所谓网页抓取，就是把URL地址中指定的网络资源从网络流中读取出来，保存到本地。 在Python3中一般使用urllib库。</p>
+<h4 id="urlopen和Request"><a href="#urlopen和Request" class="headerlink" title="urlopen和Request"></a>urlopen和Request</h4><p>可以直接使用urlopen()打开一个网页；但是，如果需要执行更复杂的操作，比如增加HTTP报头，必须创建一个 Request 实例来作为urlopen()的参数；而需要访问的url地址则作为 Request 实例的参数。  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> request</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_page_info</span><span class="params">()</span>:</span></span><br><span class="line">    headers = &#123;</span><br><span class="line">        <span class="string">"User-Agent"</span>: <span class="string">"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36"</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    req = request.Request(<span class="string">"http://www.baidu.com/"</span>, headers=headers)</span><br><span class="line">    res = request.urlopen(req)</span><br><span class="line">    html = res.read()</span><br><span class="line">    <span class="comment"># 请求页面的源代码</span></span><br><span class="line">    print(html)</span><br><span class="line">    <span class="comment"># 请求的状态码</span></span><br><span class="line">    print(res.getcode())</span><br><span class="line">    <span class="comment"># 请求的链接</span></span><br><span class="line">    print(res.geturl())</span><br><span class="line">    <span class="comment"># 请求头信息</span></span><br><span class="line">    print(res.info())</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    get_page_info()</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>新建Request实例，除了必须要有 url 参数之外，还可以设置另外两个参数：  </p>
+<ul>
+<li>data（默认空）：是伴随 url 提交的数据（比如要post的数据），同时 HTTP 请求将从 “GET”方式 改为 “POST”方式。  </li>
+<li>headers（默认空）：是一个字典，包含了需要发送的HTTP报头的键值对。  </li>
+</ul>
+</blockquote>
+<h4 id="User-Agent"><a href="#User-Agent" class="headerlink" title="User-Agent"></a>User-Agent</h4><p>浏览器就是互联网世界上公认被允许的身份，如果我们希望我们的爬虫程序更像一个真实用户，那我们第一步，就是需要伪装成一个被公认的浏览器。用不同的浏览器在发送请求的时候，会有不同的User-Agent头。 urllib默认的User-Agent头为：Python-urllib/x.y（x和y是Python主版本和次版本号）</p>
+<h4 id="添加更多的Header信息"><a href="#添加更多的Header信息" class="headerlink" title="添加更多的Header信息"></a>添加更多的Header信息</h4><p>在 HTTP Request 中加入特定的 Header，来构造一个完整的HTTP请求消息。</p>
+<ul>
+<li>可以通过调用Request.add_header() 添加/修改一个特定的header </li>
+<li>也可以通过调用Request.get_header()来查看已有的header。</li>
+</ul>
+<h4 id="parse-urlencode"><a href="#parse-urlencode" class="headerlink" title="parse.urlencode()"></a>parse.urlencode()</h4><p>一般HTTP请求提交数据，需要编码成URL编码格式，然后做为url的一部分，或者作为参数传到Request对象中。<br>此时需要使用parse.urlencode对需要提交的数据进行编码。</p>
+<h4 id="Get方式"><a href="#Get方式" class="headerlink" title="Get方式"></a>Get方式</h4><p>GET请求一般用于向服务器获取数据。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> request, parse</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">baidu_search_by_keyword</span><span class="params">(kw)</span>:</span></span><br><span class="line">    url = <span class="string">"http://www.baidu.com/"</span></span><br><span class="line">    wd = &#123;<span class="string">"wd"</span>: kw&#125;</span><br><span class="line">    wd = parse.urlencode(wd)</span><br><span class="line"></span><br><span class="line">    full_url = url + <span class="string">"s?"</span> + wd</span><br><span class="line"></span><br><span class="line">    headers = &#123;</span><br><span class="line">        <span class="string">"User-Agent"</span>: <span class="string">"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36"</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    req = request.Request(full_url, headers=headers)</span><br><span class="line">    res = request.urlopen(req)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> open(<span class="string">"02_result.html"</span>, <span class="string">"wb"</span>) <span class="keyword">as</span> f:</span><br><span class="line">        f.write(res.read())</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    keyword = input(<span class="string">"请输入要搜索的内容："</span>)</span><br><span class="line">    baidu_search_by_keyword(keyword)</span><br></pre></td></tr></table></figure>
+<h5 id="批量爬取贴吧页面数据"><a href="#批量爬取贴吧页面数据" class="headerlink" title="批量爬取贴吧页面数据"></a>批量爬取贴吧页面数据</h5><p>首先需要对百度贴吧的链接进行分析，找出其中的规律。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> request, parse</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">tieba_spider</span><span class="params">(url, beginpage, endpage)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">        作用：负责处理url，分配每个url去发送请求</span></span><br><span class="line"><span class="string">        url：需要处理的第一个url</span></span><br><span class="line"><span class="string">        beginPage: 爬虫执行的起始页面</span></span><br><span class="line"><span class="string">        endPage: 爬虫执行的截止页面</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> page <span class="keyword">in</span> range(beginpage, endpage + <span class="number">1</span>):</span><br><span class="line">        pn = (page - <span class="number">1</span>) * <span class="number">50</span></span><br><span class="line"></span><br><span class="line">        filename = <span class="string">"第"</span> + str(page) + <span class="string">"页.html"</span></span><br><span class="line">        <span class="comment"># 组合为完整的 url，并且pn值每次增加50</span></span><br><span class="line">        fullurl = url + <span class="string">"&amp;pn="</span> + str(pn)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 调用loadPage()发送请求获取HTML页面</span></span><br><span class="line">        html = load_page(fullurl, filename)</span><br><span class="line">        <span class="comment"># 将获取到的HTML页面写入本地磁盘文件</span></span><br><span class="line">        write_file(html, filename)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">load_page</span><span class="params">(url, filename)</span>:</span></span><br><span class="line">    <span class="string">""" </span></span><br><span class="line"><span class="string">        作用：根据url发送请求，获取服务器响应文件</span></span><br><span class="line"><span class="string">        url：需要爬取的url地址</span></span><br><span class="line"><span class="string">        filename: 文件名</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line">    print(<span class="string">"正在下载"</span> + filename)</span><br><span class="line">    headers = &#123;<span class="string">"User-Agent"</span>: <span class="string">"Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0;"</span>&#125;</span><br><span class="line">    req = request.Request(url, headers=headers)</span><br><span class="line">    res = request.urlopen(req)</span><br><span class="line">    <span class="keyword">return</span> res.read()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">write_file</span><span class="params">(html, filename)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">        作用：保存服务器响应文件到本地磁盘文件里</span></span><br><span class="line"><span class="string">        html: 服务器响应文件</span></span><br><span class="line"><span class="string">        filename: 本地磁盘文件名</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    print(<span class="string">"正在存储"</span> + filename)</span><br><span class="line">    <span class="keyword">with</span> open(filename, <span class="string">'wb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">        f.write(html)</span><br><span class="line">    print(<span class="string">"-"</span> * <span class="number">20</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    kw = input(<span class="string">"请输入需要爬取的贴吧:"</span>)</span><br><span class="line">    <span class="comment"># 输入起始页和终止页，str转成int类型</span></span><br><span class="line">    beginPage = int(input(<span class="string">"请输入起始页："</span>))</span><br><span class="line">    endPage = int(input(<span class="string">"请输入终止页："</span>))</span><br><span class="line">    url = <span class="string">"http://tieba.baidu.com/f?"</span></span><br><span class="line">    key = parse.urlencode(&#123;<span class="string">"kw"</span>: kw&#125;)</span><br><span class="line">    <span class="comment"># 组合后的url示例：http://tieba.baidu.com/f?kw=python</span></span><br><span class="line">    url = url + key</span><br><span class="line">    tieba_spider(url, beginPage, endPage)</span><br></pre></td></tr></table></figure>
+<h4 id="POST方式"><a href="#POST方式" class="headerlink" title="POST方式"></a>POST方式</h4><p>Request请求对象的里有data参数，它就是用在POST里的，此时要传送的数据就是这个参数data，data是一个字典，里面要匹配键值对。  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> request, parse</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">youdao_translate</span><span class="params">(keyword)</span>:</span></span><br><span class="line">    url = <span class="string">"http://fanyi.youdao.com/translate?smartresult=dict&amp;smartresult=rule"</span></span><br><span class="line">    headers = &#123;</span><br><span class="line">        <span class="string">"User-Agent"</span>: <span class="string">"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36"</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    formdata = &#123;</span><br><span class="line">        <span class="string">"from"</span>: <span class="string">"AUTO"</span>,</span><br><span class="line">        <span class="string">"to"</span>: <span class="string">"AUTO"</span>,</span><br><span class="line">        <span class="string">"i"</span>: keyword,</span><br><span class="line">        <span class="string">"smartresult"</span>: <span class="string">"dict"</span>,</span><br><span class="line">        <span class="string">"client"</span>: <span class="string">"fanyideskweb"</span>,</span><br><span class="line">        <span class="string">"doctype"</span>: <span class="string">"json"</span>,</span><br><span class="line">        <span class="string">"version"</span>: <span class="string">"2.1"</span>,</span><br><span class="line">        <span class="string">"keyfrom"</span>: <span class="string">"fanyi.web"</span>,</span><br><span class="line">        <span class="string">"ue"</span>: <span class="string">"UTF-8"</span>,</span><br><span class="line">        <span class="string">"action"</span>: <span class="string">"FY_BY_ENTER"</span>,</span><br><span class="line">        <span class="string">"typoResult"</span>: <span class="string">"false"</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    data = parse.urlencode(formdata).encode(<span class="string">'utf-8'</span>)</span><br><span class="line">    req = request.Request(url, data=data, headers=headers)</span><br><span class="line">    res = request.urlopen(req)</span><br><span class="line"></span><br><span class="line">    print(res.read().decode(<span class="string">'utf-8'</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    youdao_translate(<span class="string">"黑暗"</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="获取AJAX加载的内容"><a href="#获取AJAX加载的内容" class="headerlink" title="获取AJAX加载的内容"></a>获取AJAX加载的内容</h4><p>有些网页内容使用AJAX加载，AJAX一般返回的是JSON，直接对AJAX地址进行post或get，就返回JSON数据了。<br>在写爬虫程序时，最需要关注的，是数据的来源。  </p>
+<h4 id="处理HTTPS请求-SSL证书验证"><a href="#处理HTTPS请求-SSL证书验证" class="headerlink" title="处理HTTPS请求 SSL证书验证"></a>处理HTTPS请求 SSL证书验证</h4><p>在访问网页的时候则会报出SSLError：<br>urllib.error.URLError:&lt;urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verity failed (.ssl.c:777)</p>
+<p>此时需要单独处理SSL证书，让程序忽略SSL证书验证错误，即可正常访问。解决办法：  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> ssl</span><br><span class="line"></span><br><span class="line">ssl._create_default_https_context = ssl._create_unverified_context</span><br></pre></td></tr></table></figure>
+<h4 id="关于CA"><a href="#关于CA" class="headerlink" title="关于CA"></a>关于CA</h4><p>CA(Certificate Authority)是数字证书认证中心的简称，是指发放、管理、废除数字证书的受信任的第三方机构，如北京数字认证股份有限公司、上海市数字证书认证中心有限公司等。<br>CA的作用是检查证书持有者身份的合法性，并签发证书，以防证书被伪造或篡改，以及对证书和密钥进行管理。<br>现实生活中可以用身份证来证明身份， 那么在网络世界里，数字证书就是身份证。和现实生活不同的是，并不是每个上网的用户都有数字证书的，往往只有当一个人需要证明自己的身份的时候才需要用到数字证书。<br>普通用户一般是不需要，因为网站并不关心是谁访问了网站，现在的网站只关心流量。但是反过来，网站就需要证明自己的身份了。<br>比如说现在钓鱼网站很多的，比如你想访问的是www.baidu.com，但其实你访问的是www.daibu.com”，所以在提交自己的隐私信息之前需要验证一下网站的身份，要求网站出示数字证书。<br>一般正常的网站都会主动出示自己的数字证书，来确保客户端和网站服务器之间的通信数据是加密安全的。  </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Spider/" rel="tag"># Spider</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/12/python3-base-datatype/" rel="next" title="python3基础数据类型详解">
+                <i class="fa fa-chevron-left"></i> python3基础数据类型详解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jimmy Zhong</p>
+              <p class="site-description motion-element" itemprop="description">You are the only one who knows you are afraid of!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/pchad321" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#通用爬虫和聚焦爬虫"><span class="nav-number">1.</span> <span class="nav-text">通用爬虫和聚焦爬虫</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#通用爬虫"><span class="nav-number">1.1.</span> <span class="nav-text">通用爬虫</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#通用搜索引擎的工作原理"><span class="nav-number">1.1.1.</span> <span class="nav-text">通用搜索引擎的工作原理</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#聚焦爬虫"><span class="nav-number">1.2.</span> <span class="nav-text">聚焦爬虫</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP-HTTPS的请求与相应"><span class="nav-number">2.</span> <span class="nav-text">HTTP/HTTPS的请求与相应</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP和HTTPS"><span class="nav-number">2.1.</span> <span class="nav-text">HTTP和HTTPS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP的请求与响应"><span class="nav-number">2.2.</span> <span class="nav-text">HTTP的请求与响应</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#浏览器发送HTTP请求的过程："><span class="nav-number">2.2.1.</span> <span class="nav-text">浏览器发送HTTP请求的过程：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#客户端HTTP请求"><span class="nav-number">2.3.</span> <span class="nav-text">客户端HTTP请求</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#HTTP请求主要分为Get和Post两种方法"><span class="nav-number">2.3.1.</span> <span class="nav-text">HTTP请求主要分为Get和Post两种方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#常用的请求报头"><span class="nav-number">2.3.2.</span> <span class="nav-text">常用的请求报头</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#服务端HTTP响应"><span class="nav-number">2.4.</span> <span class="nav-text">服务端HTTP响应</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#常用的响应报头"><span class="nav-number">2.4.1.</span> <span class="nav-text">常用的响应报头</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#响应状态码"><span class="nav-number">2.4.2.</span> <span class="nav-text">响应状态码</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Cookie-和-Session："><span class="nav-number">2.5.</span> <span class="nav-text">Cookie 和 Session：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP代理神器Fiddler"><span class="nav-number">3.</span> <span class="nav-text">HTTP代理神器Fiddler</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#urllib库的基本使用"><span class="nav-number">4.</span> <span class="nav-text">urllib库的基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#urlopen和Request"><span class="nav-number">4.1.</span> <span class="nav-text">urlopen和Request</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#User-Agent"><span class="nav-number">4.2.</span> <span class="nav-text">User-Agent</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加更多的Header信息"><span class="nav-number">4.3.</span> <span class="nav-text">添加更多的Header信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#parse-urlencode"><span class="nav-number">4.4.</span> <span class="nav-text">parse.urlencode()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Get方式"><span class="nav-number">4.5.</span> <span class="nav-text">Get方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#批量爬取贴吧页面数据"><span class="nav-number">4.5.1.</span> <span class="nav-text">批量爬取贴吧页面数据</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#POST方式"><span class="nav-number">4.6.</span> <span class="nav-text">POST方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取AJAX加载的内容"><span class="nav-number">4.7.</span> <span class="nav-text">获取AJAX加载的内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#处理HTTPS请求-SSL证书验证"><span class="nav-number">4.8.</span> <span class="nav-text">处理HTTPS请求 SSL证书验证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关于CA"><span class="nav-number">4.9.</span> <span class="nav-text">关于CA</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jimmy Zhong</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+</html>
