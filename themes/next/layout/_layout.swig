@@ -89,8 +89,5 @@
   {% include '_third-party/scroll-cookie.swig' %}
   {% include '_third-party/exturl.swig' %}
   
-  {% if theme.canvas_nest %}
-    <script type="text/javascript" src="js/src/canvas-nest.min.js"></script>
-  {% endif %
 </body>
 </html>
