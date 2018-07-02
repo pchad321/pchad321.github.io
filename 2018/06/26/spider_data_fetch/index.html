@@ -89,7 +89,8 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/images/spider/re_principle.png">
 <meta property="og:image" content="http://yoursite.com/images/spider/re_match_rule.png">
-<meta property="og:updated_time" content="2018-06-28T08:04:34.000Z">
+<meta property="og:image" content="http://yoursite.com/images/spider/multi_thread_spider.png">
+<meta property="og:updated_time" content="2018-07-02T06:19:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="非结构化和结构化数据提取">
 <meta name="twitter:description" content="页面解析和数据提取一般来讲对我们而言，需要抓取的是某个网站或者某个应用的内容，提取有用的价值。内容一般分为两部分，非结构化的数据和结构化的数据。    非结构化数据：先有数据，再有结构   结构化数据：先有结构、再有数据不同类型的数据，我们需要采用不同的方式来处理。  非结构化的数据处理文本、电话号码、邮箱地址  正则表达式  HTML 文件  正则表达式 XPath CSS选择器  结构化的数据">
@@ -325,8 +326,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-06-28T16:04:34+08:00">
-                2018-06-28
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-02T14:19:08+08:00">
+                2018-07-02
               </time>
             
           </span>
@@ -615,6 +616,157 @@
 <p>lxml是一个HTML/XML的解析器，主要的功能是如何解析和提取 HTML/XML 数据。<br>  lxml和正则一样，也是用 C 实现的，是一款高性能的 Python HTML/XML 解析器，可以利用XPath语法，来快速的定位特定元素以及节点信息。  </p>
 </blockquote>
 <h4 id="使用xpath获取腾讯社招每个职位的详细信息"><a href="#使用xpath获取腾讯社招每个职位的详细信息" class="headerlink" title="使用xpath获取腾讯社招每个职位的详细信息"></a>使用xpath获取腾讯社招每个职位的详细信息</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> request</span><br><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> codecs</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TencentSpider</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, file, beginPage, endPage)</span>:</span></span><br><span class="line">        self.url = <span class="string">"https://hr.tencent.com/position.php?&amp;start="</span></span><br><span class="line">        self.headers = &#123;</span><br><span class="line">            <span class="string">"User-Agent"</span>: <span class="string">"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36"</span></span><br><span class="line">        &#125;</span><br><span class="line">        self.beginPage = beginPage</span><br><span class="line">        self.endPage = endPage</span><br><span class="line">        self.file = file</span><br><span class="line">        self.positionJson = []</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">start_spider</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">for</span> page <span class="keyword">in</span> range(self.beginPage, self.endPage + <span class="number">1</span>):</span><br><span class="line">            offsetNumber = (page - <span class="number">1</span>) * <span class="number">10</span></span><br><span class="line">            fullUrl = self.url + str(offsetNumber)</span><br><span class="line">            self.load_page(fullUrl)</span><br><span class="line"></span><br><span class="line">        self.file.write(json.dumps(self.positionJson, ensure_ascii=<span class="keyword">False</span>))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">load_page</span><span class="params">(self, url)</span>:</span></span><br><span class="line">        req = request.Request(url, headers=self.headers)</span><br><span class="line">        res = request.urlopen(req)</span><br><span class="line">        html = etree.HTML(res.read())</span><br><span class="line"></span><br><span class="line">        links = html.xpath(<span class="string">'//div[@class="left wcont_b box"]//tr[@class="even" or "odd"]/td[1]/a/@href'</span>)</span><br><span class="line">        <span class="keyword">for</span> link <span class="keyword">in</span> links:</span><br><span class="line">            fullLink = <span class="string">"https://hr.tencent.com/"</span> + link</span><br><span class="line">            self.get_position_detail(fullLink)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_position_detail</span><span class="params">(self, url)</span>:</span></span><br><span class="line">        req = request.Request(url, headers=self.headers)</span><br><span class="line">        res = request.urlopen(req)</span><br><span class="line">        html = etree.HTML(res.read())</span><br><span class="line"></span><br><span class="line">        positionDetail = &#123;&#125;</span><br><span class="line">        <span class="comment"># 职位名称</span></span><br><span class="line">        positionDetail[<span class="string">'positionName'</span>] = html.xpath(<span class="string">'//div[@class="box wcont_a"]/table//tr[1]/td/text()'</span>)[<span class="number">0</span>]</span><br><span class="line">        <span class="comment"># 工作地点</span></span><br><span class="line">        positionDetail[<span class="string">'positionAddress'</span>] = html.xpath(<span class="string">'//div[@class="box wcont_a"]/table//tr[2]/td[1]/text()'</span>)[<span class="number">0</span>]</span><br><span class="line">        <span class="comment"># 职位类别</span></span><br><span class="line">        <span class="keyword">if</span>(html.xpath(<span class="string">'//div[@class="box wcont_a"]/table//tr[2]/td[2]/text()'</span>)):</span><br><span class="line">            positionDetail[<span class="string">'positionCategory'</span>] = html.xpath(<span class="string">'//div[@class="box wcont_a"]/table//tr[2]/td[2]/text()'</span>)[<span class="number">0</span>]</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            positionDetail[<span class="string">'positionCategory'</span>] = <span class="string">""</span></span><br><span class="line">        <span class="comment"># 招聘人数</span></span><br><span class="line">        positionDetail[<span class="string">'postionNumber'</span>] = html.xpath(<span class="string">'//div[@class="box wcont_a"]/table//tr[2]/td[3]/text()'</span>)[<span class="number">0</span>]</span><br><span class="line">        <span class="comment"># 工作职责</span></span><br><span class="line">        positionDutyList = html.xpath(<span class="string">'//div[@class="box wcont_a"]/table//tr[3]/td/ul//li'</span>)</span><br><span class="line">        positionDutyStr = <span class="string">""</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> duty <span class="keyword">in</span> positionDutyList:</span><br><span class="line">            positionDutyStr += duty.text</span><br><span class="line">            <span class="comment"># print(positionDutyStr)</span></span><br><span class="line"></span><br><span class="line">        positionDetail[<span class="string">'positionDutyStr'</span>] = positionDutyStr</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 工作要求</span></span><br><span class="line">        positionRequirementList = html.xpath(<span class="string">'//div[@class="box wcont_a"]/table//tr[4]/td/ul//li'</span>)</span><br><span class="line">        positionRequirementStr = <span class="string">""</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> requirement <span class="keyword">in</span> positionRequirementList:</span><br><span class="line">            positionRequirementStr += requirement.text</span><br><span class="line">            <span class="comment"># print(positionRequirementStr)</span></span><br><span class="line"></span><br><span class="line">        positionDetail[<span class="string">'positionRequirementStr'</span>] = positionRequirementStr</span><br><span class="line"></span><br><span class="line">        self.positionJson.append(positionDetail)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    beginPage = int(input(<span class="string">"请输入起始页:"</span>))</span><br><span class="line">    endPage = int(input(<span class="string">"请输入终止页"</span>))</span><br><span class="line">    file = codecs.open(<span class="string">"tencentposition.json"</span>, <span class="string">"w"</span>, <span class="string">"utf-8"</span>)</span><br><span class="line">    tencentspider = TencentSpider(file, beginPage, endPage)</span><br><span class="line">    tencentspider.start_spider()</span><br><span class="line">    file.close()</span><br></pre></td></tr></table></figure>
+<h3 id="数据提取之JSON与JsonPATH"><a href="#数据提取之JSON与JsonPATH" class="headerlink" title="数据提取之JSON与JsonPATH"></a>数据提取之JSON与JsonPATH</h3><p>JSON(JavaScript Object Notation)是一种轻量级的数据交换格式，它使得人们很容易的进行阅读和编写。同时也方便了机器进行解析和生成。适用于进行数据交互的场景，比如网站前台与后台之间的数据交互。</p>
+<h4 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h4><p>json简单说就是javascript中的对象和数组，所以这两种结构就是对象和数组两种结构，通过这两种结构可以表示各种复杂的结构。  </p>
+<blockquote>
+<p> 对象：对象在js中表示为<code>{ }</code>括起来的内容，数据结构为<code>{ key：value, key：value, ... }</code>的键值对的结构，在面向对象的语言中，key为对象的属性，value为对应的属性值，所以很容易理解，取值方法为 对象.key 获取属性值，这个属性值的类型可以是数字、字符串、数组、对象这几种。<br>   数组：数组在js中是中括号<code>[ ]</code>括起来的内容，数据结构为<code>[&quot;Python&quot;, &quot;javascript&quot;, &quot;C++&quot;, ...]</code>，取值方式和所有语言中一样，使用索引获取，字段值的类型可以是 数字、字符串、数组、对象几种。</p>
+</blockquote>
+<h4 id="json模块"><a href="#json模块" class="headerlink" title="json模块"></a>json模块</h4><p>json模块提供了四个功能：dumps、dump、loads、load，用于字符串和python数据类型间进行转换。</p>
+<h5 id="json-loads"><a href="#json-loads" class="headerlink" title="json.loads()"></a>json.loads()</h5><p>把Json格式字符串解码转换成Python对象 从json到python的类型转化对照如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Python</th>
+<th>JSON</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">dict</td>
+<td>object</td>
+</tr>
+<tr>
+<td style="text-align:left">list, tuple</td>
+<td>array</td>
+</tr>
+<tr>
+<td style="text-align:left">str, unicode</td>
+<td>string</td>
+</tr>
+<tr>
+<td style="text-align:left">int, long, float</td>
+<td>number</td>
+</tr>
+<tr>
+<td style="text-align:left">True</td>
+<td>true</td>
+</tr>
+<tr>
+<td style="text-align:left">False</td>
+<td>false</td>
+</tr>
+<tr>
+<td style="text-align:left">None</td>
+<td>null</td>
+</tr>
+</tbody>
+</table>
+<h5 id="json-dumps"><a href="#json-dumps" class="headerlink" title="json.dumps()"></a>json.dumps()</h5><p>实现python类型转化为json字符串，返回一个str对象 把一个Python对象编码转换成Json字符串。  </p>
+<h5 id="json-dump"><a href="#json-dump" class="headerlink" title="json.dump()"></a>json.dump()</h5><p>将Python内置类型序列化为json对象后写入文件。  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line">listStr = [&#123;<span class="string">"city"</span>: <span class="string">"北京"</span>&#125;, &#123;<span class="string">"name"</span>: <span class="string">"大刘"</span>&#125;]</span><br><span class="line">json.dump(listStr, open(<span class="string">"listStr.json"</span>,<span class="string">"w"</span>), ensure_ascii=<span class="keyword">False</span>)</span><br><span class="line"></span><br><span class="line">dictStr = &#123;<span class="string">"city"</span>: <span class="string">"北京"</span>, <span class="string">"name"</span>: <span class="string">"大刘"</span>&#125;</span><br><span class="line">json.dump(dictStr, open(<span class="string">"dictStr.json"</span>,<span class="string">"w"</span>), ensure_ascii=<span class="keyword">False</span>)</span><br></pre></td></tr></table></figure>
+<h5 id="json-load"><a href="#json-load" class="headerlink" title="json.load()"></a>json.load()</h5><p>读取文件中json形式的字符串元素转化成python类型。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line">strList = json.load(open(<span class="string">"listStr.json"</span>))</span><br><span class="line">print(strList)</span><br></pre></td></tr></table></figure>
+<h4 id="JsonPath"><a href="#JsonPath" class="headerlink" title="JsonPath"></a>JsonPath</h4><p>JsonPath是一种信息抽取类库，是从JSON文档中抽取指定信息的工具，提供多种语言实现版本，包括：Javascript、Python、PHP和Java。<br>JsonPath对于JSON来说，相当于XPATH对于XML。</p>
+<h5 id="JsonPath与XPath语法对比"><a href="#JsonPath与XPath语法对比" class="headerlink" title="JsonPath与XPath语法对比"></a>JsonPath与XPath语法对比</h5><table>
+<thead>
+<tr>
+<th style="text-align:center">XPath</th>
+<th style="text-align:left">JSONPath</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">/</td>
+<td style="text-align:left">$</td>
+<td>根节点</td>
+</tr>
+<tr>
+<td style="text-align:center">.</td>
+<td style="text-align:left">@</td>
+<td>现行节点</td>
+</tr>
+<tr>
+<td style="text-align:center">/</td>
+<td style="text-align:left">.or[]</td>
+<td>取子节点</td>
+</tr>
+<tr>
+<td style="text-align:center">..</td>
+<td style="text-align:left">n/a</td>
+<td>取父节点，Jsonpath未支持</td>
+</tr>
+<tr>
+<td style="text-align:center">//</td>
+<td style="text-align:left">..</td>
+<td>就是不管位置，选择所有符合条件的条件</td>
+</tr>
+<tr>
+<td style="text-align:center">*</td>
+<td style="text-align:left">*</td>
+<td>匹配所有元素节点</td>
+</tr>
+<tr>
+<td style="text-align:center">@</td>
+<td style="text-align:left">n/a</td>
+<td>根据属性访问，Json不支持，因为Json是个Key-value递归结构，不需要。</td>
+</tr>
+<tr>
+<td style="text-align:center">[]</td>
+<td style="text-align:left">[]</td>
+<td>迭代器标示（可以在里边做简单的迭代操作，如数组下标，根据内容选值等）</td>
+</tr>
+<tr>
+<td style="text-align:center">&#124;</td>
+<td style="text-align:left">[,]</td>
+<td>支持迭代器中做多选。</td>
+</tr>
+<tr>
+<td style="text-align:center">[]</td>
+<td style="text-align:left">?()</td>
+<td>支持过滤操作.</td>
+</tr>
+<tr>
+<td style="text-align:center">n/a</td>
+<td style="text-align:left">()</td>
+<td>支持表达式计算</td>
+</tr>
+<tr>
+<td style="text-align:center">()</td>
+<td style="text-align:left">n/a</td>
+<td>分组，JsonPath不支持</td>
+</tr>
+</tbody>
+</table>
+<h5 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h5><p>json.loads()是把Json格式字符串解码转换成Python对象，如果在json.loads的时候出错，要注意被解码的Json字符的编码。<br>如果传入的字符串的编码不是UTF-8的话，需要指定字符编码的参数encoding：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line">dataDict = json.loads(jsonStrGBK, encoding=<span class="string">"GBK"</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>decode的作用是将其他编码的字符串转换成 Unicode 编码；  </li>
+<li>encode的作用是将 Unicode 编码转换成其他编码的字符串。  </li>
+</ul>
+<p><em>一句话：UTF-8是对Unicode字符集进行编码的一种编码方式。</em>  </p>
+<h3 id="多线程爬虫实例"><a href="#多线程爬虫实例" class="headerlink" title="多线程爬虫实例"></a>多线程爬虫实例</h3><h4 id="Queue（队列对象）"><a href="#Queue（队列对象）" class="headerlink" title="Queue（队列对象）"></a>Queue（队列对象）</h4><p>Queue是python中的标准库，可以直接import Queue引用，队列是线程间最常用的交换数据的形式。  </p>
+<p><em>python下多线程的思考</em><br>对于资源，加锁是个重要的环节。因为python原生的list,dict等，都是not thread safe的。而Queue是线程安全的，因此在满足使用条件下，建议使用队列。</p>
+<ol>
+<li>初始化：class Queue.Queue(maxsize)  FIFO先进先出  </li>
+<li>包中的常用方法:  <ul>
+<li>Queue.qsize() 返回队列的大小；  </li>
+<li>Queue.empty() 如果队列为空，返回True，反之False；  </li>
+<li>Queue.full() 如果队列满了，返回True，反之False；  </li>
+<li>Queue.full与maxsize大小对应；</li>
+<li>Queue.get([block[, timeout]])获取队列，其中timeout为等待时间。  </li>
+</ul>
+</li>
+<li>创建一个“队列”对象  <ul>
+<li>import Queue  </li>
+<li>myqueue = Queue.Queue(maxsize=10)  </li>
+</ul>
+</li>
+<li>将一个值放入队列中<br> myqueue.put(10)  </li>
+<li>将一个值从队列中取出<br> myqueue.get()  </li>
+</ol>
+<h4 id="多线程示意图"><a href="#多线程示意图" class="headerlink" title="多线程示意图"></a>多线程示意图</h4><p><img src="/images/spider/multi_thread_spider.png" alt="&quot;多线程示意图&quot;"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -655,6 +807,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/02/spider_dynamic_html/" rel="prev" title="非结构化和结构化数据提取">
+                非结构化和结构化数据提取 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -731,7 +887,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -753,7 +909,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -796,7 +952,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#页面解析和数据提取"><span class="nav-number">1.</span> <span class="nav-text">页面解析和数据提取</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#非结构化的数据处理"><span class="nav-number">1.1.</span> <span class="nav-text">非结构化的数据处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#结构化的数据处理"><span class="nav-number">1.2.</span> <span class="nav-text">结构化的数据处理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正则表达式"><span class="nav-number">2.</span> <span class="nav-text">正则表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#正则表达式匹配规则"><span class="nav-number">2.1.</span> <span class="nav-text">正则表达式匹配规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Python的re模块"><span class="nav-number">2.2.</span> <span class="nav-text">Python的re模块</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#re模块的一般使用步骤"><span class="nav-number">2.2.1.</span> <span class="nav-text">re模块的一般使用步骤</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#compile-函数"><span class="nav-number">2.2.2.</span> <span class="nav-text">compile 函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#match-方法"><span class="nav-number">2.2.3.</span> <span class="nav-text">match 方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#search方法"><span class="nav-number">2.2.4.</span> <span class="nav-text">search方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#findall方法"><span class="nav-number">2.2.5.</span> <span class="nav-text">findall方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#finditer方法"><span class="nav-number">2.2.6.</span> <span class="nav-text">finditer方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#split方法"><span class="nav-number">2.2.7.</span> <span class="nav-text">split方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#sub方法"><span class="nav-number">2.2.8.</span> <span class="nav-text">sub方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#匹配中文"><span class="nav-number">2.2.9.</span> <span class="nav-text">匹配中文</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#贪婪模式与非贪婪模式"><span class="nav-number">2.2.10.</span> <span class="nav-text">贪婪模式与非贪婪模式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用正则表达式的爬虫"><span class="nav-number">2.3.</span> <span class="nav-text">使用正则表达式的爬虫</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XPath与lxml库"><span class="nav-number">3.</span> <span class="nav-text">XPath与lxml库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#XPath开发工具"><span class="nav-number">3.1.</span> <span class="nav-text">XPath开发工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#选取节点"><span class="nav-number">3.2.</span> <span class="nav-text">选取节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#谓语（Predicates）"><span class="nav-number">3.3.</span> <span class="nav-text">谓语（Predicates）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#选取未知节点"><span class="nav-number">3.4.</span> <span class="nav-text">选取未知节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#选取若干路径"><span class="nav-number">3.5.</span> <span class="nav-text">选取若干路径</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lxml库"><span class="nav-number">3.6.</span> <span class="nav-text">lxml库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用xpath获取腾讯社招每个职位的详细信息"><span class="nav-number">3.7.</span> <span class="nav-text">使用xpath获取腾讯社招每个职位的详细信息</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#页面解析和数据提取"><span class="nav-number">1.</span> <span class="nav-text">页面解析和数据提取</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#非结构化的数据处理"><span class="nav-number">1.1.</span> <span class="nav-text">非结构化的数据处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#结构化的数据处理"><span class="nav-number">1.2.</span> <span class="nav-text">结构化的数据处理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正则表达式"><span class="nav-number">2.</span> <span class="nav-text">正则表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#正则表达式匹配规则"><span class="nav-number">2.1.</span> <span class="nav-text">正则表达式匹配规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Python的re模块"><span class="nav-number">2.2.</span> <span class="nav-text">Python的re模块</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#re模块的一般使用步骤"><span class="nav-number">2.2.1.</span> <span class="nav-text">re模块的一般使用步骤</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#compile-函数"><span class="nav-number">2.2.2.</span> <span class="nav-text">compile 函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#match-方法"><span class="nav-number">2.2.3.</span> <span class="nav-text">match 方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#search方法"><span class="nav-number">2.2.4.</span> <span class="nav-text">search方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#findall方法"><span class="nav-number">2.2.5.</span> <span class="nav-text">findall方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#finditer方法"><span class="nav-number">2.2.6.</span> <span class="nav-text">finditer方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#split方法"><span class="nav-number">2.2.7.</span> <span class="nav-text">split方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#sub方法"><span class="nav-number">2.2.8.</span> <span class="nav-text">sub方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#匹配中文"><span class="nav-number">2.2.9.</span> <span class="nav-text">匹配中文</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#贪婪模式与非贪婪模式"><span class="nav-number">2.2.10.</span> <span class="nav-text">贪婪模式与非贪婪模式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用正则表达式的爬虫"><span class="nav-number">2.3.</span> <span class="nav-text">使用正则表达式的爬虫</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XPath与lxml库"><span class="nav-number">3.</span> <span class="nav-text">XPath与lxml库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#XPath开发工具"><span class="nav-number">3.1.</span> <span class="nav-text">XPath开发工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#选取节点"><span class="nav-number">3.2.</span> <span class="nav-text">选取节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#谓语（Predicates）"><span class="nav-number">3.3.</span> <span class="nav-text">谓语（Predicates）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#选取未知节点"><span class="nav-number">3.4.</span> <span class="nav-text">选取未知节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#选取若干路径"><span class="nav-number">3.5.</span> <span class="nav-text">选取若干路径</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lxml库"><span class="nav-number">3.6.</span> <span class="nav-text">lxml库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用xpath获取腾讯社招每个职位的详细信息"><span class="nav-number">3.7.</span> <span class="nav-text">使用xpath获取腾讯社招每个职位的详细信息</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据提取之JSON与JsonPATH"><span class="nav-number">4.</span> <span class="nav-text">数据提取之JSON与JsonPATH</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JSON"><span class="nav-number">4.1.</span> <span class="nav-text">JSON</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#json模块"><span class="nav-number">4.2.</span> <span class="nav-text">json模块</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#json-loads"><span class="nav-number">4.2.1.</span> <span class="nav-text">json.loads()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#json-dumps"><span class="nav-number">4.2.2.</span> <span class="nav-text">json.dumps()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#json-dump"><span class="nav-number">4.2.3.</span> <span class="nav-text">json.dump()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#json-load"><span class="nav-number">4.2.4.</span> <span class="nav-text">json.load()</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JsonPath"><span class="nav-number">4.3.</span> <span class="nav-text">JsonPath</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#JsonPath与XPath语法对比"><span class="nav-number">4.3.1.</span> <span class="nav-text">JsonPath与XPath语法对比</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#注意事项"><span class="nav-number">4.3.2.</span> <span class="nav-text">注意事项</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多线程爬虫实例"><span class="nav-number">5.</span> <span class="nav-text">多线程爬虫实例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Queue（队列对象）"><span class="nav-number">5.1.</span> <span class="nav-text">Queue（队列对象）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多线程示意图"><span class="nav-number">5.2.</span> <span class="nav-text">多线程示意图</span></a></li></ol></li></ol></div>
             
 
           </div>
