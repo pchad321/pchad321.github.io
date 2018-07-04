@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Linux,grep," />
+  <meta name="keywords" content="Spider,data fetch,Scrapy," />
 
 
 
@@ -79,18 +79,20 @@
 
 
 
-<meta name="description" content="grep（global search regular expression(RE) and print out the line）是一种强大的文本搜索工具，它能使用正则表达式搜索文本，并把匹配的行打印出来。 选项 -a 不要忽略二进制数据。  -A&amp;lt;显示列数&amp;gt; 除了显示符合范本样式的那一行之外，并显示该行之后的内容。  -b 在显示符合范本样式的那一行之外，并显示该行之前的内容。  -">
-<meta name="keywords" content="Linux,grep">
+<meta name="description" content="Scrapy 框架 Scrapy是用纯Python实现一个为了爬取网站数据、提取结构性数据而编写的应用框架，用途非常广泛。  框架的力量，用户只需要定制开发几个模块就可以轻松的实现一个爬虫，用来抓取网页内容以及各种图片，非常之方便。  Scrapy使用了Twisted(其主要对手是Tornado)异步网络框架来处理网络通讯，可以加快我们的下载速度，不用自己去实现异步框架，并且包含了各种中间件接口，">
+<meta name="keywords" content="Spider,data fetch,Scrapy">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux之grep详解">
-<meta property="og:url" content="http://yoursite.com/2018/02/03/Linux-grep/index.html">
+<meta property="og:title" content="SCRAPY框架">
+<meta property="og:url" content="http://yoursite.com/2018/07/04/spider-scrapy/index.html">
 <meta property="og:site_name" content="为所雨为">
-<meta property="og:description" content="grep（global search regular expression(RE) and print out the line）是一种强大的文本搜索工具，它能使用正则表达式搜索文本，并把匹配的行打印出来。 选项 -a 不要忽略二进制数据。  -A&amp;lt;显示列数&amp;gt; 除了显示符合范本样式的那一行之外，并显示该行之后的内容。  -b 在显示符合范本样式的那一行之外，并显示该行之前的内容。  -">
+<meta property="og:description" content="Scrapy 框架 Scrapy是用纯Python实现一个为了爬取网站数据、提取结构性数据而编写的应用框架，用途非常广泛。  框架的力量，用户只需要定制开发几个模块就可以轻松的实现一个爬虫，用来抓取网页内容以及各种图片，非常之方便。  Scrapy使用了Twisted(其主要对手是Tornado)异步网络框架来处理网络通讯，可以加快我们的下载速度，不用自己去实现异步框架，并且包含了各种中间件接口，">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-04T03:56:35.636Z">
+<meta property="og:image" content="http://yoursite.com/images/spider/scrapy-framework.png">
+<meta property="og:updated_time" content="2018-07-04T08:33:45.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux之grep详解">
-<meta name="twitter:description" content="grep（global search regular expression(RE) and print out the line）是一种强大的文本搜索工具，它能使用正则表达式搜索文本，并把匹配的行打印出来。 选项 -a 不要忽略二进制数据。  -A&amp;lt;显示列数&amp;gt; 除了显示符合范本样式的那一行之外，并显示该行之后的内容。  -b 在显示符合范本样式的那一行之外，并显示该行之前的内容。  -">
+<meta name="twitter:title" content="SCRAPY框架">
+<meta name="twitter:description" content="Scrapy 框架 Scrapy是用纯Python实现一个为了爬取网站数据、提取结构性数据而编写的应用框架，用途非常广泛。  框架的力量，用户只需要定制开发几个模块就可以轻松的实现一个爬虫，用来抓取网页内容以及各种图片，非常之方便。  Scrapy使用了Twisted(其主要对手是Tornado)异步网络框架来处理网络通讯，可以加快我们的下载速度，不用自己去实现异步框架，并且包含了各种中间件接口，">
+<meta name="twitter:image" content="http://yoursite.com/images/spider/scrapy-framework.png">
 
 
 
@@ -120,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/02/03/Linux-grep/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/07/04/spider-scrapy/"/>
 
 
 
 
 
-  <title>Linux之grep详解 | 为所雨为</title>
+  <title>SCRAPY框架 | 为所雨为</title>
   
 
 
@@ -277,7 +279,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/03/Linux-grep/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/04/spider-scrapy/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jimmy Zhong">
@@ -294,7 +296,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Linux之grep详解</h1>
+          <h1 class="post-title" itemprop="name headline">SCRAPY框架</h1>
         
 
         <div class="post-meta">
@@ -306,8 +308,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-03T17:41:42+08:00">
-                2018-02-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-04T14:44:15+08:00">
+                2018-07-04
               </time>
             
 
@@ -322,8 +324,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-02-04T11:56:35+08:00">
-                2018-02-04
+              <time title="更新于" itemprop="dateModified" datetime="2018-07-04T16:33:45+08:00">
+                2018-07-04
               </time>
             
           </span>
@@ -341,8 +343,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
+                  <a href="/categories/Spider/" itemprop="url" rel="index">
+                    <span itemprop="name">Spider</span>
                   </a>
                 </span>
 
@@ -378,55 +380,111 @@
       
 
       
-        <p>grep（global search regular expression(RE) and print out the line）是一种强大的文本搜索工具，它能使用正则表达式搜索文本，并把匹配的行打印出来。</p>
-<h4 id="选项"><a href="#选项" class="headerlink" title="选项"></a>选项</h4><blockquote>
-<p>-a 不要忽略二进制数据。<br>  -A&lt;显示列数&gt; 除了显示符合范本样式的那一行之外，并显示该行之后的内容。<br>  -b 在显示符合范本样式的那一行之外，并显示该行之前的内容。<br>  -c 计算符合范本样式的列数。<br>  -C&lt;显示列数&gt;或-&lt;显示列数&gt;  除了显示符合范本样式的那一列之外，并显示该列之前后的内容。<br>  -d&lt;进行动作&gt; 当指定要查找的是目录而非文件时，必须使用这项参数，否则grep命令将回报信息并停止动作。<br>  -e&lt;范本样式&gt; 指定字符串作为查找文件内容的范本样式。<br>  -E 将范本样式为延伸的普通表示法来使用，意味着使用能使用扩展正则表达式。<br>  -f&lt;范本文件&gt; 指定范本文件，其内容有一个或多个范本样式，让grep查找符合范本条件的文件内容，格式为每一列的范本样式。<br>  -F 将范本样式视为固定字符串的列表。<br>  -G 将范本样式视为普通的表示法来使用。<br>  -h 在显示符合范本样式的那一列之前，不标示该列所属的文件名称。<br>  -H 在显示符合范本样式的那一列之前，标示该列的文件名称。<br>  -i 忽略字符大小写的差别。<br>  -l 列出文件内容符合指定的范本样式的文件名称。<br>  -L 列出文件内容不符合指定的范本样式的文件名称。<br>  -n 在显示符合范本样式的那一列之前，标示出该列的编号。<br>  -q 不显示任何信息。<br>  -R/-r 此参数的效果和指定“-d recurse”参数相同。<br>  -s 不显示错误信息。<br>  -v 反转查找。<br>  -w 只显示全字符合的列。<br>  -x 只显示全列符合的列。<br>  -y 此参数效果跟“-i”相同。<br>  -o 只输出文件中匹配到的部分。</p>
-</blockquote>
-<h4 id="常见用法"><a href="#常见用法" class="headerlink" title="常见用法"></a>常见用法</h4><p>在文件中搜索一个单词，命令会返回一个包含“match_pattern”的文本行：</p>
-<blockquote>
-<p>grep match_pattern file_name<br>  grep “match_pattern” file_name</p>
-</blockquote>
-<p>在多个文件中查找：</p>
-<blockquote>
-<p>grep “match_pattern” file_1 file_2 file_3 …</p>
-</blockquote>
-<p>输出除之外的所有行 -v 选项：</p>
-<blockquote>
-<p>grep -v “match_pattern” file_name</p>
-</blockquote>
-<p>使用正则表达式 -E 选项：</p>
-<blockquote>
-<p>grep -E “[1-9]+”<br>  或<br>  egrep “[1-9]+”</p>
-</blockquote>
-<p>只输出文件中匹配到的部分 -o 选项：</p>
-<blockquote>
-<p>echo this is a test line. | grep -o -E “[a-z]+.“<br>  line.<br>  echo this is a test line. | egrep -o “[a-z]+.“<br>  line.</p>
-</blockquote>
-<p>统计文件或者文本中包含匹配字符串的行数 -c 选项：</p>
-<blockquote>
-<p>grep -c “text” file_name</p>
-</blockquote>
-<p>输出包含匹配字符串的行数 -n 选项：</p>
-<blockquote>
-<p>grep “text” -n file_name<br>  或<br>  cat file_name | grep “text” -n</p>
-<p>  #多个文件<br>  grep “text” -n file_1 file_2</p>
-</blockquote>
-<p>搜索多个文件并查找匹配文本在哪些文件中：</p>
-<blockquote>
-<p>grep -l “text” file1 file2 file3…</p>
-</blockquote>
-<h4 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h4><ol>
-<li><p>获取root用户的shell程序</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/passwd|grep ^root.*&quot;/root:&quot; | cut -d : -f 7</span><br></pre></td></tr></table></figure>
+        <h3 id="Scrapy-框架"><a href="#Scrapy-框架" class="headerlink" title="Scrapy 框架"></a>Scrapy 框架</h3><ul>
+<li><p>Scrapy是用纯Python实现一个为了爬取网站数据、提取结构性数据而编写的应用框架，用途非常广泛。</p>
 </li>
-<li><p>显示CentOS7的/etc/grub2.cfg文件中，至少以一个空白 字符开头的且后面存非空白字符的行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/grub2.cfg | egrep &quot;^[[:space:]] [^[:space:]]&quot;</span><br></pre></td></tr></table></figure>
+<li><p>框架的力量，用户只需要定制开发几个模块就可以轻松的实现一个爬虫，用来抓取网页内容以及各种图片，非常之方便。</p>
 </li>
-<li><p>找出<code>netstat -tan</code>命令的结果中以<code>LISTEN</code>后跟任意多个空白字符结尾的行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -tan | grep &quot;.*LISTEN.*$&quot;</span><br></pre></td></tr></table></figure>
+<li><p>Scrapy使用了Twisted(其主要对手是Tornado)异步网络框架来处理网络通讯，可以加快我们的下载速度，不用自己去实现异步框架，并且包含了各种中间件接口，可以灵活的完成各种需求。  </p>
+</li>
+</ul>
+<h4 id="Scrapy架构图"><a href="#Scrapy架构图" class="headerlink" title="Scrapy架构图"></a>Scrapy架构图</h4><p><img src="/images/spider/scrapy-framework.png" alt="&quot;SCRAPY架构图&quot;">  </p>
+<ul>
+<li><p>Scrapy Engine(引擎): 负责Spider、ItemPipeline、Downloader、Scheduler中间的通讯，信号、数据传递等。</p>
+</li>
+<li><p>Scheduler(调度器): 它负责接受引擎发送过来的Request请求，并按照一定的方式进行整理排列，入队，当引擎需要时，交还给引擎。</p>
+</li>
+<li><p>Downloader（下载器）：负责下载Scrapy Engine(引擎)发送的所有Requests请求，并将其获取到的Responses交还给Scrapy Engine(引擎)，由引擎交给Spider来处理，</p>
+</li>
+<li><p>Spider（爬虫）：它负责处理所有Responses,从中分析提取数据，获取Item字段需要的数据，并将需要跟进的URL提交给引擎，再次进入Scheduler(调度器)，</p>
+</li>
+<li><p>Item Pipeline(管道)：它负责处理Spider中获取到的Item，并进行进行后期处理（详细分析、过滤、存储等）的地方.</p>
+</li>
+<li><p>Downloader Middlewares（下载中间件）：你可以当作是一个可以自定义扩展下载功能的组件。</p>
+</li>
+<li><p>Spider Middlewares（Spider中间件）：你可以理解为是一个可以自定扩展和操作引擎和Spider中间通信的功能组件（比如进入Spider的Responses和从Spider出去的Requests）。  </p>
+</li>
+</ul>
+<h4 id="编写Scrapy爬虫的步骤"><a href="#编写Scrapy爬虫的步骤" class="headerlink" title="编写Scrapy爬虫的步骤"></a>编写Scrapy爬虫的步骤</h4><ol>
+<li>新建项目(scrapy startproject xxx)：新建一个新的爬虫项目；  </li>
+<li>明确目标(编写items.py)：明确你想要抓取的目标；  </li>
+<li>制作爬虫(spiders/xxspider.py)：制作爬虫开始爬取网页；  </li>
+<li>存储内容(pipelines.py)：设计管道存储爬取内容。</li>
+</ol>
+<h3 id="入门实例"><a href="#入门实例" class="headerlink" title="入门实例"></a>入门实例</h3><h4 id="新建项目-scrapy-startproject"><a href="#新建项目-scrapy-startproject" class="headerlink" title="新建项目(scrapy startproject)"></a>新建项目(scrapy startproject)</h4><ol>
+<li>在开始爬取之前，必须创建一个新的Scrapy项目。进入自定义的项目目录中，运行下列命令：<blockquote>
+<p>scrapy startproject mySpider  </p>
+</blockquote>
 </li>
 </ol>
-
+<p>下面来简单介绍一下各个主要文件的作用：  </p>
+<blockquote>
+<p>scrapy.cfg：项目的配置文件；<br>  mySpider/：项目的Python模块，将会从这里引用代码；<br>  mySpider/items.py：项目的目标文件；<br>  mySpider/pipelines.py：项目的管道文件；<br>  mySpider/settings.py：项目的设置文件；<br>  mySpider/spiders/：存储爬虫代码目录。</p>
+</blockquote>
+<h4 id="明确目标-mySpider-items-py"><a href="#明确目标-mySpider-items-py" class="headerlink" title="明确目标(mySpider/items.py)"></a>明确目标(mySpider/items.py)</h4><p>抓取的目标：<a href="https://hr.tencent.com/position.php?&amp;start=0" target="_blank" rel="noopener">https://hr.tencent.com/position.php?&amp;start=0</a> 腾讯社招网站里的所有职位的名称、工作地点、招聘人数、职位类别、工作职责以及工作要求。</p>
+<ol>
+<li><p>打开mySpider目录下的items.py；</p>
+</li>
+<li><p>Item定义结构化数据字段，用来保存爬取到的数据，有点像Python中的dict，但是提供了一些额外的保护减少错误。  </p>
+</li>
+<li><p>可以通过创建一个scrapy.Item类，并且定义类型为scrapy.Field的类属性来定义一个Item(可以理解成类似于ORM的映射关系)。  </p>
+</li>
+<li><p>接下来，创建一个TencentItem类，和构建item模型(model)。  </p>
+</li>
+</ol>
+<h4 id="制作爬虫-spiders-itcastSpider-py"><a href="#制作爬虫-spiders-itcastSpider-py" class="headerlink" title="制作爬虫(spiders/itcastSpider.py)"></a>制作爬虫(spiders/itcastSpider.py)</h4><ol>
+<li><p>爬数据  </p>
+</li>
+<li><p>取数据  </p>
+</li>
+</ol>
+<h3 id="Scrapy-Shell"><a href="#Scrapy-Shell" class="headerlink" title="Scrapy Shell"></a>Scrapy Shell</h3><p>Scrapy终端是一个交互终端，我们可以在未启动spider的情况下尝试及调试代码，也可以用来测试XPath或CSS表达式，查看他们的工作方式，方便我们爬取的网页中提取的数据。  </p>
+<h4 id="启动Scrapy-Shell"><a href="#启动Scrapy-Shell" class="headerlink" title="启动Scrapy Shell"></a>启动Scrapy Shell</h4><p>进入项目的根目录，执行下列命令来启动shell:</p>
+<blockquote>
+<p>scrapy shell “<a href="https://hr.tencent.com/position.php?&amp;start=0" target="_blank" rel="noopener">https://hr.tencent.com/position.php?&amp;start=0</a>“</p>
+</blockquote>
+<p>Scrapy Shell根据下载的页面会自动创建一些方便使用的对象，例如Response对象，以及Selector对象(对HTML及XML内容)。  </p>
+<ul>
+<li><p>当shell载入后，将得到一个包含response数据的本地response变量，输入response.body将输出response的响应体，输出response.headers可以看到response的响应头。  </p>
+</li>
+<li><p>输入response.selector时，将获取到一个response初始化的类Selector的对象，此时可以通过使用response.selector.xpath()或response.selector.css()来对response进行查询。</p>
+</li>
+<li><p>Scrapy也提供了一些快捷方式，例如response.xpath()或response.css()同样可以生效。  </p>
+</li>
+</ul>
+<h4 id="Selectors选择器"><a href="#Selectors选择器" class="headerlink" title="Selectors选择器"></a>Selectors选择器</h4><p><em>Scrapy Selectors内置<code>XPath</code>和<code>CSS Selector</code>表达式机制</em></p>
+<p>Selector有四个基本的方法，最常用的还是xpath:</p>
+<ol>
+<li>xpath(): 传入xpath表达式，返回该表达式所对应的所有节点的selector list列表；  </li>
+<li>extract(): 序列化该节点为Unicode字符串并返回list；  </li>
+<li>css(): 传入CSS表达式，返回该表达式所对应的所有节点的selector list列表，语法同BeautifulSoup4；  </li>
+<li>re(): 根据传入的正则表达式对数据进行提取，返回Unicode字符串list列表。</li>
+</ol>
+<h3 id="Item-Pipeline"><a href="#Item-Pipeline" class="headerlink" title="Item Pipeline"></a>Item Pipeline</h3><p>当Item在Spider中被收集之后，它将会被传递到Item Pipeline，这些Item Pipeline组件按定义的顺序处理Item。</p>
+<p>每个Item Pipeline都是实现了简单方法的Python类，比如决定此Item是丢弃还是存储。以下是item pipeline的一些典型应用：</p>
+<ul>
+<li>验证爬取的数据(检查item包含某些字段，比如说name字段)  </li>
+<li>查重(并丢弃)  </li>
+<li>将爬取结果保存到文件或者数据库中  </li>
+</ul>
+<h4 id="编写item-pipeline"><a href="#编写item-pipeline" class="headerlink" title="编写item pipeline"></a>编写item pipeline</h4><p>item pipiline组件是一个独立的Python类，其中process_item()方法必须实现。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> something</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SomethingPipeline</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span>    </span><br><span class="line">        <span class="comment"># 可选实现，做参数初始化等</span></span><br><span class="line">        <span class="comment"># doing something</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(self, item, spider)</span>:</span></span><br><span class="line">        <span class="comment"># item (Item 对象) – 被爬取的item</span></span><br><span class="line">        <span class="comment"># spider (Spider 对象) – 爬取该item的spider</span></span><br><span class="line">        <span class="comment"># 这个方法必须实现，每个item pipeline组件都需要调用该方法，</span></span><br><span class="line">        <span class="comment"># 这个方法必须返回一个 Item 对象，被丢弃的item将不会被之后的pipeline组件所处理。</span></span><br><span class="line">        <span class="keyword">return</span> item</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">open_spider</span><span class="params">(self, spider)</span>:</span></span><br><span class="line">        <span class="comment"># spider (Spider 对象) – 被开启的spider</span></span><br><span class="line">        <span class="comment"># 可选实现，当spider被开启时，这个方法被调用。</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">close_spider</span><span class="params">(self, spider)</span>:</span></span><br><span class="line">        <span class="comment"># spider (Spider 对象) – 被关闭的spider</span></span><br><span class="line">        <span class="comment"># 可选实现，当spider被关闭时，这个方法被调用</span></span><br></pre></td></tr></table></figure>
+<h4 id="数据写入json文件"><a href="#数据写入json文件" class="headerlink" title="数据写入json文件"></a>数据写入json文件</h4><h5 id="item写入JSON文件"><a href="#item写入JSON文件" class="headerlink" title="item写入JSON文件"></a>item写入JSON文件</h5><p>以下pipeline将所有(从所有’spider’中)爬取到的item，存储到一个独立地items.json 文件，每行包含一个序列化为JSON格式的item：  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TencentJsonPipeline</span><span class="params">(object)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.file = open(<span class="string">'tencent.json'</span>, <span class="string">'wb'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_item</span><span class="params">(self, item, spider)</span>:</span></span><br><span class="line">        content = json.dumps(dict(item), ensure_ascii=<span class="keyword">False</span>) + <span class="string">"\n"</span></span><br><span class="line">        self.file.write(content)</span><br><span class="line">        <span class="keyword">return</span> item</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">close_spider</span><span class="params">(self, spider)</span>:</span></span><br><span class="line">        self.file.close()</span><br></pre></td></tr></table></figure>
+<h5 id="启用一个Item-Pipeline组件"><a href="#启用一个Item-Pipeline组件" class="headerlink" title="启用一个Item Pipeline组件"></a>启用一个Item Pipeline组件</h5><p>为了启用Item Pipeline组件，必须将它的类添加到settings.py文件ITEM_PIPELINES配置，例如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Configure item pipelines</span></span><br><span class="line"><span class="comment"># See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html</span></span><br><span class="line">ITEM_PIPELINES = &#123;</span><br><span class="line">    <span class="comment">#'mySpider.pipelines.SomePipeline': 300,</span></span><br><span class="line">    <span class="string">"mySpider.pipelines.TencentJsonPipeline"</span>:<span class="number">300</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>分配给每个类的整型值，确定了他们运行的顺序，item按数字从低到高的顺序，通过pipeline，通常将这些数字定义在0-1000范围内(0-1000随意设置，数值越低，组件的优先级越高)</em>  </p>
+<h3 id="Spider"><a href="#Spider" class="headerlink" title="Spider"></a>Spider</h3><p>Spider类定义了如何爬取某个(或某些)网站。包括了爬取的动作(例如:是否跟进链接)以及如何从网页的内容中提取结构化数据(爬取item)。 换句话说，Spider就是定义爬取的动作及分析某个网页(或者是有些网页)的地方。  </p>
+<blockquote>
+<p>class scrapy.Spider是最基本的类，所有编写的爬虫必须继承这个类。</p>
+</blockquote>
+<p>主要用到的函数及调用顺序为：</p>
+<ul>
+<li><code>__init__()</code>：初始化爬虫名字和start_urls列表  </li>
+<li><code>start_requests()</code>调用<code>make_requests_from url()</code>生成Requests对象交给Scrapy下载并返回response  </li>
+<li><code>parse()</code>：解析response，并返回Item或Requests(需指定回调函数)。Item传给Item pipline持久化，而Requests交由Scrapy下载，并由指定的回调函数处理(默认<code>parse()</code>)，一直进行循环，直到处理完所有的数据为止。  </li>
+</ul>
+<h3 id="CrawlSpiders"><a href="#CrawlSpiders" class="headerlink" title="CrawlSpiders"></a>CrawlSpiders</h3>
       
     </div>
     
@@ -443,9 +501,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Linux/" rel="tag"># Linux</a>
+            <a href="/tags/Spider/" rel="tag"># Spider</a>
           
-            <a href="/tags/grep/" rel="tag"># grep</a>
+            <a href="/tags/data-fetch/" rel="tag"># data fetch</a>
+          
+            <a href="/tags/Scrapy/" rel="tag"># Scrapy</a>
           
         </div>
       
@@ -458,8 +518,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/02/03/Linux-regular/" rel="next" title="Linux的正则表达式">
-                <i class="fa fa-chevron-left"></i> Linux的正则表达式
+              <a href="/2018/07/04/Linux-shell-explanation/" rel="next" title="Linux的shell编程详解">
+                <i class="fa fa-chevron-left"></i> Linux的shell编程详解
               </a>
             
           </div>
@@ -467,10 +527,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/02/04/nginx-proxypass-rewrite/" rel="prev" title="Nginx中proxy_pass和rewrite详解">
-                Nginx中proxy_pass和rewrite详解 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -612,7 +668,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#选项"><span class="nav-number">1.</span> <span class="nav-text">选项</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常见用法"><span class="nav-number">2.</span> <span class="nav-text">常见用法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#练习"><span class="nav-number">3.</span> <span class="nav-text">练习</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Scrapy-框架"><span class="nav-number">1.</span> <span class="nav-text">Scrapy 框架</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Scrapy架构图"><span class="nav-number">1.1.</span> <span class="nav-text">Scrapy架构图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编写Scrapy爬虫的步骤"><span class="nav-number">1.2.</span> <span class="nav-text">编写Scrapy爬虫的步骤</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#入门实例"><span class="nav-number">2.</span> <span class="nav-text">入门实例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#新建项目-scrapy-startproject"><span class="nav-number">2.1.</span> <span class="nav-text">新建项目(scrapy startproject)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#明确目标-mySpider-items-py"><span class="nav-number">2.2.</span> <span class="nav-text">明确目标(mySpider/items.py)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#制作爬虫-spiders-itcastSpider-py"><span class="nav-number">2.3.</span> <span class="nav-text">制作爬虫(spiders/itcastSpider.py)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Scrapy-Shell"><span class="nav-number">3.</span> <span class="nav-text">Scrapy Shell</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#启动Scrapy-Shell"><span class="nav-number">3.1.</span> <span class="nav-text">启动Scrapy Shell</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Selectors选择器"><span class="nav-number">3.2.</span> <span class="nav-text">Selectors选择器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Item-Pipeline"><span class="nav-number">4.</span> <span class="nav-text">Item Pipeline</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#编写item-pipeline"><span class="nav-number">4.1.</span> <span class="nav-text">编写item pipeline</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据写入json文件"><span class="nav-number">4.2.</span> <span class="nav-text">数据写入json文件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#item写入JSON文件"><span class="nav-number">4.2.1.</span> <span class="nav-text">item写入JSON文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#启用一个Item-Pipeline组件"><span class="nav-number">4.2.2.</span> <span class="nav-text">启用一个Item Pipeline组件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spider"><span class="nav-number">5.</span> <span class="nav-text">Spider</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CrawlSpiders"><span class="nav-number">6.</span> <span class="nav-text">CrawlSpiders</span></a></li></ol></div>
             
 
           </div>
